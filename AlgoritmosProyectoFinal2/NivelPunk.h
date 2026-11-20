@@ -23,6 +23,8 @@ namespace AlgoritmosProyectoFinal2 {
 			//TODO: agregar código de constructor aquí
 			//
 
+			controladora = new Controladora();
+
 		}
 
 	protected:
