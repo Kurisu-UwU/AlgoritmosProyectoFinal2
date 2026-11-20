@@ -122,9 +122,6 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="NivelMiguel.cpp" />
-    <ClCompile Include="NivelMiles.cpp" />
-    <ClCompile Include="NivelPunk.cpp" />
     <ClCompile Include="PantallaPrincipal.cpp" />
   </ItemGroup>
   <ItemGroup>
