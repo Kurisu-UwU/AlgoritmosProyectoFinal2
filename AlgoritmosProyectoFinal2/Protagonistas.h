@@ -105,7 +105,7 @@ public:
 	}
 
 	Rectangle CrearRectangle() {
-		return Rectangle(x, y, ancho, alto);
+		return Rectangle(x, y, ancho * 0.75, alto * 0.75);
 	}
 
 };

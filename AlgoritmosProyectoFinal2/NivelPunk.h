@@ -33,8 +33,8 @@ namespace AlgoritmosProyectoFinal2 {
 			controladora->LimpiarObjetos();
 
 			controladora->GenerarObstaculo(0, 0, 0, 130, 325);
-			controladora->GenerarObstaculo(580, 0, 0, 130, 300);
-			controladora->GenerarObstaculo(0, 250, 0, 130, 880);
+			controladora->GenerarObstaculo(560, 0, 0, 130, 300);
+			controladora->GenerarObstaculo(0, 240, 0, 130, 880);
 
 			controladora->GenerarObjeto(300, 300, 0, 32, 32);
 			controladora->GenerarObjeto(400, 200, 0, 32, 32);
@@ -175,7 +175,7 @@ namespace AlgoritmosProyectoFinal2 {
 			   this->pnlDeControl->Location = System::Drawing::Point(9, 10);
 			   this->pnlDeControl->Margin = System::Windows::Forms::Padding(2, 2, 2, 2);
 			   this->pnlDeControl->Name = L"pnlDeControl";
-			   this->pnlDeControl->Size = System::Drawing::Size(891, 65);
+			   this->pnlDeControl->Size = System::Drawing::Size(1188, 80);
 			   this->pnlDeControl->TabIndex = 0;
 			   this->pnlDeControl->Paint += gcnew System::Windows::Forms::PaintEventHandler(this, &NivelPunk::pnlDeControl_Paint);
 			   // 
@@ -186,13 +186,14 @@ namespace AlgoritmosProyectoFinal2 {
 			   this->pnlJuego1->Controls->Add(this->button12);
 			   this->pnlJuego1->Location = System::Drawing::Point(12, 98);
 			   this->pnlJuego1->Name = L"pnlJuego1";
-			   this->pnlJuego1->Size = System::Drawing::Size(888, 392);
+			   this->pnlJuego1->Size = System::Drawing::Size(1280, 715);
 			   this->pnlJuego1->TabIndex = 1;
 			   this->pnlJuego1->Paint += gcnew System::Windows::Forms::PaintEventHandler(this, &NivelPunk::pnlJuego1_Paint);
 			   // 
 			   // button10
 			   // 
-			   this->button10->Location = System::Drawing::Point(1035, 16);
+			   this->button10->Location = System::Drawing::Point(129, 20);
+			   this->button10->Margin = System::Windows::Forms::Padding(4);
 			   this->button10->Name = L"button10";
 			   this->button10->Size = System::Drawing::Size(75, 23);
 			   this->button10->TabIndex = 10;
@@ -202,7 +203,8 @@ namespace AlgoritmosProyectoFinal2 {
 			   // 
 			   // button11
 			   // 
-			   this->button11->Location = System::Drawing::Point(1116, 16);
+			   this->button11->Location = System::Drawing::Point(237, 20);
+			   this->button11->Margin = System::Windows::Forms::Padding(4);
 			   this->button11->Name = L"button11";
 			   this->button11->Size = System::Drawing::Size(75, 23);
 			   this->button11->TabIndex = 9;
@@ -212,7 +214,8 @@ namespace AlgoritmosProyectoFinal2 {
 			   // 
 			   // button12
 			   // 
-			   this->button12->Location = System::Drawing::Point(954, 16);
+			   this->button12->Location = System::Drawing::Point(21, 20);
+			   this->button12->Margin = System::Windows::Forms::Padding(4);
 			   this->button12->Name = L"button12";
 			   this->button12->Size = System::Drawing::Size(75, 23);
 			   this->button12->TabIndex = 11;
@@ -232,13 +235,14 @@ namespace AlgoritmosProyectoFinal2 {
 			   this->pnlJuego2->Controls->Add(this->button8);
 			   this->pnlJuego2->Location = System::Drawing::Point(12, 98);
 			   this->pnlJuego2->Name = L"pnlJuego2";
-			   this->pnlJuego2->Size = System::Drawing::Size(888, 392);
+			   this->pnlJuego2->Size = System::Drawing::Size(1280, 715);
 			   this->pnlJuego2->TabIndex = 2;
 			   this->pnlJuego2->Visible = false;
 			   // 
 			   // button5
 			   // 
-			   this->button5->Location = System::Drawing::Point(1197, 16);
+			   this->button5->Location = System::Drawing::Point(345, 20);
+			   this->button5->Margin = System::Windows::Forms::Padding(4);
 			   this->button5->Name = L"button5";
 			   this->button5->Size = System::Drawing::Size(75, 23);
 			   this->button5->TabIndex = 8;
@@ -248,7 +252,8 @@ namespace AlgoritmosProyectoFinal2 {
 			   // 
 			   // button6
 			   // 
-			   this->button6->Location = System::Drawing::Point(1035, 16);
+			   this->button6->Location = System::Drawing::Point(129, 20);
+			   this->button6->Margin = System::Windows::Forms::Padding(4);
 			   this->button6->Name = L"button6";
 			   this->button6->Size = System::Drawing::Size(75, 23);
 			   this->button6->TabIndex = 10;
@@ -258,7 +263,8 @@ namespace AlgoritmosProyectoFinal2 {
 			   // 
 			   // button8
 			   // 
-			   this->button8->Location = System::Drawing::Point(954, 16);
+			   this->button8->Location = System::Drawing::Point(21, 20);
+			   this->button8->Margin = System::Windows::Forms::Padding(4);
 			   this->button8->Name = L"button8";
 			   this->button8->Size = System::Drawing::Size(75, 23);
 			   this->button8->TabIndex = 11;
@@ -273,13 +279,14 @@ namespace AlgoritmosProyectoFinal2 {
 			   this->pnlJuego3->Controls->Add(this->button1);
 			   this->pnlJuego3->Location = System::Drawing::Point(12, 98);
 			   this->pnlJuego3->Name = L"pnlJuego3";
-			   this->pnlJuego3->Size = System::Drawing::Size(888, 395);
+			   this->pnlJuego3->Size = System::Drawing::Size(1280, 715);
 			   this->pnlJuego3->TabIndex = 3;
 			   this->pnlJuego3->Visible = false;
 			   // 
 			   // button4
 			   // 
-			   this->button4->Location = System::Drawing::Point(1197, 16);
+			   this->button4->Location = System::Drawing::Point(345, 20);
+			   this->button4->Margin = System::Windows::Forms::Padding(4);
 			   this->button4->Name = L"button4";
 			   this->button4->Size = System::Drawing::Size(75, 23);
 			   this->button4->TabIndex = 4;
@@ -289,7 +296,8 @@ namespace AlgoritmosProyectoFinal2 {
 			   // 
 			   // button3
 			   // 
-			   this->button3->Location = System::Drawing::Point(1116, 16);
+			   this->button3->Location = System::Drawing::Point(237, 20);
+			   this->button3->Margin = System::Windows::Forms::Padding(4);
 			   this->button3->Name = L"button3";
 			   this->button3->Size = System::Drawing::Size(75, 23);
 			   this->button3->TabIndex = 5;
@@ -299,7 +307,8 @@ namespace AlgoritmosProyectoFinal2 {
 			   // 
 			   // button1
 			   // 
-			   this->button1->Location = System::Drawing::Point(954, 16);
+			   this->button1->Location = System::Drawing::Point(21, 20);
+			   this->button1->Margin = System::Windows::Forms::Padding(4);
 			   this->button1->Name = L"button1";
 			   this->button1->Size = System::Drawing::Size(75, 23);
 			   this->button1->TabIndex = 7;
@@ -312,16 +321,18 @@ namespace AlgoritmosProyectoFinal2 {
 			   this->pnlJuegoMusical->Controls->Add(this->btnPunk3);
 			   this->pnlJuegoMusical->Controls->Add(this->btnPunk2);
 			   this->pnlJuegoMusical->Controls->Add(this->btnPunk1);
-			   this->pnlJuegoMusical->Location = System::Drawing::Point(12, 98);
+			   this->pnlJuegoMusical->Location = System::Drawing::Point(13, 121);
+			   this->pnlJuegoMusical->Margin = System::Windows::Forms::Padding(4);
 			   this->pnlJuegoMusical->Name = L"pnlJuegoMusical";
-			   this->pnlJuegoMusical->Size = System::Drawing::Size(888, 395);
+			   this->pnlJuegoMusical->Size = System::Drawing::Size(1283, 715);
 			   this->pnlJuegoMusical->TabIndex = 4;
 			   this->pnlJuegoMusical->Visible = false;
 			   this->pnlJuegoMusical->Paint += gcnew System::Windows::Forms::PaintEventHandler(this, &NivelPunk::pnlJuegoMusical_Paint);
 			   // 
 			   // btnPunk3
 			   // 
-			   this->btnPunk3->Location = System::Drawing::Point(1035, 16);
+			   this->btnPunk3->Location = System::Drawing::Point(24, 20);
+			   this->btnPunk3->Margin = System::Windows::Forms::Padding(4);
 			   this->btnPunk3->Name = L"btnPunk3";
 			   this->btnPunk3->Size = System::Drawing::Size(75, 23);
 			   this->btnPunk3->TabIndex = 2;
@@ -331,7 +342,8 @@ namespace AlgoritmosProyectoFinal2 {
 			   // 
 			   // btnPunk2
 			   // 
-			   this->btnPunk2->Location = System::Drawing::Point(1116, 16);
+			   this->btnPunk2->Location = System::Drawing::Point(132, 20);
+			   this->btnPunk2->Margin = System::Windows::Forms::Padding(4);
 			   this->btnPunk2->Name = L"btnPunk2";
 			   this->btnPunk2->Size = System::Drawing::Size(75, 23);
 			   this->btnPunk2->TabIndex = 1;
@@ -341,7 +353,8 @@ namespace AlgoritmosProyectoFinal2 {
 			   // 
 			   // btnPunk1
 			   // 
-			   this->btnPunk1->Location = System::Drawing::Point(1197, 16);
+			   this->btnPunk1->Location = System::Drawing::Point(240, 20);
+			   this->btnPunk1->Margin = System::Windows::Forms::Padding(4);
 			   this->btnPunk1->Name = L"btnPunk1";
 			   this->btnPunk1->Size = System::Drawing::Size(75, 23);
 			   this->btnPunk1->TabIndex = 0;
@@ -353,13 +366,13 @@ namespace AlgoritmosProyectoFinal2 {
 			   // 
 			   this->AutoScaleDimensions = System::Drawing::SizeF(6, 13);
 			   this->AutoScaleMode = System::Windows::Forms::AutoScaleMode::Font;
-			   this->ClientSize = System::Drawing::Size(920, 522);
-			   this->Controls->Add(this->pnlJuegoMusical);
+			   this->ClientSize = System::Drawing::Size(1310, 845);
+			   this->Controls->Add(this->pnlDeControl);
 			   this->Controls->Add(this->pnlJuego1);
+			   this->Controls->Add(this->pnlJuegoMusical);
 			   this->Controls->Add(this->pnlJuego2);
 			   this->Controls->Add(this->pnlJuego3);
-			   this->Controls->Add(this->pnlDeControl);
-			   this->Margin = System::Windows::Forms::Padding(2, 2, 2, 2);
+			   this->Margin = System::Windows::Forms::Padding(3, 2, 3, 2);
 			   this->Name = L"NivelPunk";
 			   this->Text = L"NivelPunk";
 			   this->FormClosing += gcnew System::Windows::Forms::FormClosingEventHandler(this, &NivelPunk::NivelPunk_FormClosing);
@@ -386,7 +399,7 @@ namespace AlgoritmosProyectoFinal2 {
 			   bmpCofreC = gcnew Bitmap("Imagenes/CofreCerrado.png");
 			   bmpCofreA = gcnew Bitmap("Imagenes/CofreAbierto.png");
 
-			   punk = new SpiderPunk(100, 165, 64, 64, 100, 5, 5, 100, 100, 0, "Punk", 'S', 1, 1);
+			   punk = new SpiderPunk(100, 165, 64, 64, 100, 4, 4, 100, 100, 0, "Punk", 'S', 1, 1);
 			   CargarNivel1();
 		   }
 
