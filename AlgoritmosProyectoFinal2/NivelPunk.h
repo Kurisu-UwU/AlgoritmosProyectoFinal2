@@ -33,9 +33,9 @@ namespace AlgoritmosProyectoFinal2 {
 			controladora->LimpiarObstaculos();
 			controladora->LimpiarObjetos();
 
-			controladora->GenerarObstaculo(0, 0, 0, 240, 470);
-			controladora->GenerarObstaculo(805, 0, 0, 240, 470);
-			controladora->GenerarObstaculo(0, 435, 0, 130, 1275);
+			controladora->GenerarObstaculo(0, 0, 0, 225, 450);
+			controladora->GenerarObstaculo(770, 0, 0, 225, 440);
+			controladora->GenerarObstaculo(0, 415, 0, 225, 1210);
 
 			controladora->GenerarObjeto(300, 300, 0, 32, 32);
 			controladora->GenerarObjeto(400, 200, 0, 32, 32);
@@ -45,8 +45,11 @@ namespace AlgoritmosProyectoFinal2 {
 		void CargarNivel2() {
 			controladora->LimpiarObstaculos();
 
-			controladora->GenerarObstaculo(100, 150, 0, 300, 40);
-			controladora->GenerarObstaculo(500, 300, 0, 40, 200);
+			controladora->GenerarObstaculo(0, 0, 0, 285, 435);
+			controladora->GenerarObstaculo(790, 0, 0, 285, 445);
+			controladora->GenerarObstaculo(1080, 460, 0, 225, 130);
+			controladora->GenerarObstaculo(792, 460, 0, 225, 215);
+			controladora->GenerarObstaculo(0, 468, 0, 285, 435);
 		}
 
 		void CargarNivel3() {
@@ -200,7 +203,7 @@ namespace AlgoritmosProyectoFinal2 {
 			   this->pnlJuego1->Location = System::Drawing::Point(16, 121);
 			   this->pnlJuego1->Margin = System::Windows::Forms::Padding(4);
 			   this->pnlJuego1->Name = L"pnlJuego1";
-			   this->pnlJuego1->Size = System::Drawing::Size(1707, 880);
+			   this->pnlJuego1->Size = System::Drawing::Size(1620, 840);
 			   this->pnlJuego1->TabIndex = 1;
 			   this->pnlJuego1->Paint += gcnew System::Windows::Forms::PaintEventHandler(this, &NivelPunk::pnlJuego1_Paint);
 			   // 
@@ -250,7 +253,7 @@ namespace AlgoritmosProyectoFinal2 {
 			   this->pnlJuego2->Location = System::Drawing::Point(16, 121);
 			   this->pnlJuego2->Margin = System::Windows::Forms::Padding(4);
 			   this->pnlJuego2->Name = L"pnlJuego2";
-			   this->pnlJuego2->Size = System::Drawing::Size(1707, 880);
+			   this->pnlJuego2->Size = System::Drawing::Size(1620, 840);
 			   this->pnlJuego2->TabIndex = 2;
 			   this->pnlJuego2->Visible = false;
 			   // 
@@ -295,7 +298,7 @@ namespace AlgoritmosProyectoFinal2 {
 			   this->pnlJuego3->Location = System::Drawing::Point(16, 121);
 			   this->pnlJuego3->Margin = System::Windows::Forms::Padding(4);
 			   this->pnlJuego3->Name = L"pnlJuego3";
-			   this->pnlJuego3->Size = System::Drawing::Size(1707, 880);
+			   this->pnlJuego3->Size = System::Drawing::Size(1620, 840);
 			   this->pnlJuego3->TabIndex = 3;
 			   this->pnlJuego3->Visible = false;
 			   // 
@@ -337,10 +340,10 @@ namespace AlgoritmosProyectoFinal2 {
 			   this->pnlJuegoMusical->Controls->Add(this->btnPunk3);
 			   this->pnlJuegoMusical->Controls->Add(this->btnPunk2);
 			   this->pnlJuegoMusical->Controls->Add(this->btnPunk1);
-			   this->pnlJuegoMusical->Location = System::Drawing::Point(17, 149);
+			   this->pnlJuegoMusical->Location = System::Drawing::Point(16, 121);
 			   this->pnlJuegoMusical->Margin = System::Windows::Forms::Padding(5);
 			   this->pnlJuegoMusical->Name = L"pnlJuegoMusical";
-			   this->pnlJuegoMusical->Size = System::Drawing::Size(1706, 852);
+			   this->pnlJuegoMusical->Size = System::Drawing::Size(1620, 840);
 			   this->pnlJuegoMusical->TabIndex = 4;
 			   this->pnlJuegoMusical->Visible = false;
 			   this->pnlJuegoMusical->Paint += gcnew System::Windows::Forms::PaintEventHandler(this, &NivelPunk::pnlJuegoMusical_Paint);
@@ -386,8 +389,8 @@ namespace AlgoritmosProyectoFinal2 {
 			   this->Controls->Add(this->pnlDeControl);
 			   this->Controls->Add(this->pnlJuego2);
 			   this->Controls->Add(this->pnlJuego1);
-			   this->Controls->Add(this->pnlJuegoMusical);
 			   this->Controls->Add(this->pnlJuego3);
+			   this->Controls->Add(this->pnlJuegoMusical);
 			   this->Margin = System::Windows::Forms::Padding(4, 2, 4, 2);
 			   this->Name = L"NivelPunk";
 			   this->Text = L"NivelPunk";
