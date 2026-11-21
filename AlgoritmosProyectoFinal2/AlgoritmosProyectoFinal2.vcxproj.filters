@@ -50,5 +50,8 @@
     <ClInclude Include="MilesMorales.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="Objeto.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>

@@ -15,7 +15,7 @@ public:
 		}
 	}
 
-	void GenerarObstaculo(int x, int y, int velocidad, int ancho, int alto) {  // asignación de atributos a los obstáculos
+	void GenerarObstaculo(int x, int y, int velocidad, int ancho, int alto) {
 		Obstaculos* ent = new Obstaculos(x, y, velocidad, ancho, alto, true);
 		obstaculos.push_back(ent);
 	}
