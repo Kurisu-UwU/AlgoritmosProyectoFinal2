@@ -32,9 +32,9 @@ namespace AlgoritmosProyectoFinal2 {
 			controladora->LimpiarObstaculos();
 			controladora->LimpiarObjetos();
 
-			controladora->GenerarObstaculo(0, 0, 0, 130, 325);
-			controladora->GenerarObstaculo(560, 0, 0, 130, 300);
-			controladora->GenerarObstaculo(0, 240, 0, 130, 880);
+			controladora->GenerarObstaculo(0, 0, 0, 240, 470);
+			controladora->GenerarObstaculo(805, 0, 0, 240, 470);
+			controladora->GenerarObstaculo(0, 435, 0, 130, 1275);
 
 			controladora->GenerarObjeto(300, 300, 0, 32, 32);
 			controladora->GenerarObjeto(400, 200, 0, 32, 32);
@@ -399,7 +399,7 @@ namespace AlgoritmosProyectoFinal2 {
 			   bmpCofreC = gcnew Bitmap("Imagenes/CofreCerrado.png");
 			   bmpCofreA = gcnew Bitmap("Imagenes/CofreAbierto.png");
 
-			   punk = new SpiderPunk(100, 165, 64, 64, 100, 4, 4, 100, 100, 0, "Punk", 'S', 1, 1);
+			   punk = new SpiderPunk(100, 300, 64, 64, 100, 8, 8, 100, 100, 0, "Punk", 'S', 1, 1);
 			   CargarNivel1();
 		   }
 
