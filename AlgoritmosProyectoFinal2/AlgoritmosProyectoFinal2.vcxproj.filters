@@ -13,6 +13,15 @@
       <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
       <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
     </Filter>
+    <Filter Include="Header Files\Controladora">
+      <UniqueIdentifier>{b329fa4f-f65e-428b-98a3-547be5147e01}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Protagonistas">
+      <UniqueIdentifier>{4501159a-5a7e-41ce-a6dc-b37d21877cb3}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Entidades">
+      <UniqueIdentifier>{b5049c08-8c7c-4868-930f-8e2e7311f67e}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="PantallaPrincipal.cpp">
@@ -32,29 +41,38 @@
     <ClInclude Include="NivelPunk.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Controladora.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Obstaculos.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Entidades.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="SpiderPunk.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Protagonistas.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="MilesMorales.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Objeto.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="NivelRitmo.h">
       <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="ControladoraNivelRitmo.h">
+      <Filter>Header Files\Controladora</Filter>
+    </ClInclude>
+    <ClInclude Include="Controladora.h">
+      <Filter>Header Files\Controladora</Filter>
+    </ClInclude>
+    <ClInclude Include="Protagonistas.h">
+      <Filter>Header Files\Protagonistas</Filter>
+    </ClInclude>
+    <ClInclude Include="SpiderPunk.h">
+      <Filter>Header Files\Protagonistas</Filter>
+    </ClInclude>
+    <ClInclude Include="MilesMorales.h">
+      <Filter>Header Files\Protagonistas</Filter>
+    </ClInclude>
+    <ClInclude Include="Entidades.h">
+      <Filter>Header Files\Entidades</Filter>
+    </ClInclude>
+    <ClInclude Include="Objeto.h">
+      <Filter>Header Files\Entidades</Filter>
+    </ClInclude>
+    <ClInclude Include="Obstaculos.h">
+      <Filter>Header Files\Entidades</Filter>
+    </ClInclude>
+    <ClInclude Include="Notas.h">
+      <Filter>Header Files\Entidades</Filter>
+    </ClInclude>
+    <ClInclude Include="Proyectiles.h">
+      <Filter>Header Files\Entidades</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

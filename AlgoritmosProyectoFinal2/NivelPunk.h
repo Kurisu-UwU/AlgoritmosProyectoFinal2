@@ -1,6 +1,7 @@
 #pragma once
 #include "SpiderPunk.h"
 #include "Controladora.h"
+#include "NivelRitmo.h"
 namespace AlgoritmosProyectoFinal2 {
 
 	using namespace System;
@@ -67,10 +68,15 @@ namespace AlgoritmosProyectoFinal2 {
 			controladora->GenerarObstaculo(700, 400, 0, 200, 40);
 		}
 
-		void CargarNivelMusical() {
-			gr = pnlJuegoMusical->CreateGraphics();
-			space = BufferedGraphicsManager::Current;
-			buffer = space->Allocate(gr, pnlJuegoMusical->ClientRectangle);
+		void CargarNivelMusical(int n) {
+			NivelRitmo^ frm = gcnew NivelRitmo(1);
+			frm->ShowDialog();
+
+			switch (n) {
+			case 1: 	
+				frm->ShowDialog();
+
+			}
 
 			controladora->LimpiarObstaculos();
 		}
@@ -453,8 +459,12 @@ namespace AlgoritmosProyectoFinal2 {
 		case Keys::S:
 			punk->move(buffer->Graphics, 'S');
 			break;
+		case Keys::E: 
+			if (controladora->HayColisionObjeto(punk)) {
+				CargarNivelMusical(1);
+			}
 		}
-
+		
 		if (controladora->HayColision(punk)) {
 
 			punk->SetPX(xAnterior);
@@ -466,7 +476,7 @@ namespace AlgoritmosProyectoFinal2 {
 	private: System::Void button1_Click(System::Object^ sender, System::EventArgs^ e) {
 		pnlJuego3->Visible = false;
 		pnlJuegoMusical->Visible = true;
-		CargarNivelMusical();
+		CargarNivelMusical(1);
 
 	}
 	private: System::Void button3_Click(System::Object^ sender, System::EventArgs^ e) {
@@ -482,7 +492,7 @@ namespace AlgoritmosProyectoFinal2 {
 	private: System::Void button8_Click(System::Object^ sender, System::EventArgs^ e) {
 		pnlJuego2->Visible = false;
 		pnlJuegoMusical->Visible = true;
-		CargarNivelMusical();
+		CargarNivelMusical(1);
 	}
 	private: System::Void button6_Click(System::Object^ sender, System::EventArgs^ e) {
 		pnlJuego2->Visible = false;
@@ -497,7 +507,7 @@ namespace AlgoritmosProyectoFinal2 {
 	private: System::Void button12_Click(System::Object^ sender, System::EventArgs^ e) {
 		pnlJuego1->Visible = false;
 		pnlJuegoMusical->Visible = true;
-		CargarNivelMusical();
+		CargarNivelMusical(1);
 	}
 	private: System::Void button10_Click(System::Object^ sender, System::EventArgs^ e) {
 		pnlJuego1->Visible = false;

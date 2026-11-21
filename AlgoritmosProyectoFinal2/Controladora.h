@@ -18,6 +18,9 @@ public:
         LimpiarObjetos();
     }
 
+    vector<Obstaculos*> GetObstaculos() { return obstaculos; }
+    vector<Objeto*> GetObjetos() { return objetos; }
+
     // =========================
     // METODOS DE OBSTACULOS
     // =========================
