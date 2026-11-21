@@ -24,7 +24,36 @@ namespace AlgoritmosProyectoFinal2 {
 			//
 
 			controladora = new Controladora();
+			this->KeyPreview = true;
+		}
 
+		void CargarNivel1() {
+
+			controladora->LimpiarObstaculos();
+
+			controladora->GenerarObstaculo(300, 200, 0, 200, 40);
+			controladora->GenerarObstaculo(600, 100, 0, 40, 300);
+		}
+
+		void CargarNivel2() {
+
+			controladora->LimpiarObstaculos();
+
+			controladora->GenerarObstaculo(100, 150, 0, 300, 40);
+			controladora->GenerarObstaculo(500, 300, 0, 40, 200);
+		}
+
+		void CargarNivel3() {
+
+			controladora->LimpiarObstaculos();
+
+			controladora->GenerarObstaculo(200, 100, 0, 40, 300);
+			controladora->GenerarObstaculo(700, 400, 0, 200, 40);
+		}
+
+		void CargarNivelMusical() {
+
+			controladora->LimpiarObstaculos();
 		}
 
 	protected:
@@ -355,7 +384,7 @@ namespace AlgoritmosProyectoFinal2 {
 			   bmpPunk = gcnew Bitmap("Imagenes/SpiderPunk.png");
 
 			   // 3. Creamos el objeto protagonista aquí para asegurarnos de que todo está listo
-			   punk = new SpiderPunk(100, 300, 64, 64, 100, 2, 2, 100, 100, 0, "Punk", 'S', 1, 1);
+			   punk = new SpiderPunk(100, 300, 64, 64, 100, 10, 10, 100, 100, 0, "Punk", 'S', 1, 1);
 			   controladora->GenerarObstaculo(0, 0, 0, 200, 200);
 		   }
 
@@ -374,13 +403,23 @@ namespace AlgoritmosProyectoFinal2 {
 	private: System::Void NivelPunk_KeyDown(System::Object^ sender, System::Windows::Forms::KeyEventArgs^ e) {
 		switch (e->KeyCode) {
 		case Keys::A:
-			punk->move(buffer->Graphics, 'A'); break;
+			if (!controladora->HayColision(punk)) {
+				punk->move(buffer->Graphics, 'A'); break;
+			}
 		case Keys::D:
-			punk->move(buffer->Graphics, 'D'); break;
+			if (!controladora->HayColision(punk)) {
+				punk->move(buffer->Graphics, 'D'); break;
+			}
+
+
 		case Keys::S:
-			punk->move(buffer->Graphics, 'S'); break;
+			if (!controladora->HayColision(punk)) {
+				punk->move(buffer->Graphics, 'S'); break;
+			}
 		case Keys::W:
-			punk->move(buffer->Graphics, 'W'); break;
+			if (!controladora->HayColision(punk)) {
+				punk->move(buffer->Graphics, 'W'); break;
+			}
 		}
 
 	}
@@ -389,51 +428,63 @@ namespace AlgoritmosProyectoFinal2 {
 	private: System::Void button1_Click(System::Object^ sender, System::EventArgs^ e) {
 		pnlJuego3->Visible = false;
 		pnlJuegoMusical->Visible = true;
+		CargarNivelMusical();
 
 	}
 	private: System::Void button3_Click(System::Object^ sender, System::EventArgs^ e) {
 		pnlJuego3->Visible = false;
 		pnlJuego2->Visible = true;
+		CargarNivel2();
 	}
 	private: System::Void button4_Click(System::Object^ sender, System::EventArgs^ e) {
 		pnlJuego3->Visible = false;
 		pnlJuego1->Visible = true;
+		CargarNivel1();
 	}
 	private: System::Void button8_Click(System::Object^ sender, System::EventArgs^ e) {
 		pnlJuego2->Visible = false;
 		pnlJuegoMusical->Visible = true;
+		CargarNivelMusical();
 	}
 	private: System::Void button6_Click(System::Object^ sender, System::EventArgs^ e) {
 		pnlJuego2->Visible = false;
 		pnlJuego3->Visible = true;
+		CargarNivel3();
 	}
 	private: System::Void button5_Click(System::Object^ sender, System::EventArgs^ e) {
 		pnlJuego2->Visible = false;
 		pnlJuego1->Visible = true;
+		CargarNivel1();
 	}
 	private: System::Void button12_Click(System::Object^ sender, System::EventArgs^ e) {
 		pnlJuego1->Visible = false;
 		pnlJuegoMusical->Visible = true;
+		CargarNivelMusical();
 	}
 	private: System::Void button10_Click(System::Object^ sender, System::EventArgs^ e) {
 		pnlJuego1->Visible = false;
 		pnlJuego3->Visible = true;
+		CargarNivel3();
 	}
 	private: System::Void button11_Click(System::Object^ sender, System::EventArgs^ e) {
 		pnlJuego1->Visible = false;
 		pnlJuego2->Visible = true;
+		CargarNivel2();
 	}
 	private: System::Void btnPunk3_Click(System::Object^ sender, System::EventArgs^ e) {
 		pnlJuegoMusical->Visible = false;
 		pnlJuego3->Visible = true;
+		CargarNivel3();
 	}
 	private: System::Void btnPunk2_Click(System::Object^ sender, System::EventArgs^ e) {
 		pnlJuegoMusical->Visible = false;
 		pnlJuego2->Visible = true;
+		CargarNivel2();
 	}
 	private: System::Void btnPunk1_Click(System::Object^ sender, System::EventArgs^ e) {
 		pnlJuegoMusical->Visible = false;
 		pnlJuego1->Visible = true;
+		CargarNivel1();
 	}
 	private: System::Void pnlJuegoMusical_Paint(System::Object^ sender, System::Windows::Forms::PaintEventArgs^ e) {
 	}

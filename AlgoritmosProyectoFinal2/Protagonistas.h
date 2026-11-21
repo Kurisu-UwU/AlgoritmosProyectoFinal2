@@ -103,4 +103,9 @@ public:
 		idX++;
 		if (idX > 15)idX = 0;
 	}
+
+	Rectangle CrearRectangle() {
+		return Rectangle(x, y, ancho, alto);
+	}
+
 };
