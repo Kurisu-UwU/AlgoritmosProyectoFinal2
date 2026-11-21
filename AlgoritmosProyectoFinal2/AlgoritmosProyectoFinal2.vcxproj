@@ -137,6 +137,9 @@
     <ClInclude Include="NivelPunk.h">
       <FileType>CppForm</FileType>
     </ClInclude>
+    <ClInclude Include="NivelRitmo.h">
+      <FileType>CppForm</FileType>
+    </ClInclude>
     <ClInclude Include="Objeto.h" />
     <ClInclude Include="Obstaculos.h" />
     <ClInclude Include="PantallaPrincipal.h">
