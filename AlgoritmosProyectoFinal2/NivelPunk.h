@@ -29,10 +29,6 @@ namespace AlgoritmosProyectoFinal2 {
 
 		void CargarNivel1() {
 
-			gr = pnlJuego1->CreateGraphics();
-			space = BufferedGraphicsManager::Current;
-			buffer = space->Allocate(gr, pnlJuego1->ClientRectangle);
-
 			controladora->LimpiarObstaculos();
 			controladora->LimpiarObjetos();
 
@@ -46,11 +42,6 @@ namespace AlgoritmosProyectoFinal2 {
 		}
 
 		void CargarNivel2() {
-
-			gr = pnlJuego2->CreateGraphics();
-			space = BufferedGraphicsManager::Current;
-			buffer = space->Allocate(gr, pnlJuego2->ClientRectangle);
-
 			controladora->LimpiarObstaculos();
 
 			controladora->GenerarObstaculo(100, 150, 0, 300, 40);
@@ -58,9 +49,6 @@ namespace AlgoritmosProyectoFinal2 {
 		}
 
 		void CargarNivel3() {
-			gr = pnlJuego3->CreateGraphics();
-			space = BufferedGraphicsManager::Current;
-			buffer = space->Allocate(gr, pnlJuego3->ClientRectangle);
 			controladora->LimpiarObstaculos();
 
 			controladora->GenerarObstaculo(200, 100, 0, 40, 300);
@@ -68,10 +56,6 @@ namespace AlgoritmosProyectoFinal2 {
 		}
 
 		void CargarNivelMusical() {
-			gr = pnlJuegoMusical->CreateGraphics();
-			space = BufferedGraphicsManager::Current;
-			buffer = space->Allocate(gr, pnlJuegoMusical->ClientRectangle);
-
 			controladora->LimpiarObstaculos();
 		}
 
