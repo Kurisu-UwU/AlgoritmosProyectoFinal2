@@ -44,6 +44,7 @@ namespace AlgoritmosProyectoFinal2 {
 
 		void CargarNivel2() {
 			controladora->LimpiarObstaculos();
+			controladora->LimpiarObjetos();
 
 			controladora->GenerarObstaculo(0, 0, 0, 285, 435);
 			controladora->GenerarObstaculo(790, 0, 0, 285, 445);
@@ -54,9 +55,9 @@ namespace AlgoritmosProyectoFinal2 {
 
 		void CargarNivel3() {
 			controladora->LimpiarObstaculos();
+			controladora->LimpiarObjetos();
 
-			controladora->GenerarObstaculo(200, 100, 0, 40, 300);
-			controladora->GenerarObstaculo(700, 400, 0, 200, 40);
+			controladora->GenerarObstaculo(0, 385, 0, 40, 1210);
 		}
 
 		void CargarNivelMusical(int n) {
