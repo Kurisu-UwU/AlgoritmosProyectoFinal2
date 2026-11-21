@@ -401,27 +401,34 @@ namespace AlgoritmosProyectoFinal2 {
 		timerJuego->Enabled = false;
 	}
 	private: System::Void NivelPunk_KeyDown(System::Object^ sender, System::Windows::Forms::KeyEventArgs^ e) {
-		switch (e->KeyCode) {
-		case Keys::A:
-			if (!controladora->HayColision(punk)) {
-				punk->move(buffer->Graphics, 'A'); break;
-			}
-		case Keys::D:
-			if (!controladora->HayColision(punk)) {
-				punk->move(buffer->Graphics, 'D'); break;
-			}
 
+		int xAnterior = punk->GetPX();
+		int yAnterior = punk->GetPY();
+
+		switch (e->KeyCode) {
+
+		case Keys::A:
+			punk->move(buffer->Graphics, 'A');
+			break;
+
+		case Keys::D:
+			punk->move(buffer->Graphics, 'D');
+			break;
+
+		case Keys::W:
+			punk->move(buffer->Graphics, 'W');
+			break;
 
 		case Keys::S:
-			if (!controladora->HayColision(punk)) {
-				punk->move(buffer->Graphics, 'S'); break;
-			}
-		case Keys::W:
-			if (!controladora->HayColision(punk)) {
-				punk->move(buffer->Graphics, 'W'); break;
-			}
+			punk->move(buffer->Graphics, 'S');
+			break;
 		}
 
+		if (controladora->HayColision(punk)) {
+
+			punk->SetPX(xAnterior);
+			punk->SetPY(yAnterior);
+		}
 	}
 	private: System::Void pnlJuego1_Paint(System::Object^ sender, System::Windows::Forms::PaintEventArgs^ e) {
 	}
