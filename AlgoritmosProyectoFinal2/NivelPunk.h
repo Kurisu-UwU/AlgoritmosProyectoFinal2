@@ -30,10 +30,15 @@ namespace AlgoritmosProyectoFinal2 {
 		void CargarNivel1() {
 
 			controladora->LimpiarObstaculos();
+			controladora->LimpiarObjetos();
 
 			controladora->GenerarObstaculo(0, 0, 0, 130, 325);
 			controladora->GenerarObstaculo(580, 0, 0, 130, 300);
 			controladora->GenerarObstaculo(0, 250, 0, 130, 880);
+
+			controladora->GenerarObjeto(300, 300, 0, 32, 32);
+			controladora->GenerarObjeto(400, 200, 0, 32, 32);
+			controladora->GenerarObjeto(600, 400, 0, 32, 32);
 		}
 
 		void CargarNivel2() {
@@ -84,14 +89,21 @@ namespace AlgoritmosProyectoFinal2 {
 
 
 
-
+		bool estadocofre1 = false;
+		bool estadocofre2 = false;
+		bool estadocofre3 = false;
 
 		Graphics^ gr;
 		BufferedGraphicsContext^ space;
 		BufferedGraphics^ buffer;
 		Bitmap^ bmpMapa1;
 		Bitmap^ bmpPunk;
+		Bitmap^ bmpCofreC;
+		Bitmap^ bmpCofreA;
 		Controladora* controladora;
+
+
+
 	private: System::Windows::Forms::Panel^ pnlJuego2;
 	private: System::Windows::Forms::Panel^ pnlJuego3;
 	private: System::Windows::Forms::Panel^ pnlJuegoMusical;
@@ -381,6 +393,8 @@ namespace AlgoritmosProyectoFinal2 {
 
 			   bmpMapa1 = gcnew Bitmap("Imagenes/PunkMapa1.png");
 			   bmpPunk = gcnew Bitmap("Imagenes/SpiderPunk.png");
+			   bmpCofreC = gcnew Bitmap("Imagenes/CofreCerrado.png");
+			   bmpCofreA = gcnew Bitmap("Imagenes/CofreAbierto.png");
 
 			   punk = new SpiderPunk(100, 165, 64, 64, 100, 5, 5, 100, 100, 0, "Punk", 'S', 1, 1);
 			   CargarNivel1();
@@ -390,8 +404,9 @@ namespace AlgoritmosProyectoFinal2 {
 
 		buffer->Graphics->DrawImage(bmpMapa1, 0, 0, pnlJuego1->Width * 1.0, pnlJuego1->Height * 1.0);
 
-		punk->Dibujar(buffer->Graphics, bmpPunk);
 		controladora->DibujarObstaculos(buffer->Graphics);
+		controladora->DibujarObjetos(buffer->Graphics, bmpCofreC);
+		punk->Dibujar(buffer->Graphics, bmpPunk);
 		buffer->Render(gr);
 	}
 

@@ -11,11 +11,16 @@ public:
         : Entidad(x1, y1, dx1, alto, ancho, exis) {
     }
 
-    ~Objeto() { }
+    void Dibujar(Graphics^ g, Bitmap^ bmp) {
+        if (existencia) {
+            Rectangle destino(x, y, anchura, altura);
+            g->DrawImage(bmp, destino);
+        }
+    }
 
     bool Colisionar(Protagonista* personaje) {
 
-        Rectangle rectObjeto = Rectangle(x, y, anchura, altura);
+        Rectangle rectObjeto(x, y, anchura, altura);
 
         Rectangle rectPersonaje = personaje->CrearRectangle();
 
