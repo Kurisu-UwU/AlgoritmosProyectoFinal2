@@ -43,6 +43,7 @@ namespace AlgoritmosProyectoFinal2 {
 		}
 
 		void CargarNivel2() {
+
 			controladora->LimpiarObstaculos();
 			controladora->LimpiarObjetos();
 
@@ -54,10 +55,18 @@ namespace AlgoritmosProyectoFinal2 {
 		}
 
 		void CargarNivel3() {
+
 			controladora->LimpiarObstaculos();
 			controladora->LimpiarObjetos();
 
 			controladora->GenerarObstaculo(0, 385, 0, 40, 1210);
+			Jefe* spot = new Jefe(700, 300, 5, 64, 64, true, 120);
+			controladora->DefinirJefe(spot);
+
+
+
+
+
 		}
 
 		void CargarNivelMusical(int n) {
@@ -112,6 +121,7 @@ namespace AlgoritmosProyectoFinal2 {
 		Bitmap^ bmpMapa3;
 		Bitmap^ bmpMapaMusical;
 		Bitmap^ bmpPunk;
+		Bitmap^ bmpSpot;
 		Bitmap^ bmpCofreC;
 		Bitmap^ bmpCofreA;
 		Controladora* controladora;
@@ -420,8 +430,9 @@ namespace AlgoritmosProyectoFinal2 {
 			   bmpPunk = gcnew Bitmap("Imagenes/SpiderPunk.png");
 			   bmpCofreC = gcnew Bitmap("Imagenes/CofreCerrado.png");
 			   bmpCofreA = gcnew Bitmap("Imagenes/CofreAbierto.png");
+			   bmpSpot = gcnew Bitmap("Imagenes/Spot.png");
 
-			   punk = new SpiderPunk(100, 300, 64, 64, 100, 8, 8, 100, 100, 0, "Punk", 'S', 1, 1);
+			   punk = new SpiderPunk(100, 300, 64, 64, 100, 10, 10, 100, 100, 0, "Punk", 'S', 1, 1);
 			   CargarNivel1();
 		   }
 
@@ -445,6 +456,10 @@ namespace AlgoritmosProyectoFinal2 {
 			buffer3->Graphics->DrawImage(bmpMapa3, 0, 0, pnlJuego3->Width * 1.0, pnlJuego3->Height * 1.0);
 			controladora->DibujarObstaculos(buffer3->Graphics);
 			controladora->DibujarObjetos(buffer3->Graphics, bmpCofreC);
+
+			controladora->ActualizarJefes(punk, pnlJuego3->Width, pnlJuego3->Height);
+			controladora->DibujarJefe(buffer3->Graphics, bmpSpot);
+
 			punk->Dibujar(buffer3->Graphics, bmpPunk);
 			buffer3->Render(gr3);
 		}

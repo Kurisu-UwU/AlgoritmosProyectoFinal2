@@ -136,8 +136,10 @@ public:
             jefe->Dibujar(g, bmp);
     }
 
-    void LimpiarJefe(Graphics^ g, Bitmap^ bmp) {
-        delete jefe;
+    void LimpiarJefe() {
+        if (jefe != nullptr) {
+            delete jefe;
+        }
     }
 
 };
