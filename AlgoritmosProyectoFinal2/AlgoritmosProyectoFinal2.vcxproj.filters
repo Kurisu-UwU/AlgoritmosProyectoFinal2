@@ -89,5 +89,8 @@
     <ClInclude Include="NivelesRitmo.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="Jefe.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>

@@ -4,6 +4,7 @@
 #include "Objeto.h"
 #include "Enemigo.h"
 #include "Perseguidor.h"
+#include "Jefe.h"
 
 using namespace std;
 
@@ -13,6 +14,7 @@ private:
     vector<Objeto*> objetos;
     vector<Enemigo*> enemigos;
     vector<Perseguidor*> seguidores;
+    Jefe* jefe;
 
 public:
     Controladora() {}
@@ -115,6 +117,27 @@ public:
         for (int i = 0; i < seguidores.size(); i++) {
             seguidores[i]->Dibujar(g, bmp);
         }
+    }
+
+    // =========================
+    // METODOS DE JEFE
+    // =========================
+
+    void DefinirJefe(Jefe* spot) {
+        jefe = spot;
+    }
+
+    void ActualizarJefes(Protagonista* protagonista, int anchoMapa, int altoMapa) {
+
+        jefe->Actualizar(protagonista, anchoMapa, altoMapa, obstaculos);
+    }
+
+    void DibujarJefe(Graphics^ g, Bitmap^ bmp) {
+            jefe->Dibujar(g, bmp);
+    }
+
+    void LimpiarJefe(Graphics^ g, Bitmap^ bmp) {
+        delete jefe;
     }
 
 };
