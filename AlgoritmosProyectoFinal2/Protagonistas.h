@@ -13,13 +13,14 @@ protected:
 	int dx, dy;
 	int ancho, alto;
 	char direccion;
-	float energia, ataque, vida, carga;
+	int vida;
+	float energia, ataque, carga;
 	string nombre;
 
 public:
 	Protagonista() {}
 
-	Protagonista(int x1, int y1, int anch, int alt, float e1, float vx1, float vy1, float a1, float vi1, float car, string n1, char mira, int idx, int idy) {
+	Protagonista(int x1, int y1, int anch, int alt, float e1, float vx1, float vy1, float a1, int vi1, float car, string n1, char mira, int idx, int idy) {
 		x = x1;
 		y = y1;
 		energia = e1;
@@ -107,4 +108,8 @@ public:
 		return Rectangle(x, y, ancho * 0.75, alto * 0.75);
 	}
 
+
+	int getVida() {
+		return vida;
+	}
 };

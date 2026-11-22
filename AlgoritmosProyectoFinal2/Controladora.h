@@ -142,4 +142,8 @@ public:
         }
     }
 
+    Jefe* getJefe() {
+        return jefe;
+    }
+
 };

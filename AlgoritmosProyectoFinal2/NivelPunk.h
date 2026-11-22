@@ -110,12 +110,16 @@ namespace AlgoritmosProyectoFinal2 {
 		Graphics^ gr1;
 		Graphics^ gr2;
 		Graphics^ gr3;
+		Graphics^ grp;
 		BufferedGraphicsContext^ space1;
 		BufferedGraphicsContext^ space2;
 		BufferedGraphicsContext^ space3;
+		BufferedGraphicsContext^ spacep;
 		BufferedGraphics^ buffer1;
 		BufferedGraphics^ buffer2;
 		BufferedGraphics^ buffer3;
+		BufferedGraphics^ bufferp;
+		Bitmap^ bmpPanelControl;
 		Bitmap^ bmpMapa1;
 		Bitmap^ bmpMapa2;
 		Bitmap^ bmpMapa3;
@@ -154,7 +158,11 @@ namespace AlgoritmosProyectoFinal2 {
 
 	private: System::Windows::Forms::Button^ button3;
 	private: System::Windows::Forms::Button^ button1;
-		   SpiderPunk* punk;
+private: System::Windows::Forms::Label^ lblSpot;
+private: System::Windows::Forms::Label^ lblPuntaje;
+private: System::Windows::Forms::Label^ lblVida;
+private: System::Windows::Forms::Label^ lblPersonaje;
+	   SpiderPunk* punk;
 
 
 
@@ -185,6 +193,11 @@ namespace AlgoritmosProyectoFinal2 {
 			   this->btnPunk3 = (gcnew System::Windows::Forms::Button());
 			   this->btnPunk2 = (gcnew System::Windows::Forms::Button());
 			   this->btnPunk1 = (gcnew System::Windows::Forms::Button());
+			   this->lblPersonaje = (gcnew System::Windows::Forms::Label());
+			   this->lblVida = (gcnew System::Windows::Forms::Label());
+			   this->lblPuntaje = (gcnew System::Windows::Forms::Label());
+			   this->lblSpot = (gcnew System::Windows::Forms::Label());
+			   this->pnlDeControl->SuspendLayout();
 			   this->pnlJuego1->SuspendLayout();
 			   this->pnlJuego2->SuspendLayout();
 			   this->pnlJuego3->SuspendLayout();
@@ -193,10 +206,14 @@ namespace AlgoritmosProyectoFinal2 {
 			   // 
 			   // pnlDeControl
 			   // 
+			   this->pnlDeControl->Controls->Add(this->lblSpot);
+			   this->pnlDeControl->Controls->Add(this->lblPuntaje);
+			   this->pnlDeControl->Controls->Add(this->lblVida);
+			   this->pnlDeControl->Controls->Add(this->lblPersonaje);
 			   this->pnlDeControl->Location = System::Drawing::Point(16, 12);
 			   this->pnlDeControl->Margin = System::Windows::Forms::Padding(3, 2, 3, 2);
 			   this->pnlDeControl->Name = L"pnlDeControl";
-			   this->pnlDeControl->Size = System::Drawing::Size(1707, 110);
+			   this->pnlDeControl->Size = System::Drawing::Size(1620, 110);
 			   this->pnlDeControl->TabIndex = 0;
 			   this->pnlDeControl->Paint += gcnew System::Windows::Forms::PaintEventHandler(this, &NivelPunk::pnlDeControl_Paint);
 			   // 
@@ -386,11 +403,68 @@ namespace AlgoritmosProyectoFinal2 {
 			   this->btnPunk1->UseVisualStyleBackColor = true;
 			   this->btnPunk1->Click += gcnew System::EventHandler(this, &NivelPunk::btnPunk1_Click);
 			   // 
+			   // lblPersonaje
+			   // 
+			   this->lblPersonaje->AutoSize = true;
+			   this->lblPersonaje->BackColor = System::Drawing::Color::Transparent;
+			   this->lblPersonaje->Font = (gcnew System::Drawing::Font(L"Comic Sans MS", 12, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point,
+				   static_cast<System::Byte>(0)));
+			   this->lblPersonaje->ForeColor = System::Drawing::Color::FromArgb(static_cast<System::Int32>(static_cast<System::Byte>(255)), static_cast<System::Int32>(static_cast<System::Byte>(128)),
+				   static_cast<System::Int32>(static_cast<System::Byte>(0)));
+			   this->lblPersonaje->Location = System::Drawing::Point(25, 12);
+			   this->lblPersonaje->Name = L"lblPersonaje";
+			   this->lblPersonaje->Size = System::Drawing::Size(125, 28);
+			   this->lblPersonaje->TabIndex = 0;
+			   this->lblPersonaje->Text = L"lblPersonaje";
+			   // 
+			   // lblVida
+			   // 
+			   this->lblVida->AutoSize = true;
+			   this->lblVida->BackColor = System::Drawing::Color::Transparent;
+			   this->lblVida->Font = (gcnew System::Drawing::Font(L"Comic Sans MS", 12, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point,
+				   static_cast<System::Byte>(0)));
+			   this->lblVida->ForeColor = System::Drawing::Color::FromArgb(static_cast<System::Int32>(static_cast<System::Byte>(255)), static_cast<System::Int32>(static_cast<System::Byte>(128)),
+				   static_cast<System::Int32>(static_cast<System::Byte>(0)));
+			   this->lblVida->Location = System::Drawing::Point(25, 55);
+			   this->lblVida->Name = L"lblVida";
+			   this->lblVida->Size = System::Drawing::Size(75, 28);
+			   this->lblVida->TabIndex = 1;
+			   this->lblVida->Text = L"lblVida";
+			   // 
+			   // lblPuntaje
+			   // 
+			   this->lblPuntaje->AutoSize = true;
+			   this->lblPuntaje->BackColor = System::Drawing::Color::Transparent;
+			   this->lblPuntaje->Font = (gcnew System::Drawing::Font(L"Comic Sans MS", 12, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point,
+				   static_cast<System::Byte>(0)));
+			   this->lblPuntaje->ForeColor = System::Drawing::Color::FromArgb(static_cast<System::Int32>(static_cast<System::Byte>(255)), static_cast<System::Int32>(static_cast<System::Byte>(128)),
+				   static_cast<System::Int32>(static_cast<System::Byte>(0)));
+			   this->lblPuntaje->Location = System::Drawing::Point(783, 12);
+			   this->lblPuntaje->Name = L"lblPuntaje";
+			   this->lblPuntaje->Size = System::Drawing::Size(101, 28);
+			   this->lblPuntaje->TabIndex = 2;
+			   this->lblPuntaje->Text = L"lblPuntaje";
+			   // 
+			   // lblSpot
+			   // 
+			   this->lblSpot->AutoSize = true;
+			   this->lblSpot->BackColor = System::Drawing::Color::Transparent;
+			   this->lblSpot->Font = (gcnew System::Drawing::Font(L"Comic Sans MS", 12, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point,
+				   static_cast<System::Byte>(0)));
+			   this->lblSpot->ForeColor = System::Drawing::Color::FromArgb(static_cast<System::Int32>(static_cast<System::Byte>(255)), static_cast<System::Int32>(static_cast<System::Byte>(128)),
+				   static_cast<System::Int32>(static_cast<System::Byte>(0)));
+			   this->lblSpot->Location = System::Drawing::Point(783, 55);
+			   this->lblSpot->Name = L"lblSpot";
+			   this->lblSpot->Size = System::Drawing::Size(78, 28);
+			   this->lblSpot->TabIndex = 3;
+			   this->lblSpot->Text = L"lblSpot";
+			   // 
 			   // NivelPunk
 			   // 
 			   this->AutoScaleDimensions = System::Drawing::SizeF(8, 16);
 			   this->AutoScaleMode = System::Windows::Forms::AutoScaleMode::Font;
-			   this->ClientSize = System::Drawing::Size(1747, 1040);
+			   this->BackColor = System::Drawing::SystemColors::ActiveCaptionText;
+			   this->ClientSize = System::Drawing::Size(1655, 1040);
 			   this->Controls->Add(this->pnlDeControl);
 			   this->Controls->Add(this->pnlJuego2);
 			   this->Controls->Add(this->pnlJuego1);
@@ -402,6 +476,8 @@ namespace AlgoritmosProyectoFinal2 {
 			   this->FormClosing += gcnew System::Windows::Forms::FormClosingEventHandler(this, &NivelPunk::NivelPunk_FormClosing);
 			   this->Load += gcnew System::EventHandler(this, &NivelPunk::NivelPunk_Load);
 			   this->KeyDown += gcnew System::Windows::Forms::KeyEventHandler(this, &NivelPunk::NivelPunk_KeyDown);
+			   this->pnlDeControl->ResumeLayout(false);
+			   this->pnlDeControl->PerformLayout();
 			   this->pnlJuego1->ResumeLayout(false);
 			   this->pnlJuego2->ResumeLayout(false);
 			   this->pnlJuego3->ResumeLayout(false);
@@ -411,6 +487,11 @@ namespace AlgoritmosProyectoFinal2 {
 		   }
 #pragma endregion
 		   System::Void NivelPunk_Load(System::Object^ sender, System::EventArgs^ e) {
+
+			   grp = pnlDeControl->CreateGraphics();
+			   spacep = BufferedGraphicsManager::Current;
+			   bufferp = spacep->Allocate(grp, pnlDeControl->ClientRectangle);
+
 			   gr1 = pnlJuego1->CreateGraphics();
 			   space1 = BufferedGraphicsManager::Current;
 			   buffer1 = space1->Allocate(gr1, pnlJuego1->ClientRectangle);
@@ -423,6 +504,7 @@ namespace AlgoritmosProyectoFinal2 {
 			   space3 = BufferedGraphicsManager::Current;
 			   buffer3 = space3->Allocate(gr3, pnlJuego3->ClientRectangle);
 
+			   bmpPanelControl = gcnew Bitmap("Imagenes/PanelControl.png");
 			   bmpMapa1 = gcnew Bitmap("Imagenes/PunkMapa1.png");
 			   bmpMapa2 = gcnew Bitmap("Imagenes/PunkMapa2.png");
 			   bmpMapa3 = gcnew Bitmap("Imagenes/PunkMapa3.png");
@@ -437,6 +519,12 @@ namespace AlgoritmosProyectoFinal2 {
 		   }
 
 	private: System::Void timerJuego_Tick(System::Object^ sender, System::EventArgs^ e) {
+
+
+		
+
+		bufferp->Graphics->DrawImage(bmpPanelControl, 0, 0, pnlDeControl->Width * 1.0, pnlDeControl->Height * 1.0);
+
 		if (pnlJuego1->Visible == true) {
 			buffer1->Graphics->DrawImage(bmpMapa1, 0, 0, pnlJuego1->Width * 1.0, pnlJuego1->Height * 1.0);
 			controladora->DibujarObstaculos(buffer1->Graphics);
@@ -464,6 +552,19 @@ namespace AlgoritmosProyectoFinal2 {
 			buffer3->Render(gr3);
 		}
 		
+		bufferp->Render(grp);
+
+		lblVida->Text = "Vida: " + punk->getVida();
+		lblPersonaje->Text = "Spider Punk: ";
+		lblPuntaje->Text = "Puntaje: " + 10;
+
+		if (pnlJuego3->Visible == true) {
+			lblSpot->Text = "Vida de Spot: " + controladora->getJefe()->getVida();
+		}
+		else {
+			lblSpot->Text = " ";
+		}
+
 		
 	}
 
