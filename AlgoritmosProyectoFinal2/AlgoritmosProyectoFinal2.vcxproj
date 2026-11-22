@@ -127,6 +127,7 @@
   <ItemGroup>
     <ClInclude Include="Controladora.h" />
     <ClInclude Include="ControladoraNivelRitmo.h" />
+    <ClInclude Include="Enemigo.h" />
     <ClInclude Include="Entidades.h" />
     <ClInclude Include="MilesMorales.h" />
     <ClInclude Include="NivelesRitmo.h" />
@@ -148,7 +149,9 @@
     <ClInclude Include="PantallaPrincipal.h">
       <FileType>CppForm</FileType>
     </ClInclude>
+    <ClInclude Include="Perseguidor.h" />
     <ClInclude Include="Protagonistas.h" />
+    <ClInclude Include="Proyectil.h" />
     <ClInclude Include="Proyectiles.h" />
     <ClInclude Include="SpiderPunk.h" />
     <ClInclude Include="VariablesGlobales.h" />
