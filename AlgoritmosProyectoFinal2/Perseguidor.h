@@ -84,6 +84,15 @@ public:
 
     }
 
+    void RecibirDanio(int danio) {
+        vida -= danio;
+
+        if (vida <= 0) {
+            vida = 0;
+            existencia = false;
+        }
+    }
+
     Rectangle CrearRectangle() {
         return Rectangle(x, y, anchura, altura);
     }
