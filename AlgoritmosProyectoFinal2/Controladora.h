@@ -160,7 +160,7 @@ public:
     void DibujarCofres(Graphics^ g, Bitmap^ cerrado, Bitmap^ abierto) {
         for (int i = 0; i < cofres.size(); i++) cofres[i]->DibujarCofre(g, cerrado, abierto);
     }
-    Objeto* CofreColisionando(Protagonista* p) {
+    Cofre* CofreColisionando(Protagonista* p) {
         for (int i = 0; i < cofres.size(); i++)
             if (cofres[i]->Colisionar(p)) return cofres[i];
         return nullptr;

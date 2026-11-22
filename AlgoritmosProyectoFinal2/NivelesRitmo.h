@@ -1,7 +1,7 @@
 #pragma once
 #include "VariablesGlobales.h"
 #include "ControladoraNivelRitmo.h"
-void NivelesRitmo1(Graphics^ gr, ControladoraNivelRitmo* controladora, int nivel, Bitmap^ bmpNota1, Bitmap^ bmpNota2, Bitmap^ bmpNota3) {
+inline int NivelesRitmo1(Graphics^ gr, ControladoraNivelRitmo* controladora, int nivel, Bitmap^ bmpNota1, Bitmap^ bmpNota2, Bitmap^ bmpNota3) {
 	controladora->dibujar_elementos(gr, bmpNota1, bmpNota2, bmpNota3, nivel);
 	int puntaje = 0;
 	int vida = 20;
@@ -19,16 +19,13 @@ void NivelesRitmo1(Graphics^ gr, ControladoraNivelRitmo* controladora, int nivel
 		case 140: controladora->CrearNota(bmpNota1->Width, bmpNota1->Height, 1, 0);  break;
 		case 170: controladora->CrearNota(bmpNota1->Width, bmpNota1->Height, 1, 2);  break;
 		case 180: controladora->CrearNota(bmpNota1->Width, bmpNota1->Height, 0, 1);  break;
-		case 380:
-			if (puntaje >= 10) {
-				puntuaciontotal += puntaje;
+		case 400:
+			tiempo = 0;
+			if (controladora->GetPuntaje() >= 5) {
+				return 1;
 			}
-			else {
-				//AnimacionBorrar();
-				//DibujarDerrotaTambores();
-				//AnimacionBorrar();
-				tiempo = 0; puntaje = 0; vida = 20;
-			}
+			else { return 2; }
+			//1 = gano, 2 = perdio
 			break;
 		default: break;
 		}
@@ -542,4 +539,5 @@ void NivelesRitmo1(Graphics^ gr, ControladoraNivelRitmo* controladora, int nivel
 		  */
 		 default: break;
 	}
+	return 0;
 }

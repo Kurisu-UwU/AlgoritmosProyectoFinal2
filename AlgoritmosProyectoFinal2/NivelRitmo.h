@@ -25,7 +25,6 @@ namespace AlgoritmosProyectoFinal2 {
 			bmpPunk = gcnew Bitmap("Imagenes/SpiderPunk.png");
 			bmpMapaMusical = gcnew Bitmap("Imagenes/PunkMapaMusical.png");
 			controladora = new ControladoraNivelRitmo();
-			for (int i = 0; i < 12; i++) controladora->CrearNota(64, 64, 0, 0);
 			punk = punkquiero;
 		}
 
@@ -44,9 +43,6 @@ namespace AlgoritmosProyectoFinal2 {
 					delete gr; gr = nullptr;
 				}
 				if (components) { delete components; }
-				if (punk != nullptr) {
-					delete punk, punk = nullptr;
-				}
 			}
 		}
 	private: System::ComponentModel::IContainer^ components;
@@ -99,17 +95,26 @@ namespace AlgoritmosProyectoFinal2 {
 		buffer = space->Allocate(gr, this->ClientRectangle);
 		timer1->Interval = 1;
 		timer1->Start();
+		punk->SetPX(150);
 		punk->SetPY(350);
 	}
 	private: System::Void timer1_Tick(System::Object^ sender, System::EventArgs^ e) {
 		if (this->IsDisposed || !this->Visible || buffer == nullptr || gr == nullptr || !controladora) return;
 		buffer->Graphics->DrawImage(bmpMapaMusical, 0, 0, this->Width, this->Height);
 		switch (nivel) {
-		case 1:
-			NivelesRitmo1(buffer->Graphics, controladora, 1, bmpNota1, bmpNota2, bmpNota3);
+		case 1: {
+			int estado = NivelesRitmo1(buffer->Graphics, controladora, 1, bmpNota1, bmpNota2, bmpNota3);
 			punk->DibujarRitmo(buffer->Graphics, bmpPunk);
 			tecla = 'f';
+			if (estado != 0) {  //1=gano, 2=perdio
+				timer1->Stop();
+				if (estado == 1) puntuaciontotal += controladora->GetPuntaje();
+				this->DialogResult = (estado == 1) ? System::Windows::Forms::DialogResult::OK
+					: System::Windows::Forms::DialogResult::Cancel;
+				return;
+			}
 			break;
+		}
 		default: break;
 		}
 		buffer->Render(gr);
@@ -131,9 +136,9 @@ namespace AlgoritmosProyectoFinal2 {
 		case Keys::S:
 			punk->PunkMoverRitmo(buffer->Graphics, 'S');
 			break;
-		case Keys::B: tecla = 'B'; controladora->GolpearNota(punk->CrearRectangle(), tecla);
-		case Keys::N: tecla = 'N'; controladora->GolpearNota(punk->CrearRectangle(), tecla);
-		case Keys::M: tecla = 'M'; controladora->GolpearNota(punk->CrearRectangle(), tecla);
+		case Keys::B: tecla = 'B'; controladora->GolpearNota(punk->CrearRectangle(), tecla); break;
+		case Keys::N: tecla = 'N'; controladora->GolpearNota(punk->CrearRectangle(), tecla); break;
+		case Keys::M: tecla = 'M'; controladora->GolpearNota(punk->CrearRectangle(), tecla); break;
 		default: break;
 		}
 	}

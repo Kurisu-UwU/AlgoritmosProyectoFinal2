@@ -13,11 +13,9 @@ public:
 		altura = alto;
 	}
 	~Obstaculos() {}
-
 	Rectangle CrearRectangle() {
 		return Rectangle(x, y, anchura, altura);
 	}
-
 	void Dibujar(Graphics^ g) {
 		g->DrawRectangle(Pens::Red, x, y, anchura, altura);
 	}

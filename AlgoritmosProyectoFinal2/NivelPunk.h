@@ -27,25 +27,27 @@ namespace AlgoritmosProyectoFinal2 {
 			controladora = new Controladora();
 			this->KeyPreview = true;
 		}
-
 		void CargarNivel1() {
-
+			controladora->LimpiarPuertas();
 			controladora->LimpiarObstaculos();
 			controladora->LimpiarObjetos();
+			controladora->LimpiarPuertas();
 
 			controladora->GenerarObstaculo(0, 0, 0, 225, 450);
 			controladora->GenerarObstaculo(770, 0, 0, 225, 440);
 			controladora->GenerarObstaculo(0, 415, 0, 225, 1210);
 
-			controladora->GenerarCofre(300, 300, 32, 32,1, false);
-			controladora->GenerarCofre(400, 200, 32, 32, 2, false);
-			controladora->GenerarCofre(600, 400, 32, 32, 3, false);
+			controladora->GenerarCofre(300, 300, 32, 32, 0, CofreAbierto(0));
+			controladora->GenerarCofre(400, 260, 32, 32, 1, CofreAbierto(1));
+			controladora->GenerarCofre(600, 400, 32, 32, 2, CofreAbierto(2));
+			controladora->GenerarPuerta(1540, 0, 80, 840, 2, 60, 340);
 		}
 
 		void CargarNivel2() {
-
+			controladora->LimpiarPuertas();
 			controladora->LimpiarObstaculos();
 			controladora->LimpiarObjetos();
+			controladora->LimpiarPuertas();
 
 			controladora->GenerarObstaculo(0, 0, 0, 285, 435);
 			controladora->GenerarObstaculo(790, 0, 0, 285, 445);
@@ -55,31 +57,68 @@ namespace AlgoritmosProyectoFinal2 {
 		}
 
 		void CargarNivel3() {
-
+			controladora->LimpiarPuertas();
 			controladora->LimpiarObstaculos();
 			controladora->LimpiarObjetos();
+			controladora->LimpiarPuertas();
 
 			controladora->GenerarObstaculo(0, 385, 0, 40, 1210);
 			Jefe* spot = new Jefe(700, 300, 5, 64, 64, true, 20);
 			controladora->DefinirJefe(spot);
+		}
+		bool CofreAbierto(int id) {
+			switch (id) {
+			case 0:
+				return estadocofre1; break;
+			case 1:
+				return estadocofre2; break;
+			case 2:
+				return estadocofre3; break;
+			default: break;
+			}
+		}
+		void MarcarCofre(int id) {
+			switch (id) {
+			case 0:
+				estadocofre1 = true; break;
+			case 1: estadocofre2 = true; break;
+			default: estadocofre3 = true; break;
+			}
+		}
+		bool PuedeEntrarSala(int sala) {
+			return sala != 3 || (estadocofre1 && estadocofre2 && estadocofre3);
+		}
+		void IrASala(int sala, int px, int py) {
+			salaActual = sala;
+			pnlJuego1->Visible = (sala == 1);
+			pnlJuego2->Visible = (sala == 2);
+			pnlJuego3->Visible = (sala == 3);
+			switch (sala) {
+			case 1: CargarNivel1(); break;
+			case 2: CargarNivel2(); break;
+			case 3: CargarNivel3(); break;
+			}
+			punk->SetPX(px);
+			punk->SetPY(py);
+		}
 
-
-
-
-
+		bool JugarRitmo(int nivelRitmo) {
+			int px = punk->GetPX();
+			int py = punk->GetPY();
+			timerJuego->Enabled = false; 
+			NivelRitmo^ frm = gcnew NivelRitmo(nivelRitmo, punk);
+			System::Windows::Forms::DialogResult r = frm->ShowDialog(this);
+			delete frm;
+			punk->SetPX(px);
+			punk->SetPY(py);
+			timerJuego->Enabled = true;
+			return r == System::Windows::Forms::DialogResult::OK;
 		}
 
 		void CargarNivelMusical(int n) {
-			NivelRitmo^ frm = gcnew NivelRitmo(n, punk);
-			frm->ShowDialog();
-			delete frm;
-			controladora->LimpiarObstaculos();
+			JugarRitmo(n);
 		}
-
 	protected:
-		/// <summary>
-		/// Limpiar los recursos que se estén usando.
-		/// </summary>
 		~NivelPunk()
 		{
 			if (components)
@@ -96,13 +135,8 @@ namespace AlgoritmosProyectoFinal2 {
 	private: System::ComponentModel::IContainer^ components;
 
 	private:
-		/// <summary>
-		/// Variable del diseñador necesaria.
-		/// </summary>
 
-
-
-
+		int salaActual = 1;
 		bool estadocofre1 = false;
 		bool estadocofre2 = false;
 		bool estadocofre3 = false;
@@ -130,17 +164,9 @@ namespace AlgoritmosProyectoFinal2 {
 		Bitmap^ bmpCofreA;
 		Controladora* controladora;
 
-
-
 	private: System::Windows::Forms::Panel^ pnlJuego2;
 	private: System::Windows::Forms::Panel^ pnlJuego3;
 	private: System::Windows::Forms::Panel^ pnlJuegoMusical;
-
-
-
-
-
-
 
 	private: System::Windows::Forms::Button^ btnPunk1;
 
@@ -164,14 +190,8 @@ private: System::Windows::Forms::Label^ lblVida;
 private: System::Windows::Forms::Label^ lblPersonaje;
 	   SpiderPunk* punk;
 
-
-
-
 #pragma region Windows Form Designer generated code
-		   /// <summary>
-		   /// Método necesario para admitir el Diseñador. No se puede modificar
-		   /// el contenido de este método con el editor de código.
-		   /// </summary>
+
 		   void InitializeComponent(void)
 		   {
 			   this->components = (gcnew System::ComponentModel::Container());
@@ -515,7 +535,7 @@ private: System::Windows::Forms::Label^ lblPersonaje;
 			   bmpSpot = gcnew Bitmap("Imagenes/Spot.png");
 
 			   punk = new SpiderPunk(100, 300, 64, 64, 100, 10, 10, 100, 100, 0, "Punk", 'S', 1, 1);
-			   CargarNivel1();
+			   IrASala(1, 100, 300);
 		   }
 
 	private: System::Void timerJuego_Tick(System::Object^ sender, System::EventArgs^ e) {
@@ -525,6 +545,8 @@ private: System::Windows::Forms::Label^ lblPersonaje;
 			buffer1->Graphics->DrawImage(bmpMapa1, 0, 0, pnlJuego1->Width * 1.0, pnlJuego1->Height * 1.0);
 			controladora->DibujarObstaculos(buffer1->Graphics);
 			controladora->DibujarObjetos(buffer1->Graphics, bmpCofreC);
+			controladora->DibujarCofres(buffer1->Graphics, bmpCofreC, bmpCofreA);
+			controladora->DibujarPuertas(buffer1->Graphics);
 			punk->Dibujar(buffer1->Graphics, bmpPunk);
 			buffer1->Render(gr1);
 		}
@@ -533,6 +555,8 @@ private: System::Windows::Forms::Label^ lblPersonaje;
 			buffer2->Graphics->DrawImage(bmpMapa2, 0, 0, pnlJuego2->Width * 1.0, pnlJuego2->Height * 1.0);
 			controladora->DibujarObstaculos(buffer2->Graphics);
 			controladora->DibujarObjetos(buffer2->Graphics, bmpCofreC);
+			controladora->DibujarCofres(buffer1->Graphics, bmpCofreC, bmpCofreA);
+			controladora->DibujarPuertas(buffer1->Graphics);
 			punk->Dibujar(buffer2->Graphics, bmpPunk);
 			buffer2->Render(gr2);
 		}
@@ -540,6 +564,8 @@ private: System::Windows::Forms::Label^ lblPersonaje;
 			buffer3->Graphics->DrawImage(bmpMapa3, 0, 0, pnlJuego3->Width * 1.0, pnlJuego3->Height * 1.0);
 			controladora->DibujarObstaculos(buffer3->Graphics);
 			controladora->DibujarObjetos(buffer3->Graphics, bmpCofreC);
+			controladora->DibujarCofres(buffer1->Graphics, bmpCofreC, bmpCofreA);
+			controladora->DibujarPuertas(buffer1->Graphics);
 
 			controladora->ActualizarJefes(punk, pnlJuego3->Width, pnlJuego3->Height);
 			controladora->DibujarJefe(buffer3->Graphics, bmpSpot);
@@ -580,11 +606,34 @@ private: System::Windows::Forms::Label^ lblPersonaje;
 		case Keys::S:
 			punk->move(buffer1->Graphics, 'S');
 			break;
-		case Keys::E: 
-			if (controladora->HayColisionObjeto(punk)) {CargarNivelMusical(1);}
+		case Keys::E: {
+			Cofre* cofre = controladora->CofreColisionando(punk);
+			if (cofre != nullptr && !cofre->GetExistencia()) {
+				if (JugarRitmo(1)) {          // el minijuego devuelve true si ganaste
+					cofre->SetExsistencia(false);
+					MarcarCofre(cofre->GetId());
+				}
+			}
 			break;
+		}
 		default:break;
 		}
+		if (controladora->HayColision(punk)) {
+			punk->SetPX(xAnterior);
+			punk->SetPY(yAnterior);
+		}
+		Puerta* puerta = controladora->PuertaColisionando(punk);
+		if (puerta != nullptr) {
+			if (PuedeEntrarSala(puerta->GetNivelDestino())) {
+				IrASala(puerta->GetNivelDestino(), puerta->GetXDestino(), puerta->GetYDestino());
+				return;   // no seguir: el rollback de abajo usaria coordenadas de la sala anterior
+			}
+			MessageBox::Show("La puerta esta cerrada. Abre los 3 cofres primero.");
+			punk->SetPX(xAnterior);
+			punk->SetPY(yAnterior);
+			return;
+		}
+
 		if (controladora->HayColision(punk)) {
 			punk->SetPX(xAnterior);
 			punk->SetPY(yAnterior);
