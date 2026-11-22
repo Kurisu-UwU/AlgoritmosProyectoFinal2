@@ -2,6 +2,8 @@
 #include <vector>
 #include "Obstaculos.h"
 #include "Objeto.h"
+#include "Enemigo.h"
+#include "Perseguidor.h"
 
 using namespace std;
 
@@ -9,6 +11,8 @@ class Controladora {
 private:
     vector<Obstaculos*> obstaculos;
     vector<Objeto*> objetos;
+    vector<Enemigo*> enemigos;
+    vector<Perseguidor*> seguidores;
 
 public:
     Controladora() {}
@@ -92,4 +96,25 @@ public:
 
         objetos.clear();
     }
+
+    // =========================
+    // METODOS DE PERSEGUIDORES
+    // =========================
+
+    void AgregarPerseguidor(Perseguidor* perseguidor) {
+        seguidores.push_back(perseguidor);
+    }
+
+    void ActualizarPerseguidores(Protagonista* protagonista) {
+        for (int i = 0; i < seguidores.size(); i++) {
+            seguidores[i]->Perseguir(protagonista, obstaculos);
+        }
+    }
+
+    void DibujarSeguidores(Graphics^ g, Bitmap^ bmp) {
+        for (int i = 0; i < seguidores.size(); i++) {
+            seguidores[i]->Dibujar(g, bmp);
+        }
+    }
+
 };
