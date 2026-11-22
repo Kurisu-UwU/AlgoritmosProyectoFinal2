@@ -537,7 +537,7 @@ void NivelesRitmo1(Graphics^ gr, ControladoraNivelRitmo* controladora, int nivel
 			  DibujarEdificio(26, 7);
 			  DibujarEdificio(51, 7);
 			  puntuaciontotal += puntaje;
-			  break;
+			  break
 		  }
 		  */
 		 default: break;
