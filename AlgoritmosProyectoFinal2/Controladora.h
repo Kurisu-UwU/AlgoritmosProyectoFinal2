@@ -7,6 +7,7 @@
 #include "Jefe.h"
 #include "Puerta.h"
 #include "Cofre.h"
+#include "Proyectil.h"
 
 using namespace std;
 
@@ -18,6 +19,7 @@ private:
     vector<Enemigo*> enemigos;
     vector<Perseguidor*> seguidores;
     vector<Puerta*> puertas;
+    vector<Proyectil*> proyectiles;
     Jefe* jefe = nullptr;
 
 public:
@@ -131,9 +133,9 @@ public:
         jefe->Dibujar(g, bmp);
     }
 
-    // =====
+    // =======
     // Puertas 
-    // =====
+    // =======
 
     void GenerarPuerta(int x, int y, int ancho, int alto, int sala, int xd, int yd) {
         puertas.push_back(new Puerta(x, y, ancho, alto, sala, xd, yd));
@@ -149,7 +151,7 @@ public:
 
     // ======
     // Cofre
-    // ====
+    // ======
 
     void GenerarCofre(int x, int y, int alto, int ancho, int id, bool abierto) {
         Cofre* c = new Cofre(x, y, 0, alto, ancho, true);
@@ -167,8 +169,81 @@ public:
     }
 
     // =========
+    // Proyectil
+    // =========
+
+    void Disparar(Protagonista* personaje) {
+
+        int x = personaje->GetPX();
+        int y = personaje->GetPY();
+
+        proyectiles.push_back(new Proyectil(x, y, personaje->GetMirada()));
+    }
+
+    void ActualizarProyectiles(int ancho, int alto) {
+
+        for (int i = 0; i < proyectiles.size(); i++) {
+
+            proyectiles[i]->Mover();
+
+            Rectangle rectProyectil =
+                proyectiles[i]->CrearRectangle();
+
+            for (int j = 0; j < seguidores.size(); j++) {
+
+                if (seguidores[j]->GetExistencia() &&
+                    rectProyectil.IntersectsWith(
+                        seguidores[j]->CrearRectangle())) {
+
+                    seguidores[j]->RecibirDanio(5);
+
+                    proyectiles[i]->SetExsistencia(false);
+                    break;
+                }
+            }
+
+            if (jefe != nullptr &&
+                jefe->GetExistencia() &&
+                proyectiles[i]->GetExistencia() &&
+                rectProyectil.IntersectsWith(jefe->CrearRectangle())) {
+
+                jefe->RecibirDanio(5);
+                proyectiles[i]->SetExsistencia(false);
+            }
+
+            // Eliminar proyectiles inactivos o fuera del mapa
+            if (!proyectiles[i]->GetExistencia() ||
+                proyectiles[i]->GetX() < 0 ||
+                proyectiles[i]->GetY() < 0 ||
+                proyectiles[i]->GetX() > ancho ||
+                proyectiles[i]->GetY() > alto) {
+
+                delete proyectiles[i];
+                proyectiles.erase(proyectiles.begin() + i);
+                i--;
+            }
+        }
+    }
+
+    void DibujarProyectiles(Graphics^ g, Bitmap^ bmp) {
+        for (int i = 0; i < proyectiles.size(); i++) {
+            proyectiles[i]->Dibujar(g, bmp);
+        }
+    }
+
+
+    // =========
     // Limpiar
-    // =======
+    // =========
+
+    void LimpiarProyectiles() {
+
+        for (int i = 0; i < proyectiles.size(); i++) {
+            delete proyectiles[i];
+        }
+
+        proyectiles.clear();
+    }
 
     void LimpiarObjetos() {
         for (int i = 0; i < objetos.size(); i++) {
@@ -177,22 +252,26 @@ public:
         objetos.clear();
         LimpiarCofres();
     }
+
     void LimpiarCofres() {
         for (int i = 0; i < cofres.size(); i++) {
             delete cofres[i];
         }
         cofres.clear();
     }
+
     void LimpiarJefe() {
         if (jefe != nullptr) {
             delete jefe; jefe = nullptr;
         }
     }
+
     void LimpiarPuertas() {
         for (int i = 0; i < puertas.size(); i++) {
             delete puertas[i];
         }
         puertas.clear();
     }
+
     Jefe* getJefe() { return jefe; }
 };

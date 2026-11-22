@@ -180,6 +180,9 @@ namespace AlgoritmosProyectoFinal2 {
 		Bitmap^ bmpSpot;
 		Bitmap^ bmpCofreC;
 		Bitmap^ bmpCofreA;
+		Bitmap^ bmpNota1;
+		Bitmap^ bmpNota2;
+		Bitmap^ bmpNota3;
 		Controladora* controladora;
 
 	private: System::Windows::Forms::Panel^ pnlJuego2;
@@ -551,6 +554,9 @@ namespace AlgoritmosProyectoFinal2 {
 			   bmpCofreC = gcnew Bitmap("Imagenes/CofreCerrado.png");
 			   bmpCofreA = gcnew Bitmap("Imagenes/CofreAbierto.png");
 			   bmpSpot = gcnew Bitmap("Imagenes/Spot.png");
+			   bmpNota1 = gcnew Bitmap("Imagenes/NotasMusicales1.png");
+			   bmpNota2 = gcnew Bitmap("Imagenes/NotasMusicales2.png");
+			   bmpNota3 = gcnew Bitmap("Imagenes/NotasMusicales3.png");
 
 			   punk = new SpiderPunk(100, 300, 64, 64, 100, 10, 10, 100, 100, 0, "Punk", 'S', 1, 1);
 			   IrASala(1, 100, 300);
@@ -576,6 +582,8 @@ namespace AlgoritmosProyectoFinal2 {
 		if (pnlJuego3->Visible == true) {
 			buffer3->Graphics->DrawImage(bmpMapa3, 0, 0, pnlJuego3->Width * 1.0, pnlJuego3->Height * 1.0);
 			controladora->ActualizarJefes(punk, pnlJuego3->Width, pnlJuego3->Height);
+			controladora->ActualizarProyectiles(pnlJuego3->Width, pnlJuego3->Height);
+			controladora->DibujarProyectiles(buffer3->Graphics, bmpNota1);
 			controladora->DibujarJefe(buffer3->Graphics, bmpSpot);
 			punk->Dibujar(buffer3->Graphics, bmpPunk);
 			DibujarDebug(buffer3->Graphics, pnlJuego3);
@@ -613,6 +621,9 @@ namespace AlgoritmosProyectoFinal2 {
 			break;
 		case Keys::S:
 			punk->move(buffer1->Graphics, 'S');
+			break;
+		case Keys::F:
+			controladora->Disparar(punk);
 			break;
 		case Keys::E: {
 			Cofre* cofre = controladora->CofreColisionando(punk);
