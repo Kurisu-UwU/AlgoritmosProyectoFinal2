@@ -25,6 +25,10 @@ namespace AlgoritmosProyectoFinal2 {
 			bmpPunk = gcnew Bitmap("Imagenes/SpiderPunk.png");
 			bmpMapaMusical = gcnew Bitmap("Imagenes/PunkMapaMusical.png");
 			controladora = new ControladoraNivelRitmo();
+			//sndB = CargarSonido("Sonidos/NotaB.wav");
+			//sndN = CargarSonido("Sonidos/NotaN.wav");
+			//sndM = CargarSonido("Sonidos/NotaM.wav");
+			//sndFallo = CargarSonido("Sonidos/Fallo.wav");
 			punk = punkquiero;
 			::tiempo = 0;   // reinicia el reloj global en cada cofre (si cerraste a la mitad quedaba sucio)
 		}
@@ -144,4 +148,4 @@ namespace AlgoritmosProyectoFinal2 {
 		}
 	}
 	};
-}
+};

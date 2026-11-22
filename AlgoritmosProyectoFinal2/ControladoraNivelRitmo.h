@@ -12,6 +12,7 @@ private:
     vector<Notas*> notas;
     int puntaje = 0;
     int vida = 20;
+    int fallos = 0;   // notas que se escaparon sin tocarse (NivelRitmo lo lee para sonar el "fallo")
 public:
     ControladoraNivelRitmo() {}
     ~ControladoraNivelRitmo() {
@@ -31,9 +32,10 @@ public:
             if (notas[i]->GetVivo()) {
                 if (notas[i]->GetX() > posparatocar - 11) { notas[i]->SetX(notas[i]->GetX() - 5); }
                 notas[i]->Dibujar(gr, bmp1, bmp2, bmp3);
-                if (notas[i]->GetX() < posparatocar - 10) { 
-                    notas[i]->SetVivo(false); 
+                if (notas[i]->GetX() < posparatocar - 10) {
+                    notas[i]->SetVivo(false);
                     puntaje--;
+                    fallos++;
                 }
             }
         }
@@ -65,24 +67,55 @@ public:
     // =========================
     // METODOS DE OBJETOS
     // =========================
-    void GolpearNota(Rectangle hitboxPunk, char tecla) {
-            bool si = false;
-            for (int i = 0; i < (int)notas.size(); i++) {
-                if (notas[i]->GetVivo() && notas[i]->GetRectangulo().IntersectsWith(hitboxPunk)) {
-                    int n;
-                    switch (tecla) {
-                    case 'B': n = 0; break;
-                    case 'N': n = 1; break;
-                    case 'M': n = 2; break;
-                    }
-                    if (notas[i]->GetTipo() == n) {
-                        puntaje++;
-                    }
-                    else { puntaje--; }
-                    notas[i]->SetVivo(false);
+    // Devuelve: 0 = no habia ninguna nota al alcance, 1 = acierto, 2 = tecla equivocada
+    int GolpearNota(Rectangle hitboxPunk, char tecla) {
+        int resultado = 0;
+        int n = -1;
+        switch (tecla) {
+        case 'B': n = 0; break;
+        case 'N': n = 1; break;
+        case 'M': n = 2; break;
+        default: break;
+        }
+        for (int i = 0; i < (int)notas.size(); i++) {
+            if (notas[i]->GetVivo() && notas[i]->GetRectangulo().IntersectsWith(hitboxPunk)) {
+                if (notas[i]->GetTipo() == n) {
+                    puntaje++;
+                    if (resultado != 2) resultado = 1;
                 }
+                else {
+                    puntaje--;
+                    resultado = 2;
+                }
+                notas[i]->SetVivo(false);
             }
+        }
+        return resultado;
     }
+  
+    /*int ConsumirFallos() {
+        int f = fallos;
+        fallos = 0;
+        return f;
+    }*/
+
+    /*void DibujarTeclas(Graphics^ g, System::Drawing::Font^ fuente, System::Drawing::StringFormat^ formato) {
+        for (int i = 0; i < (int)notas.size(); i++) {
+            if (!notas[i]->GetVivo()) continue;
+            System::String^ letra;
+            switch (notas[i]->GetTipo()) {
+            case 0: letra = "B"; break;
+            case 1: letra = "N"; break;
+            default: letra = "M"; break;
+            }
+            Rectangle r = notas[i]->GetRectangulo();
+            System::Drawing::RectangleF cuadro((float)r.X, (float)r.Y, (float)r.Width, (float)r.Height);
+            System::Drawing::RectangleF sombra(cuadro.X + 2.0f, cuadro.Y + 2.0f, cuadro.Width, cuadro.Height);
+            g->DrawString(letra, fuente, System::Drawing::Brushes::Black, sombra, formato);
+            g->DrawString(letra, fuente, System::Drawing::Brushes::White, cuadro, formato);
+        }
+    }
+    */
     void LimpiarObjetos() {
         for (int i = 0; i < objetos.size(); i++) {
             delete objetos[i];
