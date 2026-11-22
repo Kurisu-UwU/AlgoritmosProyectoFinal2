@@ -65,6 +65,7 @@ namespace AlgoritmosProyectoFinal2 {
 		SpiderPunk* punk;
 		int tiempo = 0;
 		int puntuaciontotal = 0;
+		char tecla = 'f';
 	private:
 		System::Windows::Forms::Timer^ timer1;
 		int nivel;
@@ -90,7 +91,6 @@ namespace AlgoritmosProyectoFinal2 {
 			this->Load += gcnew System::EventHandler(this, &NivelRitmo::NivelRitmo_Load);
 			this->KeyDown += gcnew System::Windows::Forms::KeyEventHandler(this, &NivelRitmo::NivelRitmo_KeyDown);
 			this->ResumeLayout(false);
-
 		}
 #pragma endregion
 	private: System::Void NivelRitmo_Load(System::Object^ sender, System::EventArgs^ e) {
@@ -108,6 +108,7 @@ namespace AlgoritmosProyectoFinal2 {
 		case 1:
 			NivelesRitmo1(buffer->Graphics, controladora, 1, bmpNota1, bmpNota2, bmpNota3);
 			punk->DibujarRitmo(buffer->Graphics, bmpPunk);
+			tecla = 'f';
 			break;
 		default: break;
 		}
@@ -118,22 +119,21 @@ namespace AlgoritmosProyectoFinal2 {
 	}
 	private: System::Void NivelRitmo_KeyDown(System::Object^ sender, System::Windows::Forms::KeyEventArgs^ e) {
 		switch (e->KeyCode) {
-
 		case Keys::A:
 			punk->PunkMoverRitmo(buffer->Graphics, 'A');
 			break;
-
 		case Keys::D:
 			punk->PunkMoverRitmo(buffer->Graphics, 'D');
 			break;
-
 		case Keys::W:
 			punk->PunkMoverRitmo(buffer->Graphics, 'W');
 			break;
-
 		case Keys::S:
 			punk->PunkMoverRitmo(buffer->Graphics, 'S');
 			break;
+		case Keys::B: tecla = 'B'; controladora->GolpearNota(punk->CrearRectangle(), tecla);
+		case Keys::N: tecla = 'N'; controladora->GolpearNota(punk->CrearRectangle(), tecla);
+		case Keys::M: tecla = 'M'; controladora->GolpearNota(punk->CrearRectangle(), tecla);
 		default: break;
 		}
 	}

@@ -103,7 +103,7 @@ public:
 		idX++;
 		if (idX > 15)idX = 0;
 	}
-	Rectangle CrearRectangle() {
+	virtual Rectangle CrearRectangle() {
 		return Rectangle(x, y, ancho * 0.75, alto * 0.75);
 	}
 

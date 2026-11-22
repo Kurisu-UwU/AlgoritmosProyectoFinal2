@@ -26,6 +26,7 @@ public:
 
 	bool GetVivo() { return vivo; }
 	short GetTipo() { return tipo; }
+	Rectangle GetRectangulo() { return Rectangle(x, y, width, height); }
 };
 Notas::Notas(int wid, int hei, int tip, int pos) : Proyectiles() {
 	x = 1000; y = pos; vivo = false; tipo = tip;

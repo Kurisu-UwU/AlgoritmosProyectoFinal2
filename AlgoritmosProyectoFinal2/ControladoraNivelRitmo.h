@@ -10,6 +10,8 @@ private:
     vector<Obstaculos*> obstaculos;
     vector<Objeto*> objetos;
     vector<Notas*> notas;
+    int puntaje = 0;
+    int vida = 20;
 public:
     ControladoraNivelRitmo() {}
     ~ControladoraNivelRitmo() {
@@ -19,6 +21,8 @@ public:
     }
     vector<Obstaculos*> GetObstaculos() { return obstaculos; }
     vector<Objeto*> GetObjetos() { return objetos; }
+    int GetPuntaje() { return puntaje; }
+    int GetVida() { return vida; }
     // =========================
     // METODOS DE OBSTACULOS
     // =========================
@@ -29,6 +33,7 @@ public:
                 notas[i]->Dibujar(gr, bmp1, bmp2, bmp3);
                 if (notas[i]->GetX() < posparatocar - 10) { 
                     notas[i]->SetVivo(false); 
+                    puntaje--;
                 }
             }
         }
@@ -60,22 +65,23 @@ public:
     // =========================
     // METODOS DE OBJETOS
     // =========================
-    void GenerarObjeto(int x, int y, int velocidad, int ancho, int alto) {
-        Objeto* ent = new Objeto(x, y, velocidad, alto, ancho, true);
-        objetos.push_back(ent);
-    }
-    void DibujarObjetos(Graphics^ g, Bitmap^ bmp) {
-        for (int i = 0; i < objetos.size(); i++) {
-            objetos[i]->Dibujar(g, bmp);
-        }
-    }
-    bool HayColisionObjeto(Protagonista* personaje) {
-        for (int i = 0; i < objetos.size(); i++) {
-            if (objetos[i]->Colisionar(personaje)) {
-                return true;
+    void GolpearNota(Rectangle hitboxPunk, char tecla) {
+            bool si = false;
+            for (int i = 0; i < (int)notas.size(); i++) {
+                if (notas[i]->GetVivo() && notas[i]->GetRectangulo().IntersectsWith(hitboxPunk)) {
+                    int n;
+                    switch (tecla) {
+                    case 'B': n = 0; break;
+                    case 'N': n = 1; break;
+                    case 'M': n = 2; break;
+                    }
+                    if (notas[i]->GetTipo() == n) {
+                        puntaje++;
+                    }
+                    else { puntaje--; }
+                    notas[i]->SetVivo(false);
+                }
             }
-        }
-        return false;
     }
     void LimpiarObjetos() {
         for (int i = 0; i < objetos.size(); i++) {

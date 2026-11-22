@@ -60,6 +60,8 @@ public:
 		}
 		idX++;
 		if (idX > 15)idX = 0;
-
+	}
+	Rectangle CrearRectangle() override {
+		return Rectangle(x, y, ancho * 1.2, alto * 1.2-20);
 	}
 };
