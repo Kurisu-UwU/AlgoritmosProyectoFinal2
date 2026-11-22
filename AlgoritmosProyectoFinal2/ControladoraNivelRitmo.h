@@ -25,7 +25,7 @@ public:
     void TamboresMovimiento(int posparatocar, Bitmap^ bmp1, Bitmap^ bmp2, Bitmap^ bmp3, Graphics^ gr) {
         for (int i = 0; i < (int)notas.size(); i++) {
             if (notas[i]->GetVivo()) {
-                if (notas[i]->GetX() > posparatocar - 11) { notas[i]->SetX(notas[i]->GetX() - 1); }
+                if (notas[i]->GetX() > posparatocar - 11) { notas[i]->SetX(notas[i]->GetX() - 5); }
                 notas[i]->Dibujar(gr, bmp1, bmp2, bmp3);
                 if (notas[i]->GetX() < posparatocar - 10) { 
                     notas[i]->SetVivo(false); 
@@ -46,9 +46,14 @@ public:
         }
     }
     void CrearNota(int width, int height, int tipo, int posY) {
-        Notas* ene = new Notas(width, height, tipo);
-        ene->SetX(100);
-        ene->SetY(100);
+        int Posyy = 0;
+        switch (posY) {
+        case 0: Posyy = 350; break;
+        case 1: Posyy = 425; break;
+        case 2: Posyy = 500; break;
+        default: break;
+        }
+        Notas* ene = new Notas(width, height, tipo, Posyy);
         ene->SetVivo(true);
         notas.push_back(ene);
     }

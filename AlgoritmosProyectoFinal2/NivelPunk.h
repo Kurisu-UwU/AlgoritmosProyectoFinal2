@@ -61,7 +61,7 @@ namespace AlgoritmosProyectoFinal2 {
 		}
 
 		void CargarNivelMusical(int n) {
-			NivelRitmo^ frm = gcnew NivelRitmo(n);
+			NivelRitmo^ frm = gcnew NivelRitmo(n, punk);
 			frm->ShowDialog();
 			delete frm;
 			controladora->LimpiarObstaculos();
@@ -456,35 +456,27 @@ namespace AlgoritmosProyectoFinal2 {
 		timerJuego->Enabled = false;
 	}
 	private: System::Void NivelPunk_KeyDown(System::Object^ sender, System::Windows::Forms::KeyEventArgs^ e) {
-
 		int xAnterior = punk->GetPX();
 		int yAnterior = punk->GetPY();
-
 		switch (e->KeyCode) {
-
 		case Keys::A:
 			punk->move(buffer1->Graphics, 'A');
 			break;
-
 		case Keys::D:
 			punk->move(buffer1->Graphics, 'D');
 			break;
-
 		case Keys::W:
 			punk->move(buffer1->Graphics, 'W');
 			break;
-
 		case Keys::S:
 			punk->move(buffer1->Graphics, 'S');
 			break;
 		case Keys::E: 
-			if (controladora->HayColisionObjeto(punk)) {
-				CargarNivelMusical(1);
-			}
+			if (controladora->HayColisionObjeto(punk)) {CargarNivelMusical(1);}
+			break;
+		default:break;
 		}
-		
 		if (controladora->HayColision(punk)) {
-
 			punk->SetPX(xAnterior);
 			punk->SetPY(yAnterior);
 		}

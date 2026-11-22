@@ -8,7 +8,7 @@ private:
 	int width, height;
 	int idX, idY;
 public:
-	Notas(int, int, int);
+	Notas(int, int, int, int);
 	~Notas();
 	
 	void SetVivo(bool viv) { vivo = viv; }
@@ -27,10 +27,11 @@ public:
 	bool GetVivo() { return vivo; }
 	short GetTipo() { return tipo; }
 };
-Notas::Notas(int wid, int hei, int tip) : Proyectiles() {
-	x = 10; y = 10; vivo = false; tipo = tip;
+Notas::Notas(int wid, int hei, int tip, int pos) : Proyectiles() {
+	x = 1000; y = pos; vivo = false; tipo = tip;
 	width = wid;
 	height = hei;
 	idX = 0; idY = 0;
+	
 }
 Notas::~Notas() {}

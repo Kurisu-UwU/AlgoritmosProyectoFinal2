@@ -15,9 +15,9 @@ void NivelesRitmo1(Graphics^ gr, ControladoraNivelRitmo* controladora, int nivel
 		case 60: controladora->CrearNota(bmpNota1->Width, bmpNota1->Height, 1, 1);  break;
 		case 90: controladora->CrearNota(bmpNota1->Width, bmpNota1->Height, 1, 1);  break;
 		case 100: controladora->CrearNota(bmpNota1->Width, bmpNota1->Height, 0, 0);  break;
-		case 120: controladora->CrearNota(bmpNota1->Width, bmpNota1->Height, 0, 0);  break;
+		case 120: controladora->CrearNota(bmpNota1->Width, bmpNota1->Height, 2, 0);  break;
 		case 140: controladora->CrearNota(bmpNota1->Width, bmpNota1->Height, 1, 0);  break;
-		case 170: controladora->CrearNota(bmpNota1->Width, bmpNota1->Height, 1, 0);  break;
+		case 170: controladora->CrearNota(bmpNota1->Width, bmpNota1->Height, 1, 2);  break;
 		case 180: controladora->CrearNota(bmpNota1->Width, bmpNota1->Height, 0, 1);  break;
 		case 380:
 			if (puntaje >= 10) {

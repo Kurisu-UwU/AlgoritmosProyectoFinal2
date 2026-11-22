@@ -15,7 +15,7 @@ namespace AlgoritmosProyectoFinal2 {
 	public ref class NivelRitmo : public System::Windows::Forms::Form
 	{
 	public:
-		NivelRitmo(int n)
+		NivelRitmo(int n, SpiderPunk* punkquiero)
 		{
 			InitializeComponent();
 			nivel = n;
@@ -26,6 +26,7 @@ namespace AlgoritmosProyectoFinal2 {
 			bmpMapaMusical = gcnew Bitmap("Imagenes/PunkMapaMusical.png");
 			controladora = new ControladoraNivelRitmo();
 			for (int i = 0; i < 12; i++) controladora->CrearNota(64, 64, 0, 0);
+			punk = punkquiero;
 		}
 
 	protected:
@@ -87,7 +88,9 @@ namespace AlgoritmosProyectoFinal2 {
 			this->Text = L"NivelRitmo";
 			this->FormClosing += gcnew System::Windows::Forms::FormClosingEventHandler(this, &NivelRitmo::NivelRitmo_FormClosing);
 			this->Load += gcnew System::EventHandler(this, &NivelRitmo::NivelRitmo_Load);
+			this->KeyDown += gcnew System::Windows::Forms::KeyEventHandler(this, &NivelRitmo::NivelRitmo_KeyDown);
 			this->ResumeLayout(false);
+
 		}
 #pragma endregion
 	private: System::Void NivelRitmo_Load(System::Object^ sender, System::EventArgs^ e) {
@@ -96,17 +99,15 @@ namespace AlgoritmosProyectoFinal2 {
 		buffer = space->Allocate(gr, this->ClientRectangle);
 		timer1->Interval = 1;
 		timer1->Start();
-		punk = new SpiderPunk();
-		punk->SetPX(50);
-		punk->SetPY(50);
+		punk->SetPY(350);
 	}
 	private: System::Void timer1_Tick(System::Object^ sender, System::EventArgs^ e) {
 		if (this->IsDisposed || !this->Visible || buffer == nullptr || gr == nullptr || !controladora) return;
 		buffer->Graphics->DrawImage(bmpMapaMusical, 0, 0, this->Width, this->Height);
-		punk->Dibujar(buffer->Graphics, bmpPunk);
 		switch (nivel) {
 		case 1:
 			NivelesRitmo1(buffer->Graphics, controladora, 1, bmpNota1, bmpNota2, bmpNota3);
+			punk->DibujarRitmo(buffer->Graphics, bmpPunk);
 			break;
 		default: break;
 		}
@@ -115,5 +116,26 @@ namespace AlgoritmosProyectoFinal2 {
 	private: System::Void NivelRitmo_FormClosing(System::Object^ sender, System::Windows::Forms::FormClosingEventArgs^ e) {
 		timer1->Stop();
 	}
-	};
+	private: System::Void NivelRitmo_KeyDown(System::Object^ sender, System::Windows::Forms::KeyEventArgs^ e) {
+		switch (e->KeyCode) {
+
+		case Keys::A:
+			punk->PunkMoverRitmo(buffer->Graphics, 'A');
+			break;
+
+		case Keys::D:
+			punk->PunkMoverRitmo(buffer->Graphics, 'D');
+			break;
+
+		case Keys::W:
+			punk->PunkMoverRitmo(buffer->Graphics, 'W');
+			break;
+
+		case Keys::S:
+			punk->PunkMoverRitmo(buffer->Graphics, 'S');
+			break;
+		default: break;
+		}
+	}
+};
 }
