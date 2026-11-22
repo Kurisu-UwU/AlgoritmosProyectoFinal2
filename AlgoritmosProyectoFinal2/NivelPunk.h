@@ -61,15 +61,9 @@ namespace AlgoritmosProyectoFinal2 {
 		}
 
 		void CargarNivelMusical(int n) {
-			NivelRitmo^ frm = gcnew NivelRitmo(1);
+			NivelRitmo^ frm = gcnew NivelRitmo(n);
 			frm->ShowDialog();
 			delete frm;
-
-			switch (n) {
-			case 1: {}
-
-			}
-
 			controladora->LimpiarObstaculos();
 		}
 

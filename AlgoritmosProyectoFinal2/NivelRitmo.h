@@ -82,7 +82,6 @@ namespace AlgoritmosProyectoFinal2 {
 			this->FormClosing += gcnew System::Windows::Forms::FormClosingEventHandler(this, &NivelRitmo::NivelRitmo_FormClosing);
 			this->Load += gcnew System::EventHandler(this, &NivelRitmo::NivelRitmo_Load);
 			this->ResumeLayout(false);
-
 		}
 #pragma endregion
 	private: System::Void NivelRitmo_Load(System::Object^ sender, System::EventArgs^ e) {
@@ -94,7 +93,10 @@ namespace AlgoritmosProyectoFinal2 {
 	private: System::Void timer1_Tick(System::Object^ sender, System::EventArgs^ e) {
 		if (this->IsDisposed || !this->Visible || buffer == nullptr || gr == nullptr || !controladora) return;
 		buffer->Graphics->DrawImage(bmpMapaMusical, 0, 0, this->Width, this->Height);
-		NivelesRitmo1(gr, controladora, nivel, bmpNota1, bmpNota2, bmpNota3);
+		switch (nivel) {
+		case 1:
+			NivelesRitmo1(gr, controladora, 1, bmpNota1, bmpNota2, bmpNota3);
+		}
 		buffer->Render(gr);
 	}
 	private: System::Void NivelRitmo_FormClosing(System::Object^ sender, System::Windows::Forms::FormClosingEventArgs^ e) {
