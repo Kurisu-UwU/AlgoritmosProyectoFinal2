@@ -26,6 +26,7 @@ namespace AlgoritmosProyectoFinal2 {
 			bmpMapaMusical = gcnew Bitmap("Imagenes/PunkMapaMusical.png");
 			controladora = new ControladoraNivelRitmo();
 			punk = punkquiero;
+			::tiempo = 0;   // reinicia el reloj global en cada cofre (si cerraste a la mitad quedaba sucio)
 		}
 
 	protected:
@@ -142,5 +143,5 @@ namespace AlgoritmosProyectoFinal2 {
 		default: break;
 		}
 	}
-};
+	};
 }

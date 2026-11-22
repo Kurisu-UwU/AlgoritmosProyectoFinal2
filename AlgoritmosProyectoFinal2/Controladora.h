@@ -18,7 +18,7 @@ private:
     vector<Enemigo*> enemigos;
     vector<Perseguidor*> seguidores;
     vector<Puerta*> puertas;
-    Jefe* jefe;
+    Jefe* jefe = nullptr;
 
 public:
     Controladora() {}
@@ -128,7 +128,7 @@ public:
         jefe->Actualizar(protagonista, anchoMapa, altoMapa, obstaculos);
     }
     void DibujarJefe(Graphics^ g, Bitmap^ bmp) {
-            jefe->Dibujar(g, bmp);
+        jefe->Dibujar(g, bmp);
     }
 
     // =====
@@ -155,7 +155,7 @@ public:
         Cofre* c = new Cofre(x, y, 0, alto, ancho, true);
         c->SetId(id);
         c->SetAbierto(abierto);
-        objetos.push_back(c);
+        cofres.push_back(c);   // antes iba a 'objetos' pero DibujarCofres/CofreColisionando leen 'cofres'
     }
     void DibujarCofres(Graphics^ g, Bitmap^ cerrado, Bitmap^ abierto) {
         for (int i = 0; i < cofres.size(); i++) cofres[i]->DibujarCofre(g, cerrado, abierto);
@@ -175,6 +175,13 @@ public:
             delete objetos[i];
         }
         objetos.clear();
+        LimpiarCofres();
+    }
+    void LimpiarCofres() {
+        for (int i = 0; i < cofres.size(); i++) {
+            delete cofres[i];
+        }
+        cofres.clear();
     }
     void LimpiarJefe() {
         if (jefe != nullptr) {

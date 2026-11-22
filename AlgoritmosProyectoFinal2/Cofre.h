@@ -18,7 +18,9 @@ public:
     void DibujarCofre(Graphics^ g, Bitmap^ bmp, Bitmap^ bmp2) {
         if (existencia) {
             Rectangle destino(x, y, anchura, altura);
-            g->DrawImage(bmp, destino);
+            Bitmap^ temp;
+            if (abierto) temp = bmp2; else temp = bmp;
+            g->DrawImage(temp, destino);   // bmp = cerrado, bmp2 = abierto
         }
     }
     bool Colisionar(Protagonista* personaje) override {
