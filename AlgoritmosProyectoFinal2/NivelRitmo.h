@@ -2,6 +2,7 @@
 #include "ControladoraNivelRitmo.h"
 #include "VariablesGlobales.h"
 #include "NivelesRitmo.h"
+#include "SpiderPunk.h"
 namespace AlgoritmosProyectoFinal2 {
 
 	using namespace System;
@@ -21,9 +22,10 @@ namespace AlgoritmosProyectoFinal2 {
 			bmpNota1 = gcnew Bitmap("Imagenes/NotasMusicales1.png");
 			bmpNota2 = gcnew Bitmap("Imagenes/NotasMusicales2.png");
 			bmpNota3 = gcnew Bitmap("Imagenes/NotasMusicales3.png");
+			bmpPunk = gcnew Bitmap("Imagenes/SpiderPunk.png");
 			bmpMapaMusical = gcnew Bitmap("Imagenes/PunkMapaMusical.png");
 			controladora = new ControladoraNivelRitmo();
-			for (int i = 0; i < 12; i++) controladora->CrearNota(64, 64, 0);
+			for (int i = 0; i < 12; i++) controladora->CrearNota(64, 64, 0, 0);
 		}
 
 	protected:
@@ -41,6 +43,9 @@ namespace AlgoritmosProyectoFinal2 {
 					delete gr; gr = nullptr;
 				}
 				if (components) { delete components; }
+				if (punk != nullptr) {
+					delete punk, punk = nullptr;
+				}
 			}
 		}
 	private: System::ComponentModel::IContainer^ components;
@@ -56,6 +61,7 @@ namespace AlgoritmosProyectoFinal2 {
 		Bitmap^ bmpNota2;
 		Bitmap^ bmpNota3;
 		ControladoraNivelRitmo* controladora;
+		SpiderPunk* punk;
 		int tiempo = 0;
 		int puntuaciontotal = 0;
 	private:
@@ -88,14 +94,21 @@ namespace AlgoritmosProyectoFinal2 {
 		gr = this->CreateGraphics();
 		space = BufferedGraphicsManager::Current;
 		buffer = space->Allocate(gr, this->ClientRectangle);
+		timer1->Interval = 1;
 		timer1->Start();
+		punk = new SpiderPunk();
+		punk->SetPX(50);
+		punk->SetPY(50);
 	}
 	private: System::Void timer1_Tick(System::Object^ sender, System::EventArgs^ e) {
 		if (this->IsDisposed || !this->Visible || buffer == nullptr || gr == nullptr || !controladora) return;
 		buffer->Graphics->DrawImage(bmpMapaMusical, 0, 0, this->Width, this->Height);
+		punk->Dibujar(buffer->Graphics, bmpPunk);
 		switch (nivel) {
 		case 1:
-			NivelesRitmo1(gr, controladora, 1, bmpNota1, bmpNota2, bmpNota3);
+			NivelesRitmo1(buffer->Graphics, controladora, 1, bmpNota1, bmpNota2, bmpNota3);
+			break;
+		default: break;
 		}
 		buffer->Render(gr);
 	}

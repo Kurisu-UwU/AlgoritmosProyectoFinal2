@@ -10,15 +10,15 @@ void NivelesRitmo1(Graphics^ gr, ControladoraNivelRitmo* controladora, int nivel
 	case 1: {
 		controladora->TamboresMovimiento(1, bmpNota1, bmpNota2, bmpNota3, gr);
 		switch (tiempo) {
-		case 20: controladora->RevivirTambor(0, 1, bmpNota1, bmpNota2, bmpNota3, gr); break;
-		case 40: controladora->RevivirTambor(0, 1, bmpNota1, bmpNota2, bmpNota3, gr); break;
-		case 60: controladora->RevivirTambor(1, 1, bmpNota1, bmpNota2, bmpNota3, gr); break;
-		case 90: controladora->RevivirTambor(1, 1, bmpNota1, bmpNota2, bmpNota3, gr); break;
-		case 100: controladora->RevivirTambor(0, 0, bmpNota1, bmpNota2, bmpNota3, gr); break;
-		case 120: controladora->RevivirTambor(0, 0, bmpNota1, bmpNota2, bmpNota3, gr); break;
-		case 140: controladora->RevivirTambor(1, 0, bmpNota1, bmpNota2, bmpNota3, gr); break;
-		case 170: controladora->RevivirTambor(1, 0, bmpNota1, bmpNota2, bmpNota3, gr); break;
-		case 180: controladora->RevivirTambor(0, 1, bmpNota1, bmpNota2, bmpNota3, gr); break;
+		case 20: controladora->CrearNota(bmpNota1->Width, bmpNota1->Height,0, 1); break;
+		case 40: controladora->CrearNota(bmpNota1->Width, bmpNota1->Height, 0, 1); break;
+		case 60: controladora->CrearNota(bmpNota1->Width, bmpNota1->Height, 1, 1);  break;
+		case 90: controladora->CrearNota(bmpNota1->Width, bmpNota1->Height, 1, 1);  break;
+		case 100: controladora->CrearNota(bmpNota1->Width, bmpNota1->Height, 0, 0);  break;
+		case 120: controladora->CrearNota(bmpNota1->Width, bmpNota1->Height, 0, 0);  break;
+		case 140: controladora->CrearNota(bmpNota1->Width, bmpNota1->Height, 1, 0);  break;
+		case 170: controladora->CrearNota(bmpNota1->Width, bmpNota1->Height, 1, 0);  break;
+		case 180: controladora->CrearNota(bmpNota1->Width, bmpNota1->Height, 0, 1);  break;
 		case 380:
 			if (puntaje >= 10) {
 				puntuaciontotal += puntaje;

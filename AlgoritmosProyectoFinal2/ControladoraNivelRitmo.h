@@ -24,28 +24,19 @@ public:
     // =========================
     void TamboresMovimiento(int posparatocar, Bitmap^ bmp1, Bitmap^ bmp2, Bitmap^ bmp3, Graphics^ gr) {
         for (int i = 0; i < (int)notas.size(); i++) {
-            if (!notas[i]->GetVivo()) continue;
-            if (notas[i]->GetX() > posparatocar - 11) { notas[i]->SetX(notas[i]->GetX() - 1); }
-            notas[i]->Dibujar(gr, bmp1, bmp2, bmp3);
-            if (notas[i]->GetX() < posparatocar - 10) { notas[i]->SetVivo(false); }
-        }
-    }
-    void RevivirTambor(short tipo, short nivel, Bitmap^ bmp1, Bitmap^ bmp2, Bitmap^ bmp3, Graphics^ gr) {
-        int y = 18;
-        switch (nivel) {
-        case 0: y = 18; break;
-        case 1: y = 25; break;
-        case 2: y = 32; break;
-        default: break;
+            if (notas[i]->GetVivo()) {
+                if (notas[i]->GetX() > posparatocar - 11) { notas[i]->SetX(notas[i]->GetX() - 1); }
+                notas[i]->Dibujar(gr, bmp1, bmp2, bmp3);
+                if (notas[i]->GetX() < posparatocar - 10) { 
+                    notas[i]->SetVivo(false); 
+                }
+            }
         }
         for (int i = 0; i < (int)notas.size(); i++) {
-            if (!notas[i]->GetVivo()) {
-                notas[i]->SetX(180);
-                notas[i]->SetY(y);
-                notas[i]->SetTipo(tipo);
-                notas[i]->SetVivo(true);
-                notas[i]->Dibujar(gr, bmp1, bmp2, bmp3);
-                break;
+            if (notas[i]->GetVivo() == false) {
+                delete notas[i];
+                notas.erase(notas.begin() + i);
+                i--;
             }
         }
     }
@@ -54,8 +45,11 @@ public:
             if (notas[i]->GetVivo()) { notas[i]->Dibujar(g, bmp, bmp2, bmp3); }
         }
     }
-    void CrearNota(int width, int height, int tipo) {
+    void CrearNota(int width, int height, int tipo, int posY) {
         Notas* ene = new Notas(width, height, tipo);
+        ene->SetX(100);
+        ene->SetY(100);
+        ene->SetVivo(true);
         notas.push_back(ene);
     }
     // =========================
