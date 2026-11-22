@@ -38,9 +38,9 @@ namespace AlgoritmosProyectoFinal2 {
 			controladora->GenerarObstaculo(0, 415, 0, 225, 1210);
 
 			controladora->GenerarCofre(300, 300, 32, 32, 0, CofreAbierto(0));
-			controladora->GenerarCofre(400, 260, 32, 32, 1, CofreAbierto(1));
-			controladora->GenerarCofre(600, 400, 32, 32, 2, CofreAbierto(2));
-			controladora->GenerarPuerta(1400, 0, 60, 840, 2, 60, 340);   // (x, y, ancho, alto, salaDestino, xLlegada, yLlegada)
+			controladora->GenerarCofre(560, 120, 32, 32, 1, CofreAbierto(1));
+			controladora->GenerarCofre(600, 350, 32, 32, 2, CofreAbierto(2));
+			controladora->GenerarPuerta(1200, 0, 60, 840, 2, 60, 340);   // (x, y, ancho, alto, salaDestino, xLlegada, yLlegada)
 		}
 
 		void CargarNivel2() {
@@ -55,8 +55,8 @@ namespace AlgoritmosProyectoFinal2 {
 			controladora->GenerarObstaculo(792, 460, 0, 225, 215);
 			controladora->GenerarObstaculo(0, 468, 0, 285, 435);
 
-			controladora->GenerarPuerta(0, 285, 40, 183, 1, 1250, 300);     // oeste -> sala 1
-			controladora->GenerarPuerta(1400, 0, 60, 840, 3, 60, 650);      // este -> sala 3 (jefe)
+			controladora->GenerarPuerta(0, 285, 40, 183, 1, 1100, 300);     // oeste -> sala 1
+			controladora->GenerarPuerta(1200, 0, 60, 840, 3, 60, 650);      // este -> sala 3 (jefe)
 		}
 
 		void CargarNivel3() {
@@ -128,6 +128,7 @@ namespace AlgoritmosProyectoFinal2 {
 		void DibujarDebug(Graphics^ g, Panel^ panel) {
 			if (!modoDebug) return;
 			controladora->DibujarPuertas(g);
+			controladora->DibujarObstaculos(g);
 			Point m = panel->PointToClient(System::Windows::Forms::Cursor::Position);
 			System::String^ info = "[F2 ocultar]  Mouse: " + System::Convert::ToString(m.X) + ", " + System::Convert::ToString(m.Y)
 				+ "   Punk: " + System::Convert::ToString(punk->GetPX()) + ", " + System::Convert::ToString(punk->GetPY());
@@ -153,7 +154,7 @@ namespace AlgoritmosProyectoFinal2 {
 	private:
 
 		int salaActual = 1;
-		bool modoDebug = true;   // F2: muestra/oculta hitboxes de puertas y coordenadas
+		bool modoDebug = false;   // F2: muestra/oculta hitboxes de puertas y coordenadas
 		bool estadocofre1 = false;
 		bool estadocofre2 = false;
 		bool estadocofre3 = false;
@@ -560,7 +561,6 @@ namespace AlgoritmosProyectoFinal2 {
 
 		if (pnlJuego1->Visible == true) {
 			buffer1->Graphics->DrawImage(bmpMapa1, 0, 0, pnlJuego1->Width * 1.0, pnlJuego1->Height * 1.0);
-			controladora->DibujarObstaculos(buffer1->Graphics);
 			controladora->DibujarCofres(buffer1->Graphics, bmpCofreC, bmpCofreA);
 			punk->Dibujar(buffer1->Graphics, bmpPunk);
 			DibujarDebug(buffer1->Graphics, pnlJuego1);
@@ -568,7 +568,6 @@ namespace AlgoritmosProyectoFinal2 {
 		}
 		if (pnlJuego2->Visible == true) {
 			buffer2->Graphics->DrawImage(bmpMapa2, 0, 0, pnlJuego2->Width * 1.0, pnlJuego2->Height * 1.0);
-			controladora->DibujarObstaculos(buffer2->Graphics);
 			controladora->DibujarCofres(buffer2->Graphics, bmpCofreC, bmpCofreA);
 			punk->Dibujar(buffer2->Graphics, bmpPunk);
 			DibujarDebug(buffer2->Graphics, pnlJuego2);
@@ -576,7 +575,6 @@ namespace AlgoritmosProyectoFinal2 {
 		}
 		if (pnlJuego3->Visible == true) {
 			buffer3->Graphics->DrawImage(bmpMapa3, 0, 0, pnlJuego3->Width * 1.0, pnlJuego3->Height * 1.0);
-			controladora->DibujarObstaculos(buffer3->Graphics);
 			controladora->ActualizarJefes(punk, pnlJuego3->Width, pnlJuego3->Height);
 			controladora->DibujarJefe(buffer3->Graphics, bmpSpot);
 			punk->Dibujar(buffer3->Graphics, bmpPunk);
