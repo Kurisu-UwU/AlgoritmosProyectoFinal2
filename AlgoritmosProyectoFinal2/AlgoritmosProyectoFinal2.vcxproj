@@ -125,6 +125,7 @@
     <ClCompile Include="PantallaPrincipal.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Cofre.h" />
     <ClInclude Include="Controladora.h" />
     <ClInclude Include="ControladoraNivelRitmo.h" />
     <ClInclude Include="Enemigo.h" />
@@ -154,6 +155,7 @@
     <ClInclude Include="Protagonistas.h" />
     <ClInclude Include="Proyectil.h" />
     <ClInclude Include="Proyectiles.h" />
+    <ClInclude Include="Puerta.h" />
     <ClInclude Include="SpiderPunk.h" />
     <ClInclude Include="VariablesGlobales.h" />
   </ItemGroup>

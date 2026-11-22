@@ -37,9 +37,9 @@ namespace AlgoritmosProyectoFinal2 {
 			controladora->GenerarObstaculo(770, 0, 0, 225, 440);
 			controladora->GenerarObstaculo(0, 415, 0, 225, 1210);
 
-			controladora->GenerarObjeto(300, 300, 0, 32, 32);
-			controladora->GenerarObjeto(400, 200, 0, 32, 32);
-			controladora->GenerarObjeto(600, 400, 0, 32, 32);
+			controladora->GenerarCofre(300, 300, 32, 32,1, false);
+			controladora->GenerarCofre(400, 200, 32, 32, 2, false);
+			controladora->GenerarCofre(600, 400, 32, 32, 3, false);
 		}
 
 		void CargarNivel2() {
@@ -519,10 +519,6 @@ private: System::Windows::Forms::Label^ lblPersonaje;
 		   }
 
 	private: System::Void timerJuego_Tick(System::Object^ sender, System::EventArgs^ e) {
-
-
-		
-
 		bufferp->Graphics->DrawImage(bmpPanelControl, 0, 0, pnlDeControl->Width * 1.0, pnlDeControl->Height * 1.0);
 
 		if (pnlJuego1->Visible == true) {
@@ -564,10 +560,7 @@ private: System::Windows::Forms::Label^ lblPersonaje;
 		else {
 			lblSpot->Text = " ";
 		}
-
-		
 	}
-
 	private: System::Void NivelPunk_FormClosing(System::Object^ sender, System::Windows::Forms::FormClosingEventArgs^ e) {
 		timerJuego->Enabled = false;
 	}
@@ -603,7 +596,6 @@ private: System::Windows::Forms::Label^ lblPersonaje;
 		pnlJuego3->Visible = false;
 		pnlJuegoMusical->Visible = true;
 		CargarNivelMusical(1);
-
 	}
 	private: System::Void button3_Click(System::Object^ sender, System::EventArgs^ e) {
 		pnlJuego3->Visible = false;

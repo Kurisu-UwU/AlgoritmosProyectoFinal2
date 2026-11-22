@@ -22,6 +22,9 @@
     <Filter Include="Header Files\Entidades">
       <UniqueIdentifier>{b5049c08-8c7c-4868-930f-8e2e7311f67e}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Header Files\Entidades\Objetos">
+      <UniqueIdentifier>{249f026a-1265-4434-b7be-51018f0d8d9b}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="PantallaPrincipal.cpp">
@@ -62,9 +65,6 @@
     <ClInclude Include="Entidades.h">
       <Filter>Header Files\Entidades</Filter>
     </ClInclude>
-    <ClInclude Include="Objeto.h">
-      <Filter>Header Files\Entidades</Filter>
-    </ClInclude>
     <ClInclude Include="Obstaculos.h">
       <Filter>Header Files\Entidades</Filter>
     </ClInclude>
@@ -91,6 +91,15 @@
     </ClInclude>
     <ClInclude Include="Jefe.h">
       <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Puerta.h">
+      <Filter>Header Files\Entidades</Filter>
+    </ClInclude>
+    <ClInclude Include="Objeto.h">
+      <Filter>Header Files\Entidades\Objetos</Filter>
+    </ClInclude>
+    <ClInclude Include="Cofre.h">
+      <Filter>Header Files\Entidades\Objetos</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
