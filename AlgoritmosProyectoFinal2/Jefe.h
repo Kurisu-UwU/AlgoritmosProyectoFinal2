@@ -8,17 +8,24 @@ using namespace System::Drawing;
 class Jefe : public Perseguidor {
 private:
     int contador;
-    int intervalo;
+    int intervaloteletransportacion;
     int esquinaActual;
+
+    bool animandoTeleport = false;
+    bool teletransportado = false;
+
+    int contadorAnimacion = 0;
+    int velocidadAnimacion = 1;
+
+    int nuevaX, nuevaY;
+    int siguienteTeleport;
 
 public:
 
-    Jefe(int x, int y, int velocidad,
-        int alto, int ancho, bool existencia, int intervalo1)
-        : Perseguidor(x, y, velocidad, alto, ancho, existencia) {
+    Jefe(int x, int y, int velocidad, int alto, int ancho, bool existencia, int intervalo1): Perseguidor(x, y, velocidad, alto, ancho, existencia) {
 
         contador = 0;
-        intervalo = intervalo1;
+        intervaloteletransportacion = intervalo1;
         esquinaActual = -1;
     }
 
@@ -26,40 +33,25 @@ public:
         const vector<Obstaculos*>& obstaculos) {
 
         int esquinas[4][2] = {
-            {0, 0},
-            {anchoMapa - anchura, 0},
-            {0, altoMapa - altura},
-            {anchoMapa - anchura, altoMapa - altura}
+            {15, 420},
+            {1120, 420},
+            {15, 600},
+            {1120, 600}
         };
 
-        for (int i = 0; i < 4; i++) {
+        int siguiente = (esquinaActual + 1) % 4;
 
-            int siguiente = (esquinaActual + i + 1) % 4;
+        nuevaX = esquinas[siguiente][0];
+        nuevaY = esquinas[siguiente][1];
 
-            int nuevaX = esquinas[siguiente][0];
-            int nuevaY = esquinas[siguiente][1];
+        siguienteTeleport = siguiente;
 
-            Rectangle rectJefe(nuevaX, nuevaY, anchura, altura);
+        idY = 8;
+        idX = 0;
 
-            bool puedeTeletransportarse = true;
-
-            for (int j = 0; j < obstaculos.size(); j++) {
-
-                if (obstaculos[j] != nullptr &&
-                    obstaculos[j]->CrearRectangle().IntersectsWith(rectJefe)) {
-
-                    puedeTeletransportarse = false;
-                    break;
-                }
-            }
-
-            if (puedeTeletransportarse) {
-                x = nuevaX;
-                y = nuevaY;
-                esquinaActual = siguiente;
-                return;
-            }
-        }
+        contadorAnimacion = 0;
+        animandoTeleport = true;
+        teletransportado = false;
     }
 
     void Actualizar(Protagonista* protagonista,
@@ -70,19 +62,55 @@ public:
             return;
         }
 
+        if (animandoTeleport) {
+
+            contadorAnimacion++;
+
+            if (contadorAnimacion >= velocidadAnimacion) {
+
+                contadorAnimacion = 0;
+
+                if (!teletransportado) {
+
+                    if (idX < 15) {
+                        idX++;
+                    }
+                    else {
+                        x = nuevaX;
+                        y = nuevaY;
+
+                        teletransportado = true;
+                    }
+                }
+
+                else {
+
+                    if (idX > 0) {
+                        idX--;
+                    }
+                    else {
+                        animandoTeleport = false;
+                        teletransportado = false;
+
+                        esquinaActual = siguienteTeleport;
+                    }
+                }
+            }
+
+            return;
+        }
+
         contador++;
 
-        if (contador >= intervalo) {
+        if (contador >= intervaloteletransportacion) {
 
             contador = 0;
 
-            int xAnterior = x;
-            int yAnterior = y;
-
             Teletransportar(anchoMapa, altoMapa, obstaculos);
 
-            if (x != xAnterior || y != yAnterior)
+            if (animandoTeleport) {
                 return;
+            }
         }
 
         Perseguir(protagonista, obstaculos);

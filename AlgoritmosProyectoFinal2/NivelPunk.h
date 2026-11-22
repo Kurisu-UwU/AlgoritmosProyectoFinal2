@@ -60,7 +60,7 @@ namespace AlgoritmosProyectoFinal2 {
 			controladora->LimpiarObjetos();
 
 			controladora->GenerarObstaculo(0, 385, 0, 40, 1210);
-			Jefe* spot = new Jefe(700, 300, 5, 64, 64, true, 120);
+			Jefe* spot = new Jefe(700, 300, 5, 64, 64, true, 20);
 			controladora->DefinirJefe(spot);
 
 
