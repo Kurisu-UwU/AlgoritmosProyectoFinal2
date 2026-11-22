@@ -9,12 +9,14 @@ class Perseguidor : public Entidad {
 protected:
     int idX, idY;
     char orientacion;
+    int vida;
 public:
 
     Perseguidor(int x1, int y1, int velocidad,
         int alto, int ancho, bool exis)
         : Entidad(x1, y1, velocidad, alto, ancho, exis) {
         idX = idY = 0;
+        vida = 20;
     }
 
     ~Perseguidor() { }
@@ -85,4 +87,9 @@ public:
     Rectangle CrearRectangle() {
         return Rectangle(x, y, anchura, altura);
     }
+
+    int getVida() {
+        return vida;
+    }
+
 };
