@@ -17,11 +17,11 @@ public:
 	int GetY() { return y; }
 	int GetFX() { return dx; }
 };
-Proyectiles::Proyectiles() { x = 10; y = 10; dx = dy = 1; }
-Proyectiles::~Proyectiles() {}
-void Proyectiles::Borrar() { }
-void Proyectiles::Dibujar(Graphics^ g, Bitmap^ bmp,Bitmap^ bmp2, Bitmap^ bmp3) {  }
-void Proyectiles::Mover() {
+inline Proyectiles::Proyectiles() { x = 10; y = 10; dx = dy = 1; }
+inline Proyectiles::~Proyectiles() {}
+inline void Proyectiles::Borrar() { }
+inline void Proyectiles::Dibujar(Graphics^ g, Bitmap^ bmp,Bitmap^ bmp2, Bitmap^ bmp3) {  }
+inline void Proyectiles::Mover() {
 	if (uwu == true) {
 		int random = rand() % 3;
 		y = (rand() % 46) + 1;

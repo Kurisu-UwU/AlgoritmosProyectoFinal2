@@ -1,5 +1,7 @@
 #pragma once
 #include "ControladoraNivelRitmo.h"
+#include "VariablesGlobales.h"
+#include "NivelesRitmo.h"
 namespace AlgoritmosProyectoFinal2 {
 
 	using namespace System;
@@ -9,27 +11,19 @@ namespace AlgoritmosProyectoFinal2 {
 	using namespace System::Data;
 	using namespace System::Drawing;
 
-	/// <summary>
-	/// Summary for NivelRitmo
-	/// </summary>
 	public ref class NivelRitmo : public System::Windows::Forms::Form
 	{
 	public:
 		NivelRitmo(int n)
 		{
 			InitializeComponent();
-			//
-			//TODO: Add the constructor code here
-			//
-			gr = this->CreateGraphics();
-			space = BufferedGraphicsManager::Current;
-			buffer = space->Allocate(gr, this->ClientRectangle);
 			nivel = n;
 			bmpNota1 = gcnew Bitmap("Imagenes/NotasMusicales1.png");
 			bmpNota2 = gcnew Bitmap("Imagenes/NotasMusicales2.png");
 			bmpNota3 = gcnew Bitmap("Imagenes/NotasMusicales3.png");
 			bmpMapaMusical = gcnew Bitmap("Imagenes/PunkMapaMusical.png");
 			controladora = new ControladoraNivelRitmo();
+			for (int i = 0; i < 12; i++) controladora->CrearNota(64, 64, 0);
 		}
 
 	protected:
@@ -40,17 +34,19 @@ namespace AlgoritmosProyectoFinal2 {
 		{
 			if (components)
 			{
-				delete components;
+				if (timer1 != nullptr) timer1->Stop();
+				if (controladora) { delete controladora; controladora = nullptr; }
+				if (buffer != nullptr) { delete buffer; buffer = nullptr; }
+				if (gr != nullptr) {
+					delete gr; gr = nullptr;
+				}
+				if (components) { delete components; }
 			}
 		}
 	private: System::ComponentModel::IContainer^ components;
 	protected:
 
 	private:
-		/// <summary>
-		/// Required designer variable.
-		/// </summary>
-
 		Graphics^ gr;
 		BufferedGraphicsContext^ space;
 		BufferedGraphics^ buffer;
@@ -60,14 +56,12 @@ namespace AlgoritmosProyectoFinal2 {
 		Bitmap^ bmpNota2;
 		Bitmap^ bmpNota3;
 		ControladoraNivelRitmo* controladora;
-	private: System::Windows::Forms::Timer^ timer1;
-		   int nivel;
-
+		int tiempo = 0;
+		int puntuaciontotal = 0;
+	private:
+		System::Windows::Forms::Timer^ timer1;
+		int nivel;
 #pragma region Windows Form Designer generated code
-		/// <summary>
-		/// Required method for Designer support - do not modify
-		/// the contents of this method with the code editor.
-		/// </summary>
 		void InitializeComponent(void)
 		{
 			this->components = (gcnew System::ComponentModel::Container());
@@ -76,7 +70,6 @@ namespace AlgoritmosProyectoFinal2 {
 			// 
 			// timer1
 			// 
-			this->timer1->Enabled = true;
 			this->timer1->Tick += gcnew System::EventHandler(this, &NivelRitmo::timer1_Tick);
 			// 
 			// NivelRitmo
@@ -86,21 +79,26 @@ namespace AlgoritmosProyectoFinal2 {
 			this->ClientSize = System::Drawing::Size(974, 575);
 			this->Name = L"NivelRitmo";
 			this->Text = L"NivelRitmo";
+			this->FormClosing += gcnew System::Windows::Forms::FormClosingEventHandler(this, &NivelRitmo::NivelRitmo_FormClosing);
 			this->Load += gcnew System::EventHandler(this, &NivelRitmo::NivelRitmo_Load);
 			this->ResumeLayout(false);
 
 		}
 #pragma endregion
 	private: System::Void NivelRitmo_Load(System::Object^ sender, System::EventArgs^ e) {
-
+		gr = this->CreateGraphics();
+		space = BufferedGraphicsManager::Current;
+		buffer = space->Allocate(gr, this->ClientRectangle);
+		timer1->Start();
 	}
 	private: System::Void timer1_Tick(System::Object^ sender, System::EventArgs^ e) {
-		switch (nivel) {
-		case 1:
-			buffer->Graphics->DrawImage(bmpMapaMusical, 0, 0, this->Width, this->Height);
-			controladora->dibujar_elementos(gr, bmpNota1, bmpNota2, bmpNota3);
-			buffer->Render(gr);
-		}
+		if (this->IsDisposed || !this->Visible || buffer == nullptr || gr == nullptr || !controladora) return;
+		buffer->Graphics->DrawImage(bmpMapaMusical, 0, 0, this->Width, this->Height);
+		NivelesRitmo1(gr, controladora, nivel, bmpNota1, bmpNota2, bmpNota3);
+		buffer->Render(gr);
+	}
+	private: System::Void NivelRitmo_FormClosing(System::Object^ sender, System::Windows::Forms::FormClosingEventArgs^ e) {
+		timer1->Stop();
 	}
 	};
 }

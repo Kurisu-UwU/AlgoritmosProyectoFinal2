@@ -59,10 +59,10 @@ namespace AlgoritmosProyectoFinal2 {
 		void CargarNivelMusical(int n) {
 			NivelRitmo^ frm = gcnew NivelRitmo(1);
 			frm->ShowDialog();
+			delete frm;
 
 			switch (n) {
-			case 1: 	
-				frm->ShowDialog();
+			case 1: {}
 
 			}
 

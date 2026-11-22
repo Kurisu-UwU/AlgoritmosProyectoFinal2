@@ -129,6 +129,7 @@
     <ClInclude Include="ControladoraNivelRitmo.h" />
     <ClInclude Include="Entidades.h" />
     <ClInclude Include="MilesMorales.h" />
+    <ClInclude Include="NivelesRitmo.h" />
     <ClInclude Include="NivelMiguel.h">
       <FileType>CppForm</FileType>
     </ClInclude>
@@ -150,6 +151,7 @@
     <ClInclude Include="Protagonistas.h" />
     <ClInclude Include="Proyectiles.h" />
     <ClInclude Include="SpiderPunk.h" />
+    <ClInclude Include="VariablesGlobales.h" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="NivelMiguel.resx">

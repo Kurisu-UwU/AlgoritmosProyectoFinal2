@@ -74,5 +74,11 @@
     <ClInclude Include="Proyectiles.h">
       <Filter>Header Files\Entidades</Filter>
     </ClInclude>
+    <ClInclude Include="VariablesGlobales.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="NivelesRitmo.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>
