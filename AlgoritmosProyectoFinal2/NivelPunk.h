@@ -64,6 +64,7 @@ namespace AlgoritmosProyectoFinal2 {
 		}
 
 		void CargarNivel3() {
+			modoDebug = false;
 			controladora->LimpiarPuertas();
 			controladora->LimpiarObstaculos();
 			controladora->LimpiarObjetos();
@@ -181,9 +182,18 @@ namespace AlgoritmosProyectoFinal2 {
 				delete components;
 			}
 		}
+	protected:
+		virtual bool ProcessCmdKey(Message% msg, Keys keyData) override {
+			if (novela != nullptr && novela->EstaActivo()) {
+				novela->ProcesarTecla(keyData & Keys::KeyCode); 
+				return true;                                
+			}
+			return Form::ProcessCmdKey(msg, keyData);
+		}
 	private: System::Windows::Forms::Panel^ pnlDeControl;
 	private: System::Windows::Forms::Panel^ pnlJuego1;
 	protected:
+
 
 	private: System::Windows::Forms::Timer^ timerJuego;
 
