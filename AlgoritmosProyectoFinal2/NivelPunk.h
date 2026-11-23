@@ -74,10 +74,20 @@ namespace AlgoritmosProyectoFinal2 {
 			controladora->DefinirJefe(spot);
 			combateTerminado = false;
 			if (!dialogoSpotMostrado && novela != nullptr) {
-				dialogoSpotMostrado = true;  
-				novela->Iniciar(2);           
+				dialogoSpotMostrado = true;
+				novela->Iniciar(2);
 			}
+
+			controladora->AgregarMancha(1150, 450, 50, 50);
+			controladora->AgregarMancha(1150, 520, 50, 50);
+			controladora->AgregarMancha(1150, 590, 50, 50);
+			controladora->AgregarMancha(20, 450, 50, 50);
+			controladora->AgregarMancha(20, 520, 50, 50);
+			controladora->AgregarMancha(20, 590, 50, 50);
+
+			//controladora->GenerarPuerta(0, 560, 40, 280, 2, 1250, 380);     // oeste -> sala 2
 		}
+			
 		bool CofreAbierto(int id) {
 			switch (id) {
 			case 0:
@@ -201,6 +211,7 @@ namespace AlgoritmosProyectoFinal2 {
 		BufferedGraphics^ buffer2;
 		BufferedGraphics^ buffer3;
 		BufferedGraphics^ bufferp;
+		Bitmap^ bmpMancha;
 		Bitmap^ bmpPanelControl;
 		Bitmap^ bmpMapa1;
 		Bitmap^ bmpMapa2;
@@ -635,6 +646,7 @@ private: System::Windows::Forms::Label^ label4;
 			   bmpNota2 = gcnew Bitmap("Imagenes/NotasMusicales2.png");
 			   bmpNota3 = gcnew Bitmap("Imagenes/NotasMusicales3.png");
 			   bmpProyectilMalo = gcnew Bitmap("Imagenes/Misiles.png");
+			   bmpMancha = gcnew Bitmap("Imagenes/ManchaSpot.png");
 
 			   punk = new SpiderPunk(100, 300, 64, 64, 100, 10, 10, 100, 100, 0, "Punk", 'S', 1, 1);
 			   novela = gcnew NovelaVisual(pnlTexto);
@@ -662,6 +674,9 @@ private: System::Windows::Forms::Label^ label4;
 		}
 		if (pnlJuego3->Visible == true) {
 			buffer3->Graphics->DrawImage(bmpMapa3, 0, 0, pnlJuego3->Width * 1.0, pnlJuego3->Height * 1.0);
+			controladora->DibujarManchas(buffer3->Graphics, bmpMancha);
+			controladora->ActualizarJefes(punk, pnlJuego3->Width, pnlJuego3->Height);
+			controladora->ActualizarProyectiles(pnlJuego3->Width, pnlJuego3->Height);
 			if (!novela->EstaActivo()) {
 				controladora->ActualizarJefes(punk, pnlJuego3->Width, pnlJuego3->Height);
 				controladora->ActualizarProyectiles(pnlJuego3->Width, pnlJuego3->Height);

@@ -13,6 +13,7 @@
 #include "Proyectil.h"
 #include "ProyectilHorizontal.h"
 #include "NotaAtaque.h"
+#include "Mancha.h"
 
 using namespace std;
 
@@ -26,6 +27,7 @@ private:
     vector<Perseguidor*> seguidores;
     vector<Puerta*> puertas;
     vector<Proyectil*> proyectiles;
+    vector<Mancha*> manchas;
     Jefe* jefe;
     vector<ProyectilHorizontal*> proyectilesHorizontales;
     vector<NotaAtaque*> notasAtaque;
@@ -177,6 +179,21 @@ public:
         }
         else {
             jefeColisionando = false;
+        }
+    }
+
+    // =======
+    // Manchas
+    // =======
+
+
+    void AgregarMancha(int x, int y, int ancho, int alto) {
+        manchas.push_back(new Mancha(x, y, ancho, alto));
+    }
+
+    void DibujarManchas(Graphics^ g, Bitmap^ bmp) {
+        for (int i = 0; i < manchas.size(); i++) {
+            manchas[i]->Dibujar(g, bmp);
         }
     }
 
@@ -346,8 +363,16 @@ public:
         proyectiles.clear();
     }
     void LimpiarObjetos() {
-        for (int i = 0; i < objetos.size(); i++) {delete objetos[i];}
+        for (int i = 0; i < objetos.size(); i++) {
+            delete objetos[i];
+        }
         objetos.clear();
+
+        for (int i = 0; i < manchas.size(); i++) {
+            delete manchas[i];
+        }
+        manchas.clear();
+
         LimpiarCofres();
     }
     void LimpiarCofres() {
