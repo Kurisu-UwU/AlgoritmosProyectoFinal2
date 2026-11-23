@@ -113,5 +113,8 @@
     <ClInclude Include="NotaAtaque.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="Dialogos.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>

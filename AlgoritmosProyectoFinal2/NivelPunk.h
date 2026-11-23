@@ -2,6 +2,7 @@
 #include "SpiderPunk.h"
 #include "Controladora.h"
 #include "NivelRitmo.h"
+#include "Dialogos.h"
 namespace AlgoritmosProyectoFinal2 {
 
 	using namespace System;
@@ -159,6 +160,20 @@ namespace AlgoritmosProyectoFinal2 {
 			}
 			return false;
 		}
+		void IniciarIntroPunk() {
+			novela->AgregarTitulo("Anarquia entre los 2 caminos", 25);
+			novela->AgregarTitulo("A ROCKEAR!", 50);
+			novela->Agregar("Spider Punk", Perfil::Punk, true, "... Que.... problematico", 25);
+			novela->Agregar("Spider Punk", Perfil::Punk, true, "Bien... tengo cosas pendientes por hacer", 40);
+			novela->Agregar("Spider Punk", Perfil::Punk, true, "... adios", 50);
+			novela->Agregar("Gwen Stacy", Perfil::Gwen, false, "Vas a dejarnos justo ahora?!... EN UN MOMENTO COMO ESTE???", 50);
+			novela->Agregar("Gwen Stacy", Perfil::Gwen, false, "Tenemos que hablar con miles, el tiene que... entender... que el canon no puede cambiarse...", 50);
+			novela->Agregar("Spider Punk", Perfil::Punk, true, "... Como dije, tengo asuntos pendientes, a no ser que quieras venir conmigo", 50);
+			novela->Agregar("Spider Punk", Perfil::Punk, true, "Vas a tener que encontrar cofres y recolectar tornillos...", 50);
+			novela->Agregar("Gwen Stacy", Perfil::Gwen, false, "Tornillos?... bueno.. mas te vale que sea importante...", 50);
+			novela->Agregar("Gwen Stacy", Perfil::Gwen, false, "Bueno... sabes donde encontrarme", 50);
+			novela->Iniciar();
+		}
 	protected:
 		~NivelPunk()
 		{
@@ -202,6 +217,7 @@ namespace AlgoritmosProyectoFinal2 {
 		Bitmap^ bmpMapa3;
 		Bitmap^ bmpMapaMusical;
 		Bitmap^ bmpPunk;
+		NovelaVisual^ novela;
 		Bitmap^ bmpSpot;
 		Bitmap^ bmpCofreC;
 		Bitmap^ bmpCofreA;
@@ -595,6 +611,7 @@ private: System::Windows::Forms::Label^ label4;
 
 		   }
 #pragma endregion
+
 		   System::Void NivelPunk_Load(System::Object^ sender, System::EventArgs^ e) {
 
 			   grp = pnlDeControl->CreateGraphics();
@@ -628,11 +645,14 @@ private: System::Windows::Forms::Label^ label4;
 			   bmpProyectilMalo = gcnew Bitmap("Imagenes/Misiles.png");
 
 			   punk = new SpiderPunk(100, 300, 64, 64, 100, 10, 10, 100, 100, 0, "Punk", 'S', 1, 1);
+			   novela = gcnew NovelaVisual(panel1);
 			   IrASala(1, 100, 300);
+			   IniciarIntroPunk();
 		   }
 
 	private: System::Void timerJuego_Tick(System::Object^ sender, System::EventArgs^ e) {
 		bufferp->Graphics->DrawImage(bmpPanelControl, 0, 0, pnlDeControl->Width * 1.0, pnlDeControl->Height * 1.0);
+		if (!(novela != nullptr && novela->Activo)) bufferp->Render(grp);
 
 		if (pnlJuego1->Visible == true) {
 			buffer1->Graphics->DrawImage(bmpMapa1, 0, 0, pnlJuego1->Width * 1.0, pnlJuego1->Height * 1.0);
@@ -677,8 +697,14 @@ private: System::Windows::Forms::Label^ label4;
 	}
 	private: System::Void NivelPunk_FormClosing(System::Object^ sender, System::Windows::Forms::FormClosingEventArgs^ e) {
 		timerJuego->Enabled = false;
+		if (novela != nullptr) novela->Liberar();
 	}
 	private: System::Void NivelPunk_KeyDown(System::Object^ sender, System::Windows::Forms::KeyEventArgs^ e) {
+		if (novela != nullptr && novela->Activo) {
+			novela->ProcesarTecla(e->KeyCode);
+			e->SuppressKeyPress = true;
+			return;
+		}
 		int xAnterior = punk->GetPX();
 		int yAnterior = punk->GetPY();
 		switch (e->KeyCode) {
