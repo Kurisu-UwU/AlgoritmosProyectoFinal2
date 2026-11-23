@@ -107,5 +107,11 @@
     <ClInclude Include="ProyectilHorizontal.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="Laser.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="NotaAtaque.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>
