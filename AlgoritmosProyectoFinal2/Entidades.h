@@ -1,7 +1,7 @@
 #pragma once
 class Entidad {
 protected:
-	int x, y, dx, anchura, altura;
+	int x, y, dx, dy, anchura, altura;
 	bool existencia;
 public:
 	Entidad();
@@ -12,6 +12,7 @@ public:
 	void SetX(int x1) { x = x1; }
 	void SetY(int y1) { y = y1; }
 	void SetVelocidad(int dx1) { dx = dx1; }
+	void SetVelocidadVertical(int dy1) { dy = dy1; }
 	void SetAncho(int anc) { anchura = anc; }
 	void SetAlto(int alt) { altura = alt; }
 	void SetExsistencia(bool exis) { existencia = exis; }

@@ -26,6 +26,7 @@ namespace AlgoritmosProyectoFinal2 {
 
 			controladora = new Controladora();
 			this->KeyPreview = true;
+			srand((unsigned int)time(nullptr));
 		}
 		void CargarNivel1() {
 			controladora->LimpiarPuertas();
@@ -65,9 +66,12 @@ namespace AlgoritmosProyectoFinal2 {
 			controladora->LimpiarObjetos();
 			controladora->LimpiarPuertas();
 
+			controladora->LimpiarJefe();
+
 			controladora->GenerarObstaculo(0, 385, 0, 40, 1210);
 			Jefe* spot = new Jefe(700, 300, 5, 64, 64, true, 20);
 			controladora->DefinirJefe(spot);
+			combateTerminado = false;
 
 			//controladora->GenerarPuerta(0, 560, 40, 280, 2, 1250, 380);     // oeste -> sala 2
 		}
@@ -135,6 +139,26 @@ namespace AlgoritmosProyectoFinal2 {
 			g->FillRectangle(Brushes::Black, 0, 0, 430, 20);
 			g->DrawString(info, SystemFonts::DefaultFont, Brushes::Lime, 4.0f, 4.0f);
 		}
+		bool ComprobarFinCombate() {
+			Jefe* spot = controladora->getJefe();
+			if (spot == nullptr || combateTerminado) return false;
+
+			if (spot->getVida() <= 0) {
+				combateTerminado = true;
+				timerJuego->Enabled = false;
+				MessageBox::Show("Derrotaste a Spot! Nivel completado.");
+				this->DialogResult = System::Windows::Forms::DialogResult::OK;   // cierra el nivel y vuelve al menu
+				return true;
+			}
+			if (punk->getVida() <= 0) {
+				timerJuego->Enabled = false;   // el MessageBox procesa mensajes: sin esto el timer se re-entra
+				MessageBox::Show("Spot te derroto. Intentalo de nuevo!");
+				IrASala(3, 60, 650);           // recarga la sala: Spot, lasers y vida de Punk reiniciados
+				timerJuego->Enabled = true;
+				return true;
+			}
+			return false;
+		}
 	protected:
 		~NivelPunk()
 		{
@@ -158,6 +182,7 @@ namespace AlgoritmosProyectoFinal2 {
 		bool estadocofre1 = false;
 		bool estadocofre2 = false;
 		bool estadocofre3 = false;
+		bool combateTerminado = false;
 
 		Graphics^ gr1;
 		Graphics^ gr2;
@@ -600,10 +625,12 @@ namespace AlgoritmosProyectoFinal2 {
 			controladora->DibujarProyectiles(buffer3->Graphics, bmpNota1);
 			controladora->ActualizarProyectilesHorizontales(punk, pnlJuego3->Width);
 			controladora->DibujarProyectilesHorizontales(buffer3->Graphics, bmpProyectilMalo);
+			controladora->DibujarNotasAtaque(buffer3->Graphics, bmpNota2, bmpNota1);
 			controladora->DibujarJefe(buffer3->Graphics, bmpSpot);
 			punk->Dibujar(buffer3->Graphics, bmpPunk);
 			DibujarDebug(buffer3->Graphics, pnlJuego3);
 			buffer3->Render(gr3);
+			if (ComprobarFinCombate()) return;
 		}
 
 		bufferp->Render(grp);
@@ -639,7 +666,9 @@ namespace AlgoritmosProyectoFinal2 {
 			punk->move(buffer1->Graphics, 'S');
 			break;
 		case Keys::F:
-			controladora->Disparar(punk);
+			if (pnlJuego3->Visible == true) {
+				controladora->Disparar(punk);
+			}
 			break;
 		case Keys::E: {
 			Cofre* cofre = controladora->CofreColisionando(punk);

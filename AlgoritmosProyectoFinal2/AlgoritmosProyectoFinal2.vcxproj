@@ -131,6 +131,7 @@
     <ClInclude Include="Enemigo.h" />
     <ClInclude Include="Entidades.h" />
     <ClInclude Include="Jefe.h" />
+    <ClInclude Include="Laser.h" />
     <ClInclude Include="MilesMorales.h" />
     <ClInclude Include="NivelesRitmo.h" />
     <ClInclude Include="NivelMiguel.h">
@@ -145,6 +146,7 @@
     <ClInclude Include="NivelRitmo.h">
       <FileType>CppForm</FileType>
     </ClInclude>
+    <ClInclude Include="NotaAtaque.h" />
     <ClInclude Include="Notas.h" />
     <ClInclude Include="Objeto.h" />
     <ClInclude Include="Obstaculos.h" />

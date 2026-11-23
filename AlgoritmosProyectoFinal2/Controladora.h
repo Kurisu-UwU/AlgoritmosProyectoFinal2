@@ -12,6 +12,7 @@
 #include "Cofre.h"
 #include "Proyectil.h"
 #include "ProyectilHorizontal.h"
+#include "NotaAtaque.h"
 
 using namespace std;
 
@@ -26,8 +27,11 @@ private:
     vector<Proyectil*> proyectiles;
     Jefe* jefe;
     vector<ProyectilHorizontal*> proyectilesHorizontales;
+    vector<NotaAtaque*> notasAtaque;
     int contadorProyectiles;
     int intervaloProyectiles;
+    int invulnerabilidad = 0;
+    int cooldownAtaque = 0;
 
 public:
     Controladora() {
@@ -42,6 +46,7 @@ public:
         LimpiarObjetos();
         LimpiarPuertas();
         LimpiarJefe();
+        LimpiarNotasAtaque();
     }
 
     vector<Obstaculos*> GetObstaculos() { return obstaculos; }
@@ -280,34 +285,23 @@ public:
     void ActualizarProyectiles(int ancho, int alto) {
 
         for (int i = 0; i < proyectiles.size(); i++) {
-
             proyectiles[i]->Mover();
-
-            Rectangle rectProyectil =
-                proyectiles[i]->CrearRectangle();
-
+            Rectangle rectProyectil =proyectiles[i]->CrearRectangle();
             for (int j = 0; j < seguidores.size(); j++) {
-
                 if (seguidores[j]->GetExistencia() &&
-                    rectProyectil.IntersectsWith(
-                        seguidores[j]->CrearRectangle())) {
-
+                    rectProyectil.IntersectsWith(seguidores[j]->CrearRectangle())) {
                     seguidores[j]->RecibirDanio(5);
-
                     proyectiles[i]->SetExsistencia(false);
                     break;
                 }
             }
-
-            if (jefe != nullptr &&
-                jefe->GetExistencia() &&
-                proyectiles[i]->GetExistencia() &&
+            if (jefe != nullptr && jefe->GetExistencia() && 
+                proyectiles[i]->GetExistencia() && 
                 rectProyectil.IntersectsWith(jefe->CrearRectangle())) {
 
                 jefe->RecibirDanio(5);
                 proyectiles[i]->SetExsistencia(false);
             }
-
             if (!proyectiles[i]->GetExistencia() ||
                 proyectiles[i]->GetX() < 0 ||
                 proyectiles[i]->GetY() < 0 ||
@@ -315,6 +309,10 @@ public:
                 proyectiles[i]->GetY() > alto) {
 
                 delete proyectiles[i];
+                int random = rand() % 1100;
+                ProyectilHorizontal* pro = new ProyectilHorizontal(random, 0, 8, 24, 24);
+                pro->SetVelocidad(1);
+                proyectilesHorizontales.push_back(pro);
                 proyectiles.erase(proyectiles.begin() + i);
                 i--;
             }
@@ -327,6 +325,13 @@ public:
         }
     }
 
+    // =====
+    // Notas
+    // =====
+
+    void DibujarNotasAtaque(Graphics^ g, Bitmap^ bmpBueno, Bitmap^ bmpMalo) {
+
+    }
 
     // =========
     // Limpiar
@@ -377,6 +382,9 @@ public:
 
         proyectilesHorizontales.clear();
     }
-
+    void LimpiarNotasAtaque() {
+        for (int i = 0; i < (int)notasAtaque.size(); i++) { delete notasAtaque[i]; }
+        notasAtaque.clear();
+    }
     Jefe* getJefe() { return jefe; }
 };
