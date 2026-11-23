@@ -1,50 +1,42 @@
 #pragma once
 // ============================================================================
 //  DialogosPanel.h  -  Dialogos estilo novela visual dentro de un Panel (no ventana)
-//  - No bloquea la interfaz (usa un Timer, nada de _sleep ni bucles).
-//  - Mismos controles que la version consola:  Z = texto rapido,  X = saltar todo.
-//  - Extra de novela visual: ESPACIO / ENTER / E / clic = siguiente linea.
-//  - Retratos recortados de los sprites que ya tienes en /Imagenes.
+//  - Sin listas ni arrays: cada dialogo es un switch por numero de linea,
+//    igual que TextPunk1(int n) de la version consola.
+//  - Perfiles con los mismos numeros que CuadroDeTexto: 1 Miles, 2 Miguel, 3 Punk, 4 Gwen, 5 Spot (0 = sin retrato)
+//  - Controles: Z = texto rapido, X = saltar todo, ESPACIO / ENTER / E / clic = siguiente linea.
 // ============================================================================
 
 namespace AlgoritmosProyectoFinal2 {
 
 	using namespace System;
-	using namespace System::Collections::Generic;
 	using namespace System::Drawing;
 	using namespace System::Drawing::Drawing2D;
 	using namespace System::Windows::Forms;
 
-	public enum class Perfil { Ninguno, Miles, Miguel, Punk, Gwen, Spot };
-
-	public ref class LineaDialogo {
-	public:
-		String^ nombre;
-		Perfil perfil;
-		bool izquierda;     // true: retrato a la izquierda (heroes), false: a la derecha
-		String^ texto;
-		int velocidad;      // milisegundos por letra (igual que el 'sleep' de EscribirTextoAnimado)
-		LineaDialogo(String^ n, Perfil p, bool izq, String^ t, int v) {
-			nombre = n; perfil = p; izquierda = izq; texto = t; velocidad = v;
-		}
-	};
-
 	public ref class NovelaVisual {
 	private:
-		literal int MARG = 8;     // margen del panel
-		literal int RET = 93;     // lado del cuadro del retrato (panel de 109 de alto)
+		int MARG;                 // margen del panel
+		int RET;                  // lado del cuadro del retrato
 
 		Panel^ panel;
 		System::Windows::Forms::Timer^ timer;
-		List<LineaDialogo^>^ lineas;
-		int indice;
+
+		// linea actual
+		String^ nombreActual;
+		int perfilActual;
+		bool izqActual;
+		String^ textoActual;
+		int velActual;            // milisegundos por letra (igual que el 'sleep' de EscribirTextoAnimado)
+
+		int escena;               // que dialogo se esta reproduciendo
+		int indice;               // numero de linea dentro del dialogo
 		int visibles;             // letras ya escritas de la linea actual
 		double acum;              // milisegundos acumulados para el efecto maquina de escribir
 		int esperaAuto;
 		bool activo;
 		bool acelerado;
 		String^ textoEnvuelto;    // linea actual ya partida en renglones
-		Action^ alTerminar;
 
 		Graphics^ grp;
 		BufferedGraphicsContext^ space;
@@ -65,15 +57,14 @@ namespace AlgoritmosProyectoFinal2 {
 		bool autoAvance;          // true: pasa sola a la siguiente linea (como la version consola)
 		int pausaAuto;            // ms de espera antes de pasar sola
 
-		property bool Activo { bool get() { return activo; } }
-
 		NovelaVisual(Panel^ p) {
 			panel = p;
-			lineas = gcnew List<LineaDialogo^>();
-			indice = 0; visibles = 0; acum = 0; esperaAuto = 0;
+			MARG = 8; RET = 93;
+			indice = 0; visibles = 0; acum = 0; esperaAuto = 0; escena = 0;
 			activo = false; acelerado = false;
 			autoAvance = false; pausaAuto = 1500;
-			alTerminar = nullptr;
+			nombreActual = ""; textoActual = ""; textoEnvuelto = "";
+			perfilActual = 0; izqActual = true; velActual = 40;
 
 			bmpPunk = gcnew Bitmap("Imagenes/SpiderPunk.png");
 			bmpSpot = gcnew Bitmap("Imagenes/Spot.png");
@@ -91,28 +82,20 @@ namespace AlgoritmosProyectoFinal2 {
 			timer->Tick += gcnew EventHandler(this, &NovelaVisual::Tick);
 			panel->Click += gcnew EventHandler(this, &NovelaVisual::AlClick);
 
-			// el panel solo se ve mientras dura el dialogo; el label de prueba (label4) ya no hace falta
-			for each (Control ^ c in panel->Controls) { c->Visible = false; }
+			// el label de prueba (label4) ya no hace falta: se oculta
+			int i = 0;
+			while (i < panel->Controls->Count) { panel->Controls[i]->Visible = false; i++; }
 			panel->Visible = false;
 		}
 
-		// ---- armar el dialogo --------------------------------------------------
-		void Agregar(String^ nombre, Perfil perfil, bool izquierda, String^ texto, int velocidad) {
-			lineas->Add(gcnew LineaDialogo(nombre, perfil, izquierda, texto->Trim(), velocidad));
-		}
-		void AgregarTitulo(String^ texto, int velocidad) {   // texto grande centrado, sin retrato
-			lineas->Add(gcnew LineaDialogo("", Perfil::Ninguno, false, texto->Trim(), velocidad));
-		}
+		bool EstaActivo() { return activo; }
 
-		// ---- reproducir ----------------------------------------------------------
-		void Iniciar() { Iniciar(nullptr); }
-		void Iniciar(Action^ cuandoTermine) {
-			if (lineas->Count == 0) {
-				if (cuandoTermine != nullptr) cuandoTermine->Invoke();
-				return;
-			}
-			alTerminar = cuandoTermine;
-			indice = 0; acelerado = false; activo = true;
+		// ---- reproducir un dialogo (1 = intro de Punk) ---------------------------
+		void Iniciar(int numeroEscena) {
+			escena = numeroEscena;
+			indice = 0;
+			if (!CargarLinea()) return;
+			acelerado = false; activo = true;
 
 			panel->Visible = true;
 			panel->BringToFront();
@@ -126,7 +109,7 @@ namespace AlgoritmosProyectoFinal2 {
 			buffer->Graphics->InterpolationMode = InterpolationMode::NearestNeighbor;   // pixel art nitido
 			buffer->Graphics->PixelOffsetMode = PixelOffsetMode::Half;
 
-			PrepararLinea();
+			PrepararTexto();
 			timer->Start();
 		}
 
@@ -158,6 +141,38 @@ namespace AlgoritmosProyectoFinal2 {
 		}
 
 	private:
+		// =====================  LOS DIALOGOS  =====================
+		// Linea(nombre, perfil, retratoALaIzquierda, texto, velocidad)
+		void Linea(String^ n, int perfil, bool izq, String^ t, int v) {
+			nombreActual = n; perfilActual = perfil; izqActual = izq; textoActual = t->Trim(); velActual = v;
+		}
+
+		// Devuelve false cuando ya no hay mas lineas
+		bool CargarLinea() {
+			switch (escena) {
+			case 1: return DialogoPunkIntro(indice);
+			default: return false;
+			}
+		}
+
+		bool DialogoPunkIntro(int n) {
+			switch (n) {
+			case 0:  Linea("", 0, false, "Anarquia entre los 2 caminos", 25); return true;
+			case 1:  Linea("", 0, false, "A ROCKEAR!", 50); return true;
+			case 2:  Linea("Spider Punk", 3, true, "... Que.... problematico", 25); return true;
+			case 3:  Linea("Spider Punk", 3, true, "Bien... tengo cosas pendientes por hacer", 40); return true;
+			case 4:  Linea("Spider Punk", 3, true, "... adios", 50); return true;
+			case 5:  Linea("Gwen Stacy", 4, false, "Vas a dejarnos justo ahora?!... EN UN MOMENTO COMO ESTE???", 50); return true;
+			case 6:  Linea("Gwen Stacy", 4, false, "Tenemos que hablar con miles, el tiene que... entender... que el canon no puede cambiarse...", 50); return true;
+			case 7:  Linea("Spider Punk", 3, true, "... Como dije, tengo asuntos pendientes, a no ser que quieras venir conmigo", 50); return true;
+			case 8:  Linea("Spider Punk", 3, true, "Vas a tener que encontrar cofres y recolectar tornillos...", 50); return true;
+			case 9:  Linea("Gwen Stacy", 4, false, "Tornillos?... bueno.. mas te vale que sea importante...", 50); return true;
+			case 10: Linea("Gwen Stacy", 4, false, "Bueno... sabes donde encontrarme", 50); return true;
+			default: return false;
+			}
+		}
+		// =========================================================
+
 		void AlClick(Object^ sender, EventArgs^ e) { Avanzar(); }
 
 		void Avanzar() {
@@ -167,8 +182,8 @@ namespace AlgoritmosProyectoFinal2 {
 				return;
 			}
 			indice++;
-			if (indice >= lineas->Count) { Terminar(); return; }
-			PrepararLinea();
+			if (!CargarLinea()) { Terminar(); return; }
+			PrepararTexto();
 		}
 
 		void Terminar() {
@@ -176,43 +191,34 @@ namespace AlgoritmosProyectoFinal2 {
 			activo = false;
 			acelerado = false;
 			panel->Visible = false;
-			lineas->Clear();
-			Action^ cb = alTerminar;
-			alTerminar = nullptr;
-			if (cb != nullptr) cb->Invoke();
 		}
 
-		void PrepararLinea() {
-			LineaDialogo^ l = lineas[indice];
+		void PrepararTexto() {
 			visibles = 0; acum = 0; esperaAuto = 0;
 			int W = panel->ClientSize.Width;
-			float ancho;
-			System::Drawing::Font^ f;
-			if (l->perfil == Perfil::Ninguno) { ancho = W - 80.0f; f = fuenteTitulo; }
-			else { ancho = W - (MARG + RET + 16) - 24.0f; f = fuenteTexto; }
-			textoEnvuelto = Envolver(l->texto, f, ancho);
+			if (perfilActual == 0) { textoEnvuelto = Envolver(textoActual, fuenteTitulo, W - 80.0f); }
+			else { textoEnvuelto = Envolver(textoActual, fuenteTexto, W - (MARG + RET + 16) - 24.0f); }
 		}
 
+		// parte el texto en renglones segun el ancho disponible, palabra por palabra
 		String^ Envolver(String^ t, System::Drawing::Font^ f, float ancho) {
 			Graphics^ g = buffer->Graphics;
-			System::Text::StringBuilder^ sb = gcnew System::Text::StringBuilder();
+			String^ resultado = "";
 			String^ linea = "";
 			int pos = 0;
-			while (pos <= t->Length) {                 // recorre palabra por palabra sin usar arrays
+			while (pos <= t->Length) {
 				int sig = t->IndexOf(' ', pos);
 				if (sig < 0) sig = t->Length;
 				String^ p = t->Substring(pos, sig - pos);
 				pos = sig + 1;
 				String^ prueba = (linea->Length == 0) ? p : (linea + " " + p);
 				if (linea->Length > 0 && g->MeasureString(prueba, f).Width > ancho) {
-					sb->Append(linea);
-					sb->Append(L'\n');
+					resultado = resultado + linea + "\n";
 					linea = p;
 				}
 				else { linea = prueba; }
 			}
-			sb->Append(linea);
-			return sb->ToString();
+			return resultado + linea;
 		}
 
 		// pausa DESPUES de mostrar la letra anterior (los puntos y signos hacen pausa dramatica)
@@ -224,13 +230,12 @@ namespace AlgoritmosProyectoFinal2 {
 
 		void Tick(Object^ sender, EventArgs^ e) {
 			if (!activo) return;
-			LineaDialogo^ l = lineas[indice];
 			int total = textoEnvuelto->Length;
 
 			if (visibles < total) {
 				acum += timer->Interval * (acelerado ? 8.0 : 1.0);
 				while (visibles < total) {
-					double d = (visibles == 0) ? 0.0 : RetardoDespuesDe(textoEnvuelto[visibles - 1], l->velocidad);
+					double d = (visibles == 0) ? 0.0 : RetardoDespuesDe(textoEnvuelto[visibles - 1], velActual);
 					if (acum < d) break;
 					acum -= d;
 					visibles++;
@@ -246,25 +251,25 @@ namespace AlgoritmosProyectoFinal2 {
 			Dibujar();
 		}
 
-		Color ColorDe(Perfil p) {
-			switch (p) {
-			case Perfil::Punk:   return Color::FromArgb(235, 60, 60);
-			case Perfil::Miles:  return Color::FromArgb(220, 40, 70);
-			case Perfil::Miguel: return Color::FromArgb(210, 30, 30);
-			case Perfil::Gwen:   return Color::FromArgb(255, 105, 180);
-			case Perfil::Spot:   return Color::FromArgb(235, 235, 235);
-			default:             return Color::FromArgb(255, 128, 0);   // naranja, como tu label4
+		Color ColorDe(int perfil) {
+			switch (perfil) {
+			case 1:  return Color::FromArgb(220, 40, 70);     // Miles
+			case 2:  return Color::FromArgb(210, 30, 30);     // Miguel
+			case 3:  return Color::FromArgb(235, 60, 60);     // Punk
+			case 4:  return Color::FromArgb(255, 105, 180);   // Gwen
+			case 5:  return Color::FromArgb(235, 235, 235);   // Spot
+			default: return Color::FromArgb(255, 128, 0);     // naranja, como tu label4
 			}
 		}
 
-		Bitmap^ BmpDe(Perfil p) {
-			switch (p) {
-			case Perfil::Punk:   return bmpPunk;
-			case Perfil::Miles:  return bmpMiles;
-			case Perfil::Miguel: return bmpMiguel;
-			case Perfil::Gwen:   return bmpGwen;
-			case Perfil::Spot:   return bmpSpot;
-			default:             return nullptr;
+		Bitmap^ BmpDe(int perfil) {
+			switch (perfil) {
+			case 1:  return bmpMiles;
+			case 2:  return bmpMiguel;
+			case 3:  return bmpPunk;
+			case 4:  return bmpGwen;
+			case 5:  return bmpSpot;
+			default: return nullptr;
 			}
 		}
 
@@ -272,8 +277,7 @@ namespace AlgoritmosProyectoFinal2 {
 			Graphics^ g = buffer->Graphics;
 			int W = panel->ClientSize.Width;
 			int H = panel->ClientSize.Height;
-			LineaDialogo^ l = lineas[indice];
-			Color acento = ColorDe(l->perfil);
+			Color acento = ColorDe(perfilActual);
 			bool lineaCompleta = (visibles >= textoEnvuelto->Length);
 
 			g->Clear(Color::FromArgb(20, 20, 32));
@@ -288,7 +292,7 @@ namespace AlgoritmosProyectoFinal2 {
 
 			String^ visible = textoEnvuelto->Substring(0, visibles);
 
-			if (l->perfil == Perfil::Ninguno) {
+			if (perfilActual == 0) {
 				// tarjeta de titulo: texto grande centrado
 				StringFormat^ fmtCentro = gcnew StringFormat();
 				fmtCentro->Alignment = StringAlignment::Center;
@@ -298,11 +302,11 @@ namespace AlgoritmosProyectoFinal2 {
 			}
 			else {
 				// retrato
-				int px = l->izquierda ? MARG : W - MARG - RET;
+				int px = izqActual ? MARG : W - MARG - RET;
 				System::Drawing::Rectangle marco = System::Drawing::Rectangle(px, MARG, RET, RET);
 				SolidBrush^ brFondo = gcnew SolidBrush(Color::FromArgb(120, 120, 150));   // gris azulado: se ven Spot (blanco) y Miles (oscuro)
 				g->FillRectangle(brFondo, marco);
-				Bitmap^ bmp = BmpDe(l->perfil);
+				Bitmap^ bmp = BmpDe(perfilActual);
 				if (bmp != nullptr) {
 					// recorte de cabeza y torso del primer cuadro del sprite (64x64). Ajusta aqui si quieres otro encuadre.
 					System::Drawing::Rectangle recorte = System::Drawing::Rectangle(12, 0, 40, 40);
@@ -312,9 +316,9 @@ namespace AlgoritmosProyectoFinal2 {
 				delete brFondo;
 
 				// nombre y texto
-				int x0 = l->izquierda ? (MARG + RET + 16) : 24;
-				int x1 = l->izquierda ? (W - 24) : (W - MARG - RET - 16);
-				g->DrawString(l->nombre, fuenteNombre, brAcento, (float)x0, 5.0f);
+				int x0 = izqActual ? (MARG + RET + 16) : 24;
+				int x1 = izqActual ? (W - 24) : (W - MARG - RET - 16);
+				g->DrawString(nombreActual, fuenteNombre, brAcento, (float)x0, 5.0f);
 				g->DrawString(visible, fuenteTexto, brTexto, (float)x0, 32.0f);
 				g->DrawString("Espacio: siguiente  |  Z: rapido  |  X: saltar", fuentePista, brPista,
 					RectangleF((float)x0, 8.0f, (float)(x1 - x0), 18.0f), fmtDer);
@@ -324,8 +328,8 @@ namespace AlgoritmosProyectoFinal2 {
 			if (lineaCompleta && ((Environment::TickCount / 400) % 2 == 0)) {
 				int tx = W - 40;
 				int ty = H - 24;
-				if (l->perfil != Perfil::Ninguno && !l->izquierda) tx = W - MARG - RET - 16 - 24;
-				for (int i = 0; i < 10; i++) {          // triangulo dibujado con lineas horizontales (sin arrays)
+				if (perfilActual != 0 && !izqActual) tx = W - MARG - RET - 16 - 24;
+				for (int i = 0; i < 10; i++) {
 					g->FillRectangle(brAcento, tx + i, ty + i, 16 - 2 * i, 1);
 				}
 			}
