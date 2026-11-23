@@ -216,7 +216,7 @@ namespace AlgoritmosProyectoFinal2 {
 	private: System::Windows::Forms::Panel^ pnlJuego2;
 	private: System::Windows::Forms::Panel^ pnlJuego3;
 	private: System::Windows::Forms::Panel^ pnlJuegoMusical;
-	private: System::Windows::Forms::Button^ btnPunk;
+	private: System::Windows::Forms::Button^ btnPunk1;
 	private: System::Windows::Forms::Button^ btnPunk3;
 	private: System::Windows::Forms::Button^ btnPunk2;
 	private: System::Windows::Forms::Button^ button10;
