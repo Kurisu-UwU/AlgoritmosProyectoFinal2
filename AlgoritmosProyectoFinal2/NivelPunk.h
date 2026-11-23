@@ -75,21 +75,17 @@ namespace AlgoritmosProyectoFinal2 {
 			Jefe* spot = new Jefe(700, 600, 5, 64, 64, true, 20);
 			controladora->DefinirJefe(spot);
 			combateTerminado = false;
-			if (!dialogoSpotMostrado && novela != nullptr) {
-				dialogoSpotMostrado = true;
-				novela->Iniciar(2);
-			}
-
 			controladora->AgregarMancha(1150, 450, 50, 50);
 			controladora->AgregarMancha(1150, 520, 50, 50);
 			controladora->AgregarMancha(1150, 590, 50, 50);
 			controladora->AgregarMancha(20, 450, 50, 50);
 			controladora->AgregarMancha(20, 520, 50, 50);
 			controladora->AgregarMancha(20, 590, 50, 50);
-
-			
-
-			//controladora->GenerarPuerta(0, 560, 40, 280, 2, 1250, 380);     // oeste -> sala 2
+		
+			if (!dialogoSpotMostrado && novela != nullptr) {
+				dialogoSpotMostrado = true;  
+				novela->Iniciar(2);           
+			}
 		}
 			
 		bool CofreAbierto(int id) {
@@ -682,15 +678,11 @@ private: System::Windows::Forms::Label^ label4;
 		if (pnlJuego3->Visible == true) {
 			buffer3->Graphics->DrawImage(bmpMapa3, 0, 0, pnlJuego3->Width * 1.0, pnlJuego3->Height * 1.0);
 			controladora->DibujarManchas(buffer3->Graphics, bmpMancha);
-			controladora->ActualizarJefes(punk, pnlJuego3->Width, pnlJuego3->Height);
-			controladora->ActualizarProyectiles(pnlJuego3->Width, pnlJuego3->Height);
 			if (!novela->EstaActivo()) {
 				controladora->ActualizarJefes(punk, pnlJuego3->Width, pnlJuego3->Height);
 				controladora->ActualizarProyectiles(pnlJuego3->Width, pnlJuego3->Height);
 				controladora->ActualizarProyectilesHorizontales(punk, pnlJuego3->Width);
 			}
-			controladora->DibujarProyectiles(buffer3->Graphics, bmpNota1);
-			controladora->DibujarProyectilesHorizontales(buffer3->Graphics, bmpProyectilMalo);
 			controladora->DibujarJefe(buffer3->Graphics, bmpSpot);
 			controladora->ComprobarColisionJefe(punk);
 			punk->Dibujar(buffer3->Graphics, bmpPunk);
