@@ -24,6 +24,7 @@ public:
 
     void Mover() {
         x += dx;
+        y += dy;
     }
 
     Rectangle CrearRectangle() {

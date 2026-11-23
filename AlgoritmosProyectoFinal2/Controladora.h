@@ -207,6 +207,7 @@ public:
 
         ProyectilHorizontal* nuevo =
             new ProyectilHorizontal(x, y, 8, 24, 24);
+        nuevo->SetVelocidadVertical(0);
 
         proyectilesHorizontales.push_back(nuevo);
     }
@@ -311,7 +312,8 @@ public:
                 delete proyectiles[i];
                 int random = rand() % 1100;
                 ProyectilHorizontal* pro = new ProyectilHorizontal(random, 0, 8, 24, 24);
-                pro->SetVelocidad(1);
+                pro->SetVelocidad(0);
+                pro->SetVelocidadVertical(5);
                 proyectilesHorizontales.push_back(pro);
                 proyectiles.erase(proyectiles.begin() + i);
                 i--;

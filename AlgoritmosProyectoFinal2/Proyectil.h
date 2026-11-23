@@ -15,10 +15,10 @@ public:
         dy = 0;
 
         switch (direccion) {
-        case 'A': dx = -10; break;
-        case 'D': dx = 10; break;
-        case 'W': dx = 0; dy = -10; break;
-        case 'S': dx = 0; dy = 10; break;
+        case 'A': dx = -20; break;
+        case 'D': dx = 20; break;
+        case 'W': dx = 0; dy = -20; break;
+        case 'S': dx = 0; dy = 20; break;
         }
     }
 
