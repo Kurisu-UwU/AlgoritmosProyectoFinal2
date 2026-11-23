@@ -68,13 +68,17 @@ namespace AlgoritmosProyectoFinal2 {
 		/// </summary>
 
 		Bitmap^ bmpInicio;
-
+		Bitmap^ bmpPersonaje;
 
 
 		Graphics^ gr;
 		BufferedGraphicsContext^ space;
+		BufferedGraphics^ buffer;
+
+		Graphics^ grp;
+		BufferedGraphicsContext^ spacep;
+		BufferedGraphics^ bufferp;
 	private: System::Windows::Forms::Label^ label1;
-		   BufferedGraphics^ buffer;
 
 
 #pragma region Windows Form Designer generated code
@@ -186,6 +190,7 @@ namespace AlgoritmosProyectoFinal2 {
 			this->pnlPersonaje->Size = System::Drawing::Size(1405, 488);
 			this->pnlPersonaje->TabIndex = 5;
 			this->pnlPersonaje->Visible = false;
+			this->pnlPersonaje->Paint += gcnew System::Windows::Forms::PaintEventHandler(this, &PantallaPrincipal::pnlPersonaje_Paint);
 			// 
 			// btnMiles
 			// 
@@ -257,8 +262,8 @@ namespace AlgoritmosProyectoFinal2 {
 			this->AutoScaleMode = System::Windows::Forms::AutoScaleMode::Font;
 			this->BackColor = System::Drawing::SystemColors::ActiveCaptionText;
 			this->ClientSize = System::Drawing::Size(1441, 511);
-			this->Controls->Add(this->pnlPrincipal);
 			this->Controls->Add(this->pnlPersonaje);
+			this->Controls->Add(this->pnlPrincipal);
 			this->Margin = System::Windows::Forms::Padding(3, 2, 3, 2);
 			this->Name = L"PantallaPrincipal";
 			this->Text = L"PantallaPrincipal";
@@ -277,6 +282,12 @@ namespace AlgoritmosProyectoFinal2 {
 		buffer = space->Allocate(gr, pnlPrincipal->ClientRectangle);
 
 		bmpInicio = gcnew Bitmap("Imagenes/PantallaMenu.png");
+
+		grp = pnlPersonaje->CreateGraphics();
+		spacep = BufferedGraphicsManager::Current;
+		bufferp = spacep->Allocate(grp, pnlPersonaje->ClientRectangle);
+
+		bmpPersonaje = gcnew Bitmap("Imagenes/PantallaPersonajes.png");
 	}
 	private: System::Void btnJugar_Click(System::Object^ sender, System::EventArgs^ e) {
 		pnlPrincipal->Visible = false;
@@ -301,6 +312,13 @@ private: System::Void timerPantalla_Tick(System::Object^ sender, System::EventAr
 	buffer->Graphics->DrawImage(bmpInicio, 0, 0, pnlPrincipal->Width * 1.0, pnlPrincipal->Height * 1.0);
 
 	buffer->Render(gr);
+
+
+	bufferp->Graphics->DrawImage(bmpPersonaje, 0, 0, pnlPersonaje->Width * 1.0, pnlPersonaje->Height * 1.0);
+
+	bufferp->Render(grp);
+}
+private: System::Void pnlPersonaje_Paint(System::Object^ sender, System::Windows::Forms::PaintEventArgs^ e) {
 }
 };
 }
