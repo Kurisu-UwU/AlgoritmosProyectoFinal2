@@ -4,8 +4,9 @@
 #include "Objeto.h"
 #include "Notas.h"
 using namespace std;
-using namespace System::Media;
 using namespace System;
+using namespace System::Drawing;
+using namespace System::Media;
 
 class ControladoraNivelRitmo {
 private:
@@ -75,7 +76,7 @@ public:
         SoundPlayer^ pam;
         String^ rutapum = "Sonidos/pum.wav";
         String^ rutapam = "Sonidos/pam.wav";
-        try { pum = gcnew SoundPlayer(rutapum); pum->Load(); } // (...) Atrapa cualquier tipo de excepción
+        try { pum = gcnew SoundPlayer(rutapum); pum->Load(); } // (...) Atrapa cualquier tipo de excepci?n
         catch (...) { pum = nullptr; } // si falta el archivo, no rompe el juego
         try { pam = gcnew SoundPlayer(rutapam); pam->Load(); }
         catch (...) { pam = nullptr; }
@@ -85,7 +86,7 @@ public:
         switch (tecla) {
         case 'B': n = 0; pu = pam; break;
         case 'N': n = 1; pu = pum; break;
-        //case 'M': n = 2; break;
+            //case 'M': n = 2; break;
         default: break;
         }
         for (int i = 0; i < (int)notas.size(); i++) {
@@ -94,7 +95,7 @@ public:
                     puntaje++;
                     if (resultado != 2) resultado = 1;
                     if (pu != nullptr) { pu->Play(); }
-                    else { SystemSounds::Beep->Play(); } 
+                    else { SystemSounds::Beep->Play(); }
                 }
                 else {
                     puntaje--;
@@ -105,12 +106,13 @@ public:
         }
         return resultado;
     }
-  
-    /*int ConsumirFallos() {
+
+    // Devuelve cuantas notas se escaparon desde la ultima vez que se llamo y reinicia el contador
+    int ConsumirFallos() {
         int f = fallos;
         fallos = 0;
         return f;
-    }*/
+    }
 
     /*void DibujarTeclas(Graphics^ g, System::Drawing::Font^ fuente, System::Drawing::StringFormat^ formato) {
         for (int i = 0; i < (int)notas.size(); i++) {

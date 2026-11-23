@@ -66,6 +66,13 @@ namespace AlgoritmosProyectoFinal2 {
 		SpiderPunk* punk;
 		int tiempo = 0;
 		int puntuaciontotal = 0;
+		static const int DANO_FALLO = 5;   // vida que se pierde por cada nota fallada (cambia el numero a gusto)
+		void RestarVida(int cantidad) {
+			if (cantidad <= 0) return;
+			int nueva = (int)punk->GetVida() - cantidad;
+			if (nueva < 0) nueva = 0;
+			punk->SetVida((float)nueva);
+		}
 		char tecla = 'f';
 	private:
 		System::Windows::Forms::Timer^ timer1;
@@ -109,6 +116,7 @@ namespace AlgoritmosProyectoFinal2 {
 		switch (nivel) {
 		case 1: {
 			int estado = NivelesRitmo1(buffer->Graphics, controladora, 1, bmpNota1, bmpNota2, bmpNota3);
+			RestarVida(controladora->ConsumirFallos() * DANO_FALLO);   // notas que se escaparon
 			punk->DibujarRitmo(buffer->Graphics, bmpPunk);
 			tecla = 'f';
 			if (estado != 0) {  //1=gano, 2=perdio
@@ -141,9 +149,9 @@ namespace AlgoritmosProyectoFinal2 {
 		case Keys::S:
 			punk->PunkMoverRitmo(buffer->Graphics, 'S');
 			break;
-		case Keys::B: tecla = 'B'; controladora->GolpearNota(punk->CrearRectangle(), tecla); break;
-		case Keys::N: tecla = 'N'; controladora->GolpearNota(punk->CrearRectangle(), tecla); break;
-		case Keys::M: tecla = 'M'; controladora->GolpearNota(punk->CrearRectangle(), tecla); break;
+		case Keys::B: tecla = 'B'; if (controladora->GolpearNota(punk->CrearRectangle(), tecla) == 2) RestarVida(DANO_FALLO); break;
+		case Keys::N: tecla = 'N'; if (controladora->GolpearNota(punk->CrearRectangle(), tecla) == 2) RestarVida(DANO_FALLO); break;
+		case Keys::M: tecla = 'M'; if (controladora->GolpearNota(punk->CrearRectangle(), tecla) == 2) RestarVida(DANO_FALLO); break;
 		default: break;
 		}
 	}
