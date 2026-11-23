@@ -18,6 +18,7 @@ using namespace std;
 
 class Controladora {
 private:
+    bool jefeColisionando;
     vector<Obstaculos*> obstaculos;
     vector<Objeto*> objetos;
     vector<Cofre*> cofres;
@@ -39,6 +40,7 @@ public:
         contadorProyectiles = 0;
         intervaloProyectiles = 60;
         srand((unsigned)time(NULL));
+        jefeColisionando = false;
     }
 
     ~Controladora() {
@@ -148,6 +150,34 @@ public:
     }
     void DibujarJefe(Graphics^ g, Bitmap^ bmp) {
         jefe->Dibujar(g, bmp);
+    }
+
+    void ComprobarColisionJefe(Protagonista* protagonista) {
+
+        if (jefe == nullptr || !jefe->GetExistencia()) {
+            jefeColisionando = false;
+            return;
+        }
+
+        if (protagonista->CrearRectangle().IntersectsWith(jefe->CrearRectangle())) {
+
+            if (!jefeColisionando) {
+
+                // Spider Punk recibe daño
+                protagonista->SetVida(
+                    max(0.0f, protagonista->GetVida() - 10)
+                );
+
+                // Spider Punk se teletransporta
+                protagonista->SetPX(70);
+                protagonista->SetPY(540);
+
+                jefeColisionando = true;
+            }
+        }
+        else {
+            jefeColisionando = false;
+        }
     }
 
     // =======

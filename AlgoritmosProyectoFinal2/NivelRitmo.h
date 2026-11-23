@@ -66,7 +66,8 @@ namespace AlgoritmosProyectoFinal2 {
 		SpiderPunk* punk;
 		int tiempo = 0;
 		int puntuaciontotal = 0;
-		static const int DANO_FALLO = 5;   // vida que se pierde por cada nota fallada (cambia el numero a gusto)
+	private: System::Windows::Forms::Label^ label1;
+		   static const int DANO_FALLO = 5;   // vida que se pierde por cada nota fallada (cambia el numero a gusto)
 		void RestarVida(int cantidad) {
 			if (cantidad <= 0) return;
 			int nueva = (int)punk->GetVida() - cantidad;
@@ -82,23 +83,39 @@ namespace AlgoritmosProyectoFinal2 {
 		{
 			this->components = (gcnew System::ComponentModel::Container());
 			this->timer1 = (gcnew System::Windows::Forms::Timer(this->components));
+			this->label1 = (gcnew System::Windows::Forms::Label());
 			this->SuspendLayout();
 			// 
 			// timer1
 			// 
 			this->timer1->Tick += gcnew System::EventHandler(this, &NivelRitmo::timer1_Tick);
 			// 
+			// label1
+			// 
+			this->label1->AutoSize = true;
+			this->label1->Font = (gcnew System::Drawing::Font(L"Comic Sans MS", 10.2F, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point,
+				static_cast<System::Byte>(0)));
+			this->label1->Location = System::Drawing::Point(29, 24);
+			this->label1->Name = L"label1";
+			this->label1->Size = System::Drawing::Size(615, 24);
+			this->label1->TabIndex = 0;
+			this->label1->Text = L"Presiona la tecla B para las notas rojas y la tecla N para las teclas amarillas";
+			// 
 			// NivelRitmo
 			// 
-			this->AutoScaleDimensions = System::Drawing::SizeF(6, 13);
+			this->AutoScaleDimensions = System::Drawing::SizeF(8, 16);
 			this->AutoScaleMode = System::Windows::Forms::AutoScaleMode::Font;
-			this->ClientSize = System::Drawing::Size(974, 575);
+			this->ClientSize = System::Drawing::Size(1299, 708);
+			this->Controls->Add(this->label1);
+			this->Margin = System::Windows::Forms::Padding(4, 4, 4, 4);
 			this->Name = L"NivelRitmo";
 			this->Text = L"NivelRitmo";
 			this->FormClosing += gcnew System::Windows::Forms::FormClosingEventHandler(this, &NivelRitmo::NivelRitmo_FormClosing);
 			this->Load += gcnew System::EventHandler(this, &NivelRitmo::NivelRitmo_Load);
 			this->KeyDown += gcnew System::Windows::Forms::KeyEventHandler(this, &NivelRitmo::NivelRitmo_KeyDown);
 			this->ResumeLayout(false);
+			this->PerformLayout();
+
 		}
 #pragma endregion
 	private: System::Void NivelRitmo_Load(System::Object^ sender, System::EventArgs^ e) {

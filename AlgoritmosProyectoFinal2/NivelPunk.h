@@ -155,7 +155,7 @@ namespace AlgoritmosProyectoFinal2 {
 				timerJuego->Enabled = false;   // el MessageBox procesa mensajes: sin esto el timer se re-entra
 				MessageBox::Show("Spot te derroto. Intentalo de nuevo!");
 				IrASala(3, 60, 650);           // recarga la sala: Spot, lasers y vida de Punk reiniciados
-				timerJuego->Enabled = true;
+				timerJuego->Enabled = false;
 				return true;
 			}
 			return false;
@@ -251,7 +251,8 @@ namespace AlgoritmosProyectoFinal2 {
 	private: System::Windows::Forms::Label^ lblPuntaje;
 	private: System::Windows::Forms::Label^ lblVida;
 	private: System::Windows::Forms::Label^ lblPersonaje;
-private: System::Windows::Forms::Panel^ panel1;
+private: System::Windows::Forms::Panel^ pnlTexto;
+
 private: System::Windows::Forms::Label^ label4;
 	   SpiderPunk* punk;
 
@@ -282,14 +283,14 @@ private: System::Windows::Forms::Label^ label4;
 			   this->btnPunk3 = (gcnew System::Windows::Forms::Button());
 			   this->btnPunk2 = (gcnew System::Windows::Forms::Button());
 			   this->btnPunk1 = (gcnew System::Windows::Forms::Button());
-			   this->panel1 = (gcnew System::Windows::Forms::Panel());
+			   this->pnlTexto = (gcnew System::Windows::Forms::Panel());
 			   this->label4 = (gcnew System::Windows::Forms::Label());
 			   this->pnlDeControl->SuspendLayout();
 			   this->pnlJuego1->SuspendLayout();
 			   this->pnlJuego2->SuspendLayout();
 			   this->pnlJuego3->SuspendLayout();
 			   this->pnlJuegoMusical->SuspendLayout();
-			   this->panel1->SuspendLayout();
+			   this->pnlTexto->SuspendLayout();
 			   this->SuspendLayout();
 			   // 
 			   // pnlDeControl
@@ -367,7 +368,7 @@ private: System::Windows::Forms::Label^ label4;
 			   this->pnlJuego1->Controls->Add(this->button11);
 			   this->pnlJuego1->Controls->Add(this->button12);
 			   this->pnlJuego1->Location = System::Drawing::Point(16, 121);
-			   this->pnlJuego1->Margin = System::Windows::Forms::Padding(4, 4, 4, 4);
+			   this->pnlJuego1->Margin = System::Windows::Forms::Padding(4);
 			   this->pnlJuego1->Name = L"pnlJuego1";
 			   this->pnlJuego1->Size = System::Drawing::Size(1620, 839);
 			   this->pnlJuego1->TabIndex = 1;
@@ -376,7 +377,7 @@ private: System::Windows::Forms::Label^ label4;
 			   // button10
 			   // 
 			   this->button10->Location = System::Drawing::Point(172, 25);
-			   this->button10->Margin = System::Windows::Forms::Padding(5, 5, 5, 5);
+			   this->button10->Margin = System::Windows::Forms::Padding(5);
 			   this->button10->Name = L"button10";
 			   this->button10->Size = System::Drawing::Size(100, 28);
 			   this->button10->TabIndex = 10;
@@ -388,7 +389,7 @@ private: System::Windows::Forms::Label^ label4;
 			   // button11
 			   // 
 			   this->button11->Location = System::Drawing::Point(316, 25);
-			   this->button11->Margin = System::Windows::Forms::Padding(5, 5, 5, 5);
+			   this->button11->Margin = System::Windows::Forms::Padding(5);
 			   this->button11->Name = L"button11";
 			   this->button11->Size = System::Drawing::Size(100, 28);
 			   this->button11->TabIndex = 9;
@@ -400,7 +401,7 @@ private: System::Windows::Forms::Label^ label4;
 			   // button12
 			   // 
 			   this->button12->Location = System::Drawing::Point(28, 25);
-			   this->button12->Margin = System::Windows::Forms::Padding(5, 5, 5, 5);
+			   this->button12->Margin = System::Windows::Forms::Padding(5);
 			   this->button12->Name = L"button12";
 			   this->button12->Size = System::Drawing::Size(100, 28);
 			   this->button12->TabIndex = 11;
@@ -420,7 +421,7 @@ private: System::Windows::Forms::Label^ label4;
 			   this->pnlJuego2->Controls->Add(this->button6);
 			   this->pnlJuego2->Controls->Add(this->button8);
 			   this->pnlJuego2->Location = System::Drawing::Point(16, 121);
-			   this->pnlJuego2->Margin = System::Windows::Forms::Padding(4, 4, 4, 4);
+			   this->pnlJuego2->Margin = System::Windows::Forms::Padding(4);
 			   this->pnlJuego2->Name = L"pnlJuego2";
 			   this->pnlJuego2->Size = System::Drawing::Size(1620, 839);
 			   this->pnlJuego2->TabIndex = 2;
@@ -428,7 +429,7 @@ private: System::Windows::Forms::Label^ label4;
 			   // button5
 			   // 
 			   this->button5->Location = System::Drawing::Point(460, 25);
-			   this->button5->Margin = System::Windows::Forms::Padding(5, 5, 5, 5);
+			   this->button5->Margin = System::Windows::Forms::Padding(5);
 			   this->button5->Name = L"button5";
 			   this->button5->Size = System::Drawing::Size(100, 28);
 			   this->button5->TabIndex = 8;
@@ -440,7 +441,7 @@ private: System::Windows::Forms::Label^ label4;
 			   // button6
 			   // 
 			   this->button6->Location = System::Drawing::Point(172, 25);
-			   this->button6->Margin = System::Windows::Forms::Padding(5, 5, 5, 5);
+			   this->button6->Margin = System::Windows::Forms::Padding(5);
 			   this->button6->Name = L"button6";
 			   this->button6->Size = System::Drawing::Size(100, 28);
 			   this->button6->TabIndex = 10;
@@ -452,7 +453,7 @@ private: System::Windows::Forms::Label^ label4;
 			   // button8
 			   // 
 			   this->button8->Location = System::Drawing::Point(28, 25);
-			   this->button8->Margin = System::Windows::Forms::Padding(5, 5, 5, 5);
+			   this->button8->Margin = System::Windows::Forms::Padding(5);
 			   this->button8->Name = L"button8";
 			   this->button8->Size = System::Drawing::Size(100, 28);
 			   this->button8->TabIndex = 11;
@@ -467,7 +468,7 @@ private: System::Windows::Forms::Label^ label4;
 			   this->pnlJuego3->Controls->Add(this->button3);
 			   this->pnlJuego3->Controls->Add(this->button1);
 			   this->pnlJuego3->Location = System::Drawing::Point(16, 121);
-			   this->pnlJuego3->Margin = System::Windows::Forms::Padding(4, 4, 4, 4);
+			   this->pnlJuego3->Margin = System::Windows::Forms::Padding(4);
 			   this->pnlJuego3->Name = L"pnlJuego3";
 			   this->pnlJuego3->Size = System::Drawing::Size(1620, 839);
 			   this->pnlJuego3->TabIndex = 3;
@@ -476,7 +477,7 @@ private: System::Windows::Forms::Label^ label4;
 			   // button4
 			   // 
 			   this->button4->Location = System::Drawing::Point(460, 25);
-			   this->button4->Margin = System::Windows::Forms::Padding(5, 5, 5, 5);
+			   this->button4->Margin = System::Windows::Forms::Padding(5);
 			   this->button4->Name = L"button4";
 			   this->button4->Size = System::Drawing::Size(100, 28);
 			   this->button4->TabIndex = 4;
@@ -488,7 +489,7 @@ private: System::Windows::Forms::Label^ label4;
 			   // button3
 			   // 
 			   this->button3->Location = System::Drawing::Point(316, 25);
-			   this->button3->Margin = System::Windows::Forms::Padding(5, 5, 5, 5);
+			   this->button3->Margin = System::Windows::Forms::Padding(5);
 			   this->button3->Name = L"button3";
 			   this->button3->Size = System::Drawing::Size(100, 28);
 			   this->button3->TabIndex = 5;
@@ -500,7 +501,7 @@ private: System::Windows::Forms::Label^ label4;
 			   // button1
 			   // 
 			   this->button1->Location = System::Drawing::Point(28, 25);
-			   this->button1->Margin = System::Windows::Forms::Padding(5, 5, 5, 5);
+			   this->button1->Margin = System::Windows::Forms::Padding(5);
 			   this->button1->Name = L"button1";
 			   this->button1->Size = System::Drawing::Size(100, 28);
 			   this->button1->TabIndex = 7;
@@ -515,7 +516,7 @@ private: System::Windows::Forms::Label^ label4;
 			   this->pnlJuegoMusical->Controls->Add(this->btnPunk2);
 			   this->pnlJuegoMusical->Controls->Add(this->btnPunk1);
 			   this->pnlJuegoMusical->Location = System::Drawing::Point(16, 121);
-			   this->pnlJuegoMusical->Margin = System::Windows::Forms::Padding(5, 5, 5, 5);
+			   this->pnlJuegoMusical->Margin = System::Windows::Forms::Padding(5);
 			   this->pnlJuegoMusical->Name = L"pnlJuegoMusical";
 			   this->pnlJuegoMusical->Size = System::Drawing::Size(1620, 839);
 			   this->pnlJuegoMusical->TabIndex = 4;
@@ -525,7 +526,7 @@ private: System::Windows::Forms::Label^ label4;
 			   // btnPunk3
 			   // 
 			   this->btnPunk3->Location = System::Drawing::Point(32, 25);
-			   this->btnPunk3->Margin = System::Windows::Forms::Padding(5, 5, 5, 5);
+			   this->btnPunk3->Margin = System::Windows::Forms::Padding(5);
 			   this->btnPunk3->Name = L"btnPunk3";
 			   this->btnPunk3->Size = System::Drawing::Size(100, 28);
 			   this->btnPunk3->TabIndex = 2;
@@ -537,7 +538,7 @@ private: System::Windows::Forms::Label^ label4;
 			   // btnPunk2
 			   // 
 			   this->btnPunk2->Location = System::Drawing::Point(176, 25);
-			   this->btnPunk2->Margin = System::Windows::Forms::Padding(5, 5, 5, 5);
+			   this->btnPunk2->Margin = System::Windows::Forms::Padding(5);
 			   this->btnPunk2->Name = L"btnPunk2";
 			   this->btnPunk2->Size = System::Drawing::Size(100, 28);
 			   this->btnPunk2->TabIndex = 1;
@@ -549,7 +550,7 @@ private: System::Windows::Forms::Label^ label4;
 			   // btnPunk1
 			   // 
 			   this->btnPunk1->Location = System::Drawing::Point(320, 25);
-			   this->btnPunk1->Margin = System::Windows::Forms::Padding(5, 5, 5, 5);
+			   this->btnPunk1->Margin = System::Windows::Forms::Padding(5);
 			   this->btnPunk1->Name = L"btnPunk1";
 			   this->btnPunk1->Size = System::Drawing::Size(100, 28);
 			   this->btnPunk1->TabIndex = 0;
@@ -558,14 +559,15 @@ private: System::Windows::Forms::Label^ label4;
 			   this->btnPunk1->Visible = false;
 			   this->btnPunk1->Click += gcnew System::EventHandler(this, &NivelPunk::btnPunk1_Click);
 			   // 
-			   // panel1
+			   // pnlTexto
 			   // 
-			   this->panel1->Controls->Add(this->label4);
-			   this->panel1->Location = System::Drawing::Point(16, 11);
-			   this->panel1->Margin = System::Windows::Forms::Padding(3, 2, 3, 2);
-			   this->panel1->Name = L"panel1";
-			   this->panel1->Size = System::Drawing::Size(1620, 109);
-			   this->panel1->TabIndex = 4;
+			   this->pnlTexto->Controls->Add(this->label4);
+			   this->pnlTexto->Location = System::Drawing::Point(16, 11);
+			   this->pnlTexto->Margin = System::Windows::Forms::Padding(3, 2, 3, 2);
+			   this->pnlTexto->Name = L"pnlTexto";
+			   this->pnlTexto->Size = System::Drawing::Size(1620, 109);
+			   this->pnlTexto->TabIndex = 4;
+			   this->pnlTexto->Visible = false;
 			   // 
 			   // label4
 			   // 
@@ -587,7 +589,7 @@ private: System::Windows::Forms::Label^ label4;
 			   this->AutoScaleMode = System::Windows::Forms::AutoScaleMode::Font;
 			   this->BackColor = System::Drawing::SystemColors::ActiveCaptionText;
 			   this->ClientSize = System::Drawing::Size(1655, 1040);
-			   this->Controls->Add(this->panel1);
+			   this->Controls->Add(this->pnlTexto);
 			   this->Controls->Add(this->pnlDeControl);
 			   this->Controls->Add(this->pnlJuego2);
 			   this->Controls->Add(this->pnlJuego1);
@@ -605,8 +607,8 @@ private: System::Windows::Forms::Label^ label4;
 			   this->pnlJuego2->ResumeLayout(false);
 			   this->pnlJuego3->ResumeLayout(false);
 			   this->pnlJuegoMusical->ResumeLayout(false);
-			   this->panel1->ResumeLayout(false);
-			   this->panel1->PerformLayout();
+			   this->pnlTexto->ResumeLayout(false);
+			   this->pnlTexto->PerformLayout();
 			   this->ResumeLayout(false);
 
 		   }
@@ -676,6 +678,7 @@ private: System::Windows::Forms::Label^ label4;
 			controladora->ActualizarProyectilesHorizontales(punk, pnlJuego3->Width);
 			controladora->DibujarProyectilesHorizontales(buffer3->Graphics, bmpProyectilMalo);
 			controladora->DibujarJefe(buffer3->Graphics, bmpSpot);
+			controladora->ComprobarColisionJefe(punk);
 			punk->Dibujar(buffer3->Graphics, bmpPunk);
 			DibujarDebug(buffer3->Graphics, pnlJuego3);
 			buffer3->Render(gr3);
