@@ -10,8 +10,8 @@ using namespace System::Media;
 
 class ControladoraNivelRitmo {
 private:
-    vector<Obstaculos*> obstaculos;
-    vector<Objeto*> objetos;
+    //vector<Obstaculos*> obstaculos;
+   // vector<Objeto*> objetos;
     vector<Notas*> notas;
     int puntaje = 0;
     int vida = 20;
@@ -19,12 +19,12 @@ private:
 public:
     ControladoraNivelRitmo() {}
     ~ControladoraNivelRitmo() {
-        LimpiarObstaculos();
-        LimpiarObjetos();
+        //LimpiarObstaculos();
+       // LimpiarObjetos();
         LimpiarNotas();
     }
-    vector<Obstaculos*> GetObstaculos() { return obstaculos; }
-    vector<Objeto*> GetObjetos() { return objetos; }
+    //vector<Obstaculos*> GetObstaculos() { return obstaculos; }
+    //vector<Objeto*> GetObjetos() { return objetos; }
     int GetPuntaje() { return puntaje; }
     int GetVida() { return vida; }
     // =========================
@@ -131,7 +131,7 @@ public:
         }
     }
     */
-    void LimpiarObjetos() {
+    /*void LimpiarObjetos() {
         for (int i = 0; i < objetos.size(); i++) {
             delete objetos[i];
         }
@@ -142,7 +142,7 @@ public:
             delete obstaculos[i];
         }
         obstaculos.clear();
-    }
+    }*/
     void LimpiarNotas() {
         for (int i = 0; i < notas.size(); i++) {
             delete notas[i];

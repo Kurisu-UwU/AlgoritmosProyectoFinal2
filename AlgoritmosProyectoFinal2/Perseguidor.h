@@ -12,9 +12,7 @@ protected:
     int vida;
 public:
 
-    Perseguidor(int x1, int y1, int velocidad,
-        int alto, int ancho, bool exis)
-        : Entidad(x1, y1, velocidad, alto, ancho, exis) {
+    Perseguidor(int x1, int y1, int velocidad, int alto, int ancho, bool exis) : Entidad(x1, y1, velocidad, alto, ancho, exis) {
         idX = idY = 0;
         vida = 20;
     }

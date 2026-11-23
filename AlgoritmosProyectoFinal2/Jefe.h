@@ -29,8 +29,7 @@ public:
         esquinaActual = -1;
     }
 
-    void Teletransportar(int anchoMapa, int altoMapa,
-        const vector<Obstaculos*>& obstaculos) {
+    void Teletransportar(int anchoMapa, int altoMapa, const vector<Obstaculos*>& obstaculos) {
 
         int esquinas[4][2] = {
             {15, 420},
@@ -54,9 +53,7 @@ public:
         teletransportado = false;
     }
 
-    void Actualizar(Protagonista* protagonista,
-        int anchoMapa, int altoMapa,
-        const vector<Obstaculos*>& obstaculos) {
+    void Actualizar(Protagonista* protagonista,int anchoMapa, int altoMapa,const vector<Obstaculos*>& obstaculos) {
 
         if (!existencia) {
             return;
