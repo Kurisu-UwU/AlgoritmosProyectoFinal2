@@ -3,7 +3,7 @@
 //  DialogosPanel.h  -  Dialogos estilo novela visual dentro de un Panel (no ventana)
 //  - Sin listas ni arrays: cada dialogo es un switch por numero de linea,
 //    igual que TextPunk1(int n) de la version consola.
-//  - Perfiles con los mismos numeros que CuadroDeTexto: 1 Miles, 2 Miguel, 3 Punk, 4 Gwen, 5 Spot (0 = sin retrato)
+//  - Perfiles con los mismos numeros que CuadroDeTexto: 1 Miles, 2 Miguel, 3 Punk, 4 Gwen, 5 Spot, 8 Peny (0 = sin retrato)
 //  - Controles: Z = texto rapido, X = saltar todo, ESPACIO / ENTER / E / clic = siguiente linea.
 // ============================================================================
 
@@ -47,6 +47,7 @@ namespace AlgoritmosProyectoFinal2 {
 		Bitmap^ bmpGwen;
 		Bitmap^ bmpMiles;
 		Bitmap^ bmpMiguel;
+		Bitmap^ bmpPeny;
 
 		System::Drawing::Font^ fuenteTexto;
 		System::Drawing::Font^ fuenteNombre;
@@ -71,6 +72,7 @@ namespace AlgoritmosProyectoFinal2 {
 			bmpGwen = gcnew Bitmap("Imagenes/Gwen.png");
 			bmpMiles = gcnew Bitmap("Imagenes/MilesMorales.png");
 			bmpMiguel = gcnew Bitmap("Imagenes/MiguelOhara.png");
+			bmpPeny = gcnew Bitmap("Imagenes/PenyParker.png");
 
 			fuenteTexto = gcnew System::Drawing::Font("Comic Sans MS", 14.0f);
 			fuenteNombre = gcnew System::Drawing::Font("Comic Sans MS", 12.0f, FontStyle::Bold);
@@ -157,17 +159,30 @@ namespace AlgoritmosProyectoFinal2 {
 
 		bool DialogoPunkIntro(int n) {
 			switch (n) {
+				// ---- titulo ----
 			case 0:  Linea("", 0, false, "Anarquia entre los 2 caminos", 25); return true;
 			case 1:  Linea("", 0, false, "A ROCKEAR!", 50); return true;
-			case 2:  Linea("Spider Punk", 3, true, "... Que.... problematico", 25); return true;
-			case 3:  Linea("Spider Punk", 3, true, "Bien... tengo cosas pendientes por hacer", 40); return true;
-			case 4:  Linea("Spider Punk", 3, true, "... adios", 50); return true;
-			case 5:  Linea("Gwen Stacy", 4, false, "Vas a dejarnos justo ahora?!... EN UN MOMENTO COMO ESTE???", 50); return true;
-			case 6:  Linea("Gwen Stacy", 4, false, "Tenemos que hablar con miles, el tiene que... entender... que el canon no puede cambiarse...", 50); return true;
-			case 7:  Linea("Spider Punk", 3, true, "... Como dije, tengo asuntos pendientes, a no ser que quieras venir conmigo", 50); return true;
-			case 8:  Linea("Spider Punk", 3, true, "Vas a tener que encontrar cofres y recolectar tornillos...", 50); return true;
-			case 9:  Linea("Gwen Stacy", 4, false, "Tornillos?... bueno.. mas te vale que sea importante...", 50); return true;
-			case 10: Linea("Gwen Stacy", 4, false, "Bueno... sabes donde encontrarme", 50); return true;
+				// ---- Punk y Peny ----
+			case 2:  Linea("Peny Parker", 8, false, "Punk! Por fin respondes!", 40); return true;
+			case 3:  Linea("Spider Punk", 3, true, "... Peny. Que pasa?", 40); return true;
+			case 4:  Linea("Peny Parker", 8, false, "La maquina de dimensiones se averio y todos quedamos dispersos", 40); return true;
+			case 5:  Linea("Spider Punk", 3, true, "Genial... mas problemas", 40); return true;
+			case 6:  Linea("Peny Parker", 8, false, "Para reunirnos de nuevo necesitamos reparar el portal", 40); return true;
+			case 7:  Linea("Peny Parker", 8, false, "Hay varias herramientas escondidas en unos cofres por esta zona", 40); return true;
+			case 8:  Linea("Spider Punk", 3, true, "Herramientas... en cofres?", 40); return true;
+			case 9:  Linea("Peny Parker", 8, false, "Si! Pero tienen un seguro musical, tendras que seguir el ritmo para abrirlos", 40); return true;
+			case 10: Linea("Spider Punk", 3, true, "Hmph... suena a trabajo. Pero me gusta el ruido", 50); return true;
+			case 11: Linea("Peny Parker", 8, false, "Cuando las tengas todas podremos reunirnos con los demas. Suerte, Punk!", 40); return true;
+				// ---- Punk y Gwen ----
+			case 12: Linea("Spider Punk", 3, true, "... Que.... problematico", 25); return true;
+			case 13: Linea("Spider Punk", 3, true, "Bien... tengo cosas pendientes por hacer", 40); return true;
+			case 14: Linea("Spider Punk", 3, true, "... adios", 50); return true;
+			case 15: Linea("Gwen Stacy", 4, false, "Vas a dejarnos justo ahora?!... EN UN MOMENTO COMO ESTE???", 50); return true;
+			case 16: Linea("Gwen Stacy", 4, false, "Tenemos que hablar con miles, el tiene que... entender... que el canon no puede cambiarse...", 50); return true;
+			case 17: Linea("Spider Punk", 3, true, "... Como dije, tengo asuntos pendientes, a no ser que quieras venir conmigo", 50); return true;
+			case 18: Linea("Spider Punk", 3, true, "Vas a tener que encontrar cofres y recolectar tornillos...", 50); return true;
+			case 19: Linea("Gwen Stacy", 4, false, "Tornillos?... bueno.. mas te vale que sea importante...", 50); return true;
+			case 20: Linea("Gwen Stacy", 4, false, "Bueno... sabes donde encontrarme", 50); return true;
 			default: return false;
 			}
 		}
@@ -258,6 +273,7 @@ namespace AlgoritmosProyectoFinal2 {
 			case 3:  return Color::FromArgb(235, 60, 60);     // Punk
 			case 4:  return Color::FromArgb(255, 105, 180);   // Gwen
 			case 5:  return Color::FromArgb(235, 235, 235);   // Spot
+			case 8:  return Color::FromArgb(150, 110, 255);   // Peny (morado, como el corazon de su arte)
 			default: return Color::FromArgb(255, 128, 0);     // naranja, como tu label4
 			}
 		}
@@ -269,6 +285,7 @@ namespace AlgoritmosProyectoFinal2 {
 			case 3:  return bmpPunk;
 			case 4:  return bmpGwen;
 			case 5:  return bmpSpot;
+			case 8:  return bmpPeny;
 			default: return nullptr;
 			}
 		}
@@ -310,6 +327,7 @@ namespace AlgoritmosProyectoFinal2 {
 				if (bmp != nullptr) {
 					// recorte de cabeza y torso del primer cuadro del sprite (64x64). Ajusta aqui si quieres otro encuadre.
 					System::Drawing::Rectangle recorte = System::Drawing::Rectangle(12, 0, 40, 40);
+					if (perfilActual == 8) recorte = System::Drawing::Rectangle(140, 45, 190, 190);   // Peny: imagen grande (461x462), cabeza y torso
 					g->DrawImage(bmp, marco, recorte, GraphicsUnit::Pixel);
 				}
 				g->DrawRectangle(penBorde, marco);
