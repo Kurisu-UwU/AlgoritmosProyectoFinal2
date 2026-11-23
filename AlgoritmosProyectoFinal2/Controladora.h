@@ -201,72 +201,52 @@ public:
         };
 
         int aleatorio = rand() % 6;
-
         int x = coordenadas[aleatorio][0];
         int y = coordenadas[aleatorio][1];
 
-        ProyectilHorizontal* nuevo =
-            new ProyectilHorizontal(x, y, 8, 24, 24);
+        ProyectilHorizontal* nuevo =new ProyectilHorizontal(x, y, 22, 24, 24);
         nuevo->SetVelocidadVertical(0);
-
         proyectilesHorizontales.push_back(nuevo);
     }
 
     void ActualizarProyectilesHorizontales(
         Protagonista* protagonista, int anchoMapa) {
-
         contadorProyectiles++;
 
         if (contadorProyectiles >= intervaloProyectiles) {
 
             GenerarProyectilHorizontal();
-
             contadorProyectiles = 0;
         }
 
         for (int i = 0; i < proyectilesHorizontales.size(); i++) {
 
             proyectilesHorizontales[i]->Mover();
-
-            Rectangle rectProyectil =
-                proyectilesHorizontales[i]->CrearRectangle();
+            Rectangle rectProyectil =proyectilesHorizontales[i]->CrearRectangle();
 
             if (rectProyectil.IntersectsWith(
                 protagonista->CrearRectangle())) {
-
-                protagonista->SetVida(
-                    max(0.0f, protagonista->GetVida() - 10)
-                );
-
+                protagonista->SetVida(max(0.0f, protagonista->GetVida() - 10));
                 proyectilesHorizontales[i]->SetExsistencia(false);
             }
 
             if (proyectilesHorizontales[i]->GetX() <= 0 ||
                 proyectilesHorizontales[i]->GetX() +
                 proyectilesHorizontales[i]->GetAncho() >= anchoMapa) {
-
                 proyectilesHorizontales[i]->SetExsistencia(false);
             }
 
             if (!proyectilesHorizontales[i]->GetExistencia()) {
 
                 delete proyectilesHorizontales[i];
-
-                proyectilesHorizontales.erase(
-                    proyectilesHorizontales.begin() + i
-                );
-
+                proyectilesHorizontales.erase(proyectilesHorizontales.begin() + i);
                 i--;
             }
         }
     }
-
     void DibujarProyectilesHorizontales(Graphics^ g, Bitmap^ bmp) {
-
         for (int i = 0; i < proyectilesHorizontales.size(); i++) {
-
             int idX = proyectilesHorizontales[i]->GetIdX();
-
             proyectilesHorizontales[i]->Dibujar(g, bmp, idX, 0);
         }
     }
@@ -279,7 +259,6 @@ public:
 
         int x = personaje->GetPX();
         int y = personaje->GetPY();
-
         proyectiles.push_back(new Proyectil(x, y, personaje->GetMirada()));
     }
 
@@ -313,7 +292,7 @@ public:
                 int random = rand() % 1100;
                 ProyectilHorizontal* pro = new ProyectilHorizontal(random, 0, 8, 24, 24);
                 pro->SetVelocidad(0);
-                pro->SetVelocidadVertical(5);
+                pro->SetVelocidadVertical(20);
                 proyectilesHorizontales.push_back(pro);
                 proyectiles.erase(proyectiles.begin() + i);
                 i--;
@@ -327,61 +306,33 @@ public:
         }
     }
 
-    // =====
-    // Notas
-    // =====
-
-    void DibujarNotasAtaque(Graphics^ g, Bitmap^ bmpBueno, Bitmap^ bmpMalo) {
-
-    }
-
     // =========
     // Limpiar
     // =========
 
     void LimpiarProyectiles() {
 
-        for (int i = 0; i < proyectiles.size(); i++) {
-            delete proyectiles[i];
-        }
-
+        for (int i = 0; i < proyectiles.size(); i++) {delete proyectiles[i];}
         proyectiles.clear();
     }
-
     void LimpiarObjetos() {
-        for (int i = 0; i < objetos.size(); i++) {
-            delete objetos[i];
-        }
+        for (int i = 0; i < objetos.size(); i++) {delete objetos[i];}
         objetos.clear();
         LimpiarCofres();
     }
-
     void LimpiarCofres() {
-        for (int i = 0; i < cofres.size(); i++) {
-            delete cofres[i];
-        }
+        for (int i = 0; i < cofres.size(); i++) {  delete cofres[i]; }
         cofres.clear();
     }
-
     void LimpiarJefe() {
-        if (jefe != nullptr) {
-            delete jefe; jefe = nullptr;
-        }
+        if (jefe != nullptr) { delete jefe; jefe = nullptr; }
     }
-
     void LimpiarPuertas() {
-        for (int i = 0; i < puertas.size(); i++) {
-            delete puertas[i];
-        }
+        for (int i = 0; i < puertas.size(); i++) { delete puertas[i]; }
         puertas.clear();
     }
-
     void LimpiarProyectilesHorizontales() {
-
-        for (int i = 0; i < proyectilesHorizontales.size(); i++) {
-            delete proyectilesHorizontales[i];
-        }
-
+        for (int i = 0; i < proyectilesHorizontales.size(); i++) { delete proyectilesHorizontales[i]; }
         proyectilesHorizontales.clear();
     }
     void LimpiarNotasAtaque() {

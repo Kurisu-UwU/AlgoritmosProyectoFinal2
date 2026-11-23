@@ -625,7 +625,6 @@ namespace AlgoritmosProyectoFinal2 {
 			controladora->DibujarProyectiles(buffer3->Graphics, bmpNota1);
 			controladora->ActualizarProyectilesHorizontales(punk, pnlJuego3->Width);
 			controladora->DibujarProyectilesHorizontales(buffer3->Graphics, bmpProyectilMalo);
-			controladora->DibujarNotasAtaque(buffer3->Graphics, bmpNota2, bmpNota1);
 			controladora->DibujarJefe(buffer3->Graphics, bmpSpot);
 			punk->Dibujar(buffer3->Graphics, bmpPunk);
 			DibujarDebug(buffer3->Graphics, pnlJuego3);
