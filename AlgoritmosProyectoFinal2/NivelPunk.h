@@ -647,7 +647,7 @@ private: System::Windows::Forms::Label^ label4;
 			   bmpProyectilMalo = gcnew Bitmap("Imagenes/Misiles.png");
 
 			   punk = new SpiderPunk(100, 300, 64, 64, 100, 10, 10, 100, 100, 0, "Punk", 'S', 1, 1);
-			   novela = gcnew NovelaVisual(panel1);
+			   novela = gcnew NovelaVisual(pnlTexto);
 			   IrASala(1, 100, 300);
 			   IniciarIntroPunk();
 		   }
