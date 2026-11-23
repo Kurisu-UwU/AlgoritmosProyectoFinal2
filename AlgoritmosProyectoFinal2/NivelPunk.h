@@ -69,7 +69,7 @@ namespace AlgoritmosProyectoFinal2 {
 			Jefe* spot = new Jefe(700, 300, 5, 64, 64, true, 20);
 			controladora->DefinirJefe(spot);
 
-			controladora->GenerarPuerta(0, 560, 40, 280, 2, 1250, 380);     // oeste -> sala 2
+			//controladora->GenerarPuerta(0, 560, 40, 280, 2, 1250, 380);     // oeste -> sala 2
 		}
 		bool CofreAbierto(int id) {
 			switch (id) {

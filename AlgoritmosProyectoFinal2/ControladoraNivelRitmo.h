@@ -4,6 +4,8 @@
 #include "Objeto.h"
 #include "Notas.h"
 using namespace std;
+using namespace System::Media;
+using namespace System;
 
 class ControladoraNivelRitmo {
 private:
@@ -69,12 +71,21 @@ public:
     // =========================
     // Devuelve: 0 = no habia ninguna nota al alcance, 1 = acierto, 2 = tecla equivocada
     int GolpearNota(Rectangle hitboxPunk, char tecla) {
+        SoundPlayer^ pum; // Claude IA  // el ^ "hat" es un tipo de puntero/vector del CRL.net / no necesita de un delete[]
+        SoundPlayer^ pam;
+        String^ rutapum = "Sonidos/pum.wav";
+        String^ rutapam = "Sonidos/pam.wav";
+        try { pum = gcnew SoundPlayer(rutapum); pum->Load(); } // (...) Atrapa cualquier tipo de excepción
+        catch (...) { pum = nullptr; } // si falta el archivo, no rompe el juego
+        try { pam = gcnew SoundPlayer(rutapam); pam->Load(); }
+        catch (...) { pam = nullptr; }
         int resultado = 0;
         int n = -1;
+        SoundPlayer^ pu;
         switch (tecla) {
-        case 'B': n = 0; break;
-        case 'N': n = 1; break;
-        case 'M': n = 2; break;
+        case 'B': n = 0; pu = pam; break;
+        case 'N': n = 1; pu = pum; break;
+        //case 'M': n = 2; break;
         default: break;
         }
         for (int i = 0; i < (int)notas.size(); i++) {
@@ -82,6 +93,8 @@ public:
                 if (notas[i]->GetTipo() == n) {
                     puntaje++;
                     if (resultado != 2) resultado = 1;
+                    if (pu != nullptr) { pu->Play(); }
+                    else { SystemSounds::Beep->Play(); } 
                 }
                 else {
                     puntaje--;
