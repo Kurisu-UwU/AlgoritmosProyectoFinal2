@@ -256,6 +256,8 @@ namespace AlgoritmosProyectoFinal2 {
 private: System::Windows::Forms::Panel^ pnlTexto;
 
 private: System::Windows::Forms::Label^ label4;
+private: System::Windows::Forms::Timer^ timerAnimacion;
+
 	   SpiderPunk* punk;
 
 #pragma region Windows Form Designer generated code
@@ -287,6 +289,7 @@ private: System::Windows::Forms::Label^ label4;
 			   this->btnPunk1 = (gcnew System::Windows::Forms::Button());
 			   this->pnlTexto = (gcnew System::Windows::Forms::Panel());
 			   this->label4 = (gcnew System::Windows::Forms::Label());
+			   this->timerAnimacion = (gcnew System::Windows::Forms::Timer(this->components));
 			   this->pnlDeControl->SuspendLayout();
 			   this->pnlJuego1->SuspendLayout();
 			   this->pnlJuego2->SuspendLayout();
@@ -585,6 +588,11 @@ private: System::Windows::Forms::Label^ label4;
 			   this->label4->TabIndex = 0;
 			   this->label4->Text = L"label4";
 			   // 
+			   // timerAnimacion
+			   // 
+			   this->timerAnimacion->Enabled = true;
+			   this->timerAnimacion->Tick += gcnew System::EventHandler(this, &NivelPunk::timerAnimacion_Tick);
+			   // 
 			   // NivelPunk
 			   // 
 			   this->AutoScaleDimensions = System::Drawing::SizeF(8, 16);
@@ -709,6 +717,7 @@ private: System::Windows::Forms::Label^ label4;
 		if (novela != nullptr) novela->Liberar();
 	}
 	private: System::Void NivelPunk_KeyDown(System::Object^ sender, System::Windows::Forms::KeyEventArgs^ e) {
+		punk->SetCaminando(false);
 		if (novela != nullptr && novela->EstaActivo()) {
 			novela->ProcesarTecla(e->KeyCode);
 			e->SuppressKeyPress = true;
@@ -719,15 +728,19 @@ private: System::Windows::Forms::Label^ label4;
 		switch (e->KeyCode) {
 		case Keys::A:
 			punk->move(buffer1->Graphics, 'A');
+			punk->SetCaminando(true);
 			break;
 		case Keys::D:
 			punk->move(buffer1->Graphics, 'D');
+			punk->SetCaminando(true);
 			break;
 		case Keys::W:
 			punk->move(buffer1->Graphics, 'W');
+			punk->SetCaminando(true);
 			break;
 		case Keys::S:
 			punk->move(buffer1->Graphics, 'S');
+			punk->SetCaminando(true);
 			break;
 		case Keys::F:
 			if (pnlJuego3->Visible == true) {
@@ -869,5 +882,8 @@ private: System::Windows::Forms::Label^ label4;
 	}
 	private: System::Void pnlDeControl_Paint(System::Object^ sender, System::Windows::Forms::PaintEventArgs^ e) {
 	}
-	};
+	private: System::Void timerAnimacion_Tick(System::Object^ sender, System::EventArgs^ e) {
+		punk->ProtaAnimacion();
+	}
+};
 }

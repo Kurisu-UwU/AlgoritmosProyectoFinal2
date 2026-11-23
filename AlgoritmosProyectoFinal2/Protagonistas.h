@@ -13,6 +13,7 @@ protected:
 	int dx, dy;
 	int ancho, alto;
 	char direccion;
+	bool estacaminando;
 	int vida;
 	float energia, ataque, carga;
 	string nombre;
@@ -35,6 +36,7 @@ public:
 		alto = alt;
 		idX = idx;
 		idY = idy;
+		estacaminando = false;
 	}
 
 	virtual ~Protagonista() {};
@@ -74,28 +76,28 @@ public:
 		switch (i) {
 		case 'A':
 			if (x > 0) {
-				idY = 7;
+				if (!estacaminando) idY = 3; else idY = 7;
 				x -= dx;
 				direccion = 'A';
 			}
 			break;
 		case 'D':
 			if (x + ancho * 1.0 < g->VisibleClipBounds.Width) {
-				idY = 6;
+				if (!estacaminando) idY = 2; else idY = 6;
 				x += dx;
 				direccion = 'D';
 			}
 			break;
 		case 'W':
 			if (y > 0) {
-				idY = 5;
+				if (!estacaminando) idY = 1; else idY = 5;
 				y -= dy;
 				direccion = 'W';
 			}
 			break;
 		case 'S':
 			if (y + alto * 1.0 < g->VisibleClipBounds.Height) {
-				idY = 4;
+				if (!estacaminando) idY = 0; else idY = 4;
 				y += dy;
 				direccion = 'S';
 			}
@@ -104,12 +106,16 @@ public:
 		idX++;
 		if (idX > 15)idX = 0;
 	}
+	void ProtaAnimacion() {
+		idX++;
+		if (idX > 15) idX = 0;
+	}
 	virtual Rectangle CrearRectangle() {
 		return Rectangle(x, y, ancho * 0.75, alto * 0.75);
 	}
-
-
 	int getVida() {
 		return vida;
 	}
+	void SetCaminando(bool cam) { estacaminando = cam; }
+	bool GetCaminando() { return estacaminando; }
 };
