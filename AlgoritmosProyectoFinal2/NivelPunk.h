@@ -727,20 +727,20 @@ private: System::Windows::Forms::Timer^ timerAnimacion;
 		int yAnterior = punk->GetPY();
 		switch (e->KeyCode) {
 		case Keys::A:
-			punk->move(buffer1->Graphics, 'A');
 			punk->SetCaminando(true);
+			punk->move(buffer1->Graphics, 'A');
 			break;
 		case Keys::D:
-			punk->move(buffer1->Graphics, 'D');
 			punk->SetCaminando(true);
+			punk->move(buffer1->Graphics, 'D');
 			break;
 		case Keys::W:
-			punk->move(buffer1->Graphics, 'W');
 			punk->SetCaminando(true);
+			punk->move(buffer1->Graphics, 'W');
 			break;
 		case Keys::S:
-			punk->move(buffer1->Graphics, 'S');
 			punk->SetCaminando(true);
+			punk->move(buffer1->Graphics, 'S');
 			break;
 		case Keys::F:
 			if (pnlJuego3->Visible == true) {
