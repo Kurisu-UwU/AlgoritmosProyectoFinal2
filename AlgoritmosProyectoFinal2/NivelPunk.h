@@ -183,6 +183,7 @@ namespace AlgoritmosProyectoFinal2 {
 		Bitmap^ bmpNota1;
 		Bitmap^ bmpNota2;
 		Bitmap^ bmpNota3;
+		Bitmap^ bmpProyectilMalo;
 		Controladora* controladora;
 
 	private: System::Windows::Forms::Panel^ pnlJuego2;
@@ -569,6 +570,7 @@ namespace AlgoritmosProyectoFinal2 {
 			   bmpNota1 = gcnew Bitmap("Imagenes/NotasMusicales1.png");
 			   bmpNota2 = gcnew Bitmap("Imagenes/NotasMusicales2.png");
 			   bmpNota3 = gcnew Bitmap("Imagenes/NotasMusicales3.png");
+			   bmpProyectilMalo = gcnew Bitmap("Imagenes/Misiles.png");
 
 			   punk = new SpiderPunk(100, 300, 64, 64, 100, 10, 10, 100, 100, 0, "Punk", 'S', 1, 1);
 			   IrASala(1, 100, 300);
@@ -596,6 +598,8 @@ namespace AlgoritmosProyectoFinal2 {
 			controladora->ActualizarJefes(punk, pnlJuego3->Width, pnlJuego3->Height);
 			controladora->ActualizarProyectiles(pnlJuego3->Width, pnlJuego3->Height);
 			controladora->DibujarProyectiles(buffer3->Graphics, bmpNota1);
+			controladora->ActualizarProyectilesHorizontales(punk, pnlJuego3->Width);
+			controladora->DibujarProyectilesHorizontales(buffer3->Graphics, bmpProyectilMalo);
 			controladora->DibujarJefe(buffer3->Graphics, bmpSpot);
 			punk->Dibujar(buffer3->Graphics, bmpPunk);
 			DibujarDebug(buffer3->Graphics, pnlJuego3);

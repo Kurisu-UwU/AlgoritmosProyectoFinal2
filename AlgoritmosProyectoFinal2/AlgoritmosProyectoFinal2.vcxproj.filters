@@ -104,5 +104,8 @@
     <ClInclude Include="Notas.h">
       <Filter>Header Files\Proyectiles</Filter>
     </ClInclude>
+    <ClInclude Include="ProyectilHorizontal.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>
