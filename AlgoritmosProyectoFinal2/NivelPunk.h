@@ -57,8 +57,8 @@ namespace AlgoritmosProyectoFinal2 {
 			controladora->GenerarObstaculo(792, 460, 0, 225, 215);
 			controladora->GenerarObstaculo(0, 468, 0, 285, 435);
 
-			controladora->GenerarPuerta(0, 285, 40, 183, 1, 1100, 300);     // oeste -> sala 1
-			controladora->GenerarPuerta(1200, 0, 60, 840, 3, 60, 650);      // este -> sala 3 (jefe)
+			controladora->GenerarPuerta(0, 285, 40, 183, 1, 1100, 300);
+			controladora->GenerarPuerta(1200, 0, 60, 840, 3, 60, 650);
 		}
 
 		void CargarNivel3() {
@@ -73,8 +73,10 @@ namespace AlgoritmosProyectoFinal2 {
 			Jefe* spot = new Jefe(700, 600, 5, 64, 64, true, 20);
 			controladora->DefinirJefe(spot);
 			combateTerminado = false;
-
-			//controladora->GenerarPuerta(0, 560, 40, 280, 2, 1250, 380);     // oeste -> sala 2
+			if (!dialogoSpotMostrado && novela != nullptr) {
+				dialogoSpotMostrado = true;  
+				novela->Iniciar(2);           
+			}
 		}
 		bool CofreAbierto(int id) {
 			switch (id) {
@@ -185,6 +187,7 @@ namespace AlgoritmosProyectoFinal2 {
 		bool estadocofre2 = false;
 		bool estadocofre3 = false;
 		bool combateTerminado = false;
+		bool dialogoSpotMostrado = false;
 
 		Graphics^ gr1;
 		Graphics^ gr2;
@@ -659,10 +662,12 @@ private: System::Windows::Forms::Label^ label4;
 		}
 		if (pnlJuego3->Visible == true) {
 			buffer3->Graphics->DrawImage(bmpMapa3, 0, 0, pnlJuego3->Width * 1.0, pnlJuego3->Height * 1.0);
-			controladora->ActualizarJefes(punk, pnlJuego3->Width, pnlJuego3->Height);
-			controladora->ActualizarProyectiles(pnlJuego3->Width, pnlJuego3->Height);
+			if (!novela->EstaActivo()) {
+				controladora->ActualizarJefes(punk, pnlJuego3->Width, pnlJuego3->Height);
+				controladora->ActualizarProyectiles(pnlJuego3->Width, pnlJuego3->Height);
+				controladora->ActualizarProyectilesHorizontales(punk, pnlJuego3->Width);
+			}
 			controladora->DibujarProyectiles(buffer3->Graphics, bmpNota1);
-			controladora->ActualizarProyectilesHorizontales(punk, pnlJuego3->Width);
 			controladora->DibujarProyectilesHorizontales(buffer3->Graphics, bmpProyectilMalo);
 			controladora->DibujarJefe(buffer3->Graphics, bmpSpot);
 			controladora->ComprobarColisionJefe(punk);

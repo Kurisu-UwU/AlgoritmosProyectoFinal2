@@ -92,7 +92,7 @@ namespace AlgoritmosProyectoFinal2 {
 
 		bool EstaActivo() { return activo; }
 
-		// ---- reproducir un dialogo (1 = intro de Punk) ---------------------------
+		// ---- reproducir un dialogo (1 = intro de Punk, 2 = antes de Spot) ---------------------------
 		void Iniciar(int numeroEscena) {
 			escena = numeroEscena;
 			indice = 0;
@@ -153,6 +153,7 @@ namespace AlgoritmosProyectoFinal2 {
 		bool CargarLinea() {
 			switch (escena) {
 			case 1: return DialogoPunkIntro(indice);
+			case 2: return DialogoPunkSpot(indice);
 			default: return false;
 			}
 		}
@@ -163,8 +164,8 @@ namespace AlgoritmosProyectoFinal2 {
 			case 0:  Linea("", 0, false, "Anarquia entre los 2 caminos", 25); return true;
 			case 1:  Linea("", 0, false, "A ROCKEAR!", 50); return true;
 				// ---- Punk y Peny ----
-			case 2:  Linea("Peny Parker", 8, false, "Punk! Por fin respondes!", 40); return true;
-			case 3:  Linea("Spider Punk", 3, true, "... Peny. Que pasa?", 40); return true;
+			case 2:  Linea("Peny Parker", 8, false, "Punk! Por fin te encuentro!", 40); return true;
+			case 3:  Linea("Spider Punk", 3, true, "... Peny. Que haces aqui?", 40); return true;
 			case 4:  Linea("Peny Parker", 8, false, "La maquina de dimensiones se averio y todos quedamos dispersos", 40); return true;
 			case 5:  Linea("Spider Punk", 3, true, "Genial... mas problemas", 40); return true;
 			case 6:  Linea("Peny Parker", 8, false, "Para reunirnos de nuevo necesitamos reparar el portal", 40); return true;
@@ -183,6 +184,23 @@ namespace AlgoritmosProyectoFinal2 {
 			case 18: Linea("Spider Punk", 3, true, "Vas a tener que encontrar cofres y recolectar tornillos...", 50); return true;
 			case 19: Linea("Gwen Stacy", 4, false, "Tornillos?... bueno.. mas te vale que sea importante...", 50); return true;
 			case 20: Linea("Gwen Stacy", 4, false, "Bueno... sabes donde encontrarme", 50); return true;
+			default: return false;
+			}
+		}
+		// Dialogo antes de la pelea contra Spot (escena 2)
+		bool DialogoPunkSpot(int n) {
+			switch (n) {
+			case 0:  Linea("Spider Punk", 3, true, "... Que.... problematico", 25); return true;
+			case 1:  Linea("The Spot", 5, false, "No tan rapido..... dime donde esta Miles", 40); return true;
+			case 2:  Linea("Spider Punk", 3, true, "TU otra vez!", 50); return true;
+			case 3:  Linea("Spider Punk", 3, true, "No vas a escapar esta v-", 50); return true;
+			case 4:  Linea("The Spot", 5, false, "Silencio~", 50); return true;
+			case 5:  Linea("The Spot", 5, false, "Donde esta?.... Miles.... tengo asuntos pendientes con el", 50); return true;
+			case 6:  Linea("Spider Punk", 3, true, "Bueno..... Casualmente yo tambien lo estaba buscando", 50); return true;
+			case 7:  Linea("Spider Punk", 3, true, "Que te parece si... el primero que lo encuentra gana?", 50); return true;
+			case 8:  Linea("The Spot", 5, false, "Solo quieres hacerme perder el tiempo", 50); return true;
+			case 9:  Linea("The Spot", 5, false, "Acabemos esto de una vez", 50); return true;
+			case 10: Linea("Spider Punk", 3, true, "Es hora del espectaculo!", 50); return true;
 			default: return false;
 			}
 		}
