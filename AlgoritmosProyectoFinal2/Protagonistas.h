@@ -64,6 +64,8 @@ public:
 	float GetCarga() { return carga; }
 	string GetNombre() { return nombre; }
 	char GetMirada() { return direccion; }
+	int GetIdX() { return idX; }
+	void SetIdX(int v) { idX = v; }
 
 
 	void Dibujar(Graphics^ g, Bitmap^ bmp) {
@@ -105,6 +107,15 @@ public:
 		}
 		idX++;
 		if (idX > 15)idX = 0;
+	}
+	void ProtaQuieto() {
+		estacaminando = false;
+		switch (direccion) {
+		case 'S': idY = 0; break;
+		case 'W': idY = 1; break;
+		case 'D': idY = 2; break;
+		case 'A': idY = 3; break;
+		}
 	}
 	void ProtaAnimacion() {
 		idX++;

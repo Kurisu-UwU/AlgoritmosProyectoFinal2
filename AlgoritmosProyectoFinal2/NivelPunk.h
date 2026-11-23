@@ -178,11 +178,11 @@ namespace AlgoritmosProyectoFinal2 {
 	private:
 		int salaActual = 1;
 		bool modoDebug = false;   // F2: muestra/oculta hitboxes de puertas y coordenadas
-		bool estadocofre1 = false;
-		bool estadocofre2 = false;
-		bool estadocofre3 = false;
+		bool estadocofre1 = false, estadocofre2 = false, estadocofre3 = false;
 		bool combateTerminado = false;
 		bool dialogoSpotMostrado = false;
+		bool teclaA = false, teclaD = false, teclaW = false, teclaS = false;
+		char ultimaDir = ' ';
 
 		Graphics^ gr1;
 		Graphics^ gr2;
@@ -235,6 +235,7 @@ namespace AlgoritmosProyectoFinal2 {
 private: System::Windows::Forms::Panel^ pnlTexto;
 private: System::Windows::Forms::Label^ label4;
 private: System::Windows::Forms::Timer^ timerAnimacion;
+private: System::Windows::Forms::Timer^ timerMovimiento;
 	   SpiderPunk* punk;
 #pragma region Windows Form Designer generated code
 
@@ -266,6 +267,7 @@ private: System::Windows::Forms::Timer^ timerAnimacion;
 			   this->pnlTexto = (gcnew System::Windows::Forms::Panel());
 			   this->label4 = (gcnew System::Windows::Forms::Label());
 			   this->timerAnimacion = (gcnew System::Windows::Forms::Timer(this->components));
+			   this->timerMovimiento = (gcnew System::Windows::Forms::Timer(this->components));
 			   this->pnlDeControl->SuspendLayout();
 			   this->pnlJuego1->SuspendLayout();
 			   this->pnlJuego2->SuspendLayout();
@@ -280,10 +282,10 @@ private: System::Windows::Forms::Timer^ timerAnimacion;
 			   this->pnlDeControl->Controls->Add(this->lblPuntaje);
 			   this->pnlDeControl->Controls->Add(this->lblVida);
 			   this->pnlDeControl->Controls->Add(this->lblPersonaje);
-			   this->pnlDeControl->Location = System::Drawing::Point(16, 12);
-			   this->pnlDeControl->Margin = System::Windows::Forms::Padding(3, 2, 3, 2);
+			   this->pnlDeControl->Location = System::Drawing::Point(12, 10);
+			   this->pnlDeControl->Margin = System::Windows::Forms::Padding(2);
 			   this->pnlDeControl->Name = L"pnlDeControl";
-			   this->pnlDeControl->Size = System::Drawing::Size(1620, 110);
+			   this->pnlDeControl->Size = System::Drawing::Size(1215, 89);
 			   this->pnlDeControl->TabIndex = 0;
 			   this->pnlDeControl->Paint += gcnew System::Windows::Forms::PaintEventHandler(this, &NivelPunk::pnlDeControl_Paint);
 			   // 
@@ -295,9 +297,10 @@ private: System::Windows::Forms::Timer^ timerAnimacion;
 				   static_cast<System::Byte>(0)));
 			   this->lblSpot->ForeColor = System::Drawing::Color::FromArgb(static_cast<System::Int32>(static_cast<System::Byte>(255)), static_cast<System::Int32>(static_cast<System::Byte>(128)),
 				   static_cast<System::Int32>(static_cast<System::Byte>(0)));
-			   this->lblSpot->Location = System::Drawing::Point(783, 55);
+			   this->lblSpot->Location = System::Drawing::Point(587, 45);
+			   this->lblSpot->Margin = System::Windows::Forms::Padding(2, 0, 2, 0);
 			   this->lblSpot->Name = L"lblSpot";
-			   this->lblSpot->Size = System::Drawing::Size(78, 28);
+			   this->lblSpot->Size = System::Drawing::Size(65, 23);
 			   this->lblSpot->TabIndex = 3;
 			   this->lblSpot->Text = L"lblSpot";
 			   // 
@@ -309,9 +312,10 @@ private: System::Windows::Forms::Timer^ timerAnimacion;
 				   static_cast<System::Byte>(0)));
 			   this->lblPuntaje->ForeColor = System::Drawing::Color::FromArgb(static_cast<System::Int32>(static_cast<System::Byte>(255)), static_cast<System::Int32>(static_cast<System::Byte>(128)),
 				   static_cast<System::Int32>(static_cast<System::Byte>(0)));
-			   this->lblPuntaje->Location = System::Drawing::Point(783, 12);
+			   this->lblPuntaje->Location = System::Drawing::Point(587, 10);
+			   this->lblPuntaje->Margin = System::Windows::Forms::Padding(2, 0, 2, 0);
 			   this->lblPuntaje->Name = L"lblPuntaje";
-			   this->lblPuntaje->Size = System::Drawing::Size(101, 28);
+			   this->lblPuntaje->Size = System::Drawing::Size(83, 23);
 			   this->lblPuntaje->TabIndex = 2;
 			   this->lblPuntaje->Text = L"lblPuntaje";
 			   // 
@@ -323,9 +327,10 @@ private: System::Windows::Forms::Timer^ timerAnimacion;
 				   static_cast<System::Byte>(0)));
 			   this->lblVida->ForeColor = System::Drawing::Color::FromArgb(static_cast<System::Int32>(static_cast<System::Byte>(255)), static_cast<System::Int32>(static_cast<System::Byte>(128)),
 				   static_cast<System::Int32>(static_cast<System::Byte>(0)));
-			   this->lblVida->Location = System::Drawing::Point(25, 55);
+			   this->lblVida->Location = System::Drawing::Point(19, 45);
+			   this->lblVida->Margin = System::Windows::Forms::Padding(2, 0, 2, 0);
 			   this->lblVida->Name = L"lblVida";
-			   this->lblVida->Size = System::Drawing::Size(75, 28);
+			   this->lblVida->Size = System::Drawing::Size(62, 23);
 			   this->lblVida->TabIndex = 1;
 			   this->lblVida->Text = L"lblVida";
 			   // 
@@ -337,9 +342,10 @@ private: System::Windows::Forms::Timer^ timerAnimacion;
 				   static_cast<System::Byte>(0)));
 			   this->lblPersonaje->ForeColor = System::Drawing::Color::FromArgb(static_cast<System::Int32>(static_cast<System::Byte>(255)), static_cast<System::Int32>(static_cast<System::Byte>(128)),
 				   static_cast<System::Int32>(static_cast<System::Byte>(0)));
-			   this->lblPersonaje->Location = System::Drawing::Point(25, 12);
+			   this->lblPersonaje->Location = System::Drawing::Point(19, 10);
+			   this->lblPersonaje->Margin = System::Windows::Forms::Padding(2, 0, 2, 0);
 			   this->lblPersonaje->Name = L"lblPersonaje";
-			   this->lblPersonaje->Size = System::Drawing::Size(125, 28);
+			   this->lblPersonaje->Size = System::Drawing::Size(99, 23);
 			   this->lblPersonaje->TabIndex = 0;
 			   this->lblPersonaje->Text = L"lblPersonaje";
 			   // 
@@ -348,19 +354,18 @@ private: System::Windows::Forms::Timer^ timerAnimacion;
 			   this->pnlJuego1->Controls->Add(this->button10);
 			   this->pnlJuego1->Controls->Add(this->button11);
 			   this->pnlJuego1->Controls->Add(this->button12);
-			   this->pnlJuego1->Location = System::Drawing::Point(16, 121);
-			   this->pnlJuego1->Margin = System::Windows::Forms::Padding(4);
+			   this->pnlJuego1->Location = System::Drawing::Point(12, 98);
 			   this->pnlJuego1->Name = L"pnlJuego1";
-			   this->pnlJuego1->Size = System::Drawing::Size(1620, 839);
+			   this->pnlJuego1->Size = System::Drawing::Size(1215, 682);
 			   this->pnlJuego1->TabIndex = 1;
 			   this->pnlJuego1->Paint += gcnew System::Windows::Forms::PaintEventHandler(this, &NivelPunk::pnlJuego1_Paint);
 			   // 
 			   // button10
 			   // 
-			   this->button10->Location = System::Drawing::Point(172, 25);
-			   this->button10->Margin = System::Windows::Forms::Padding(5);
+			   this->button10->Location = System::Drawing::Point(129, 20);
+			   this->button10->Margin = System::Windows::Forms::Padding(4);
 			   this->button10->Name = L"button10";
-			   this->button10->Size = System::Drawing::Size(100, 28);
+			   this->button10->Size = System::Drawing::Size(75, 23);
 			   this->button10->TabIndex = 10;
 			   this->button10->Text = L"Punk 3";
 			   this->button10->UseVisualStyleBackColor = true;
@@ -369,10 +374,10 @@ private: System::Windows::Forms::Timer^ timerAnimacion;
 			   // 
 			   // button11
 			   // 
-			   this->button11->Location = System::Drawing::Point(316, 25);
-			   this->button11->Margin = System::Windows::Forms::Padding(5);
+			   this->button11->Location = System::Drawing::Point(237, 20);
+			   this->button11->Margin = System::Windows::Forms::Padding(4);
 			   this->button11->Name = L"button11";
-			   this->button11->Size = System::Drawing::Size(100, 28);
+			   this->button11->Size = System::Drawing::Size(75, 23);
 			   this->button11->TabIndex = 9;
 			   this->button11->Text = L"Punk 2";
 			   this->button11->UseVisualStyleBackColor = true;
@@ -381,10 +386,10 @@ private: System::Windows::Forms::Timer^ timerAnimacion;
 			   // 
 			   // button12
 			   // 
-			   this->button12->Location = System::Drawing::Point(28, 25);
-			   this->button12->Margin = System::Windows::Forms::Padding(5);
+			   this->button12->Location = System::Drawing::Point(21, 20);
+			   this->button12->Margin = System::Windows::Forms::Padding(4);
 			   this->button12->Name = L"button12";
-			   this->button12->Size = System::Drawing::Size(100, 28);
+			   this->button12->Size = System::Drawing::Size(75, 23);
 			   this->button12->TabIndex = 11;
 			   this->button12->Text = L"Punk m";
 			   this->button12->UseVisualStyleBackColor = true;
@@ -401,18 +406,17 @@ private: System::Windows::Forms::Timer^ timerAnimacion;
 			   this->pnlJuego2->Controls->Add(this->button5);
 			   this->pnlJuego2->Controls->Add(this->button6);
 			   this->pnlJuego2->Controls->Add(this->button8);
-			   this->pnlJuego2->Location = System::Drawing::Point(16, 121);
-			   this->pnlJuego2->Margin = System::Windows::Forms::Padding(4);
+			   this->pnlJuego2->Location = System::Drawing::Point(12, 98);
 			   this->pnlJuego2->Name = L"pnlJuego2";
-			   this->pnlJuego2->Size = System::Drawing::Size(1620, 839);
+			   this->pnlJuego2->Size = System::Drawing::Size(1215, 682);
 			   this->pnlJuego2->TabIndex = 2;
 			   // 
 			   // button5
 			   // 
-			   this->button5->Location = System::Drawing::Point(460, 25);
-			   this->button5->Margin = System::Windows::Forms::Padding(5);
+			   this->button5->Location = System::Drawing::Point(345, 20);
+			   this->button5->Margin = System::Windows::Forms::Padding(4);
 			   this->button5->Name = L"button5";
-			   this->button5->Size = System::Drawing::Size(100, 28);
+			   this->button5->Size = System::Drawing::Size(75, 23);
 			   this->button5->TabIndex = 8;
 			   this->button5->Text = L"Punk 1";
 			   this->button5->UseVisualStyleBackColor = true;
@@ -421,10 +425,10 @@ private: System::Windows::Forms::Timer^ timerAnimacion;
 			   // 
 			   // button6
 			   // 
-			   this->button6->Location = System::Drawing::Point(172, 25);
-			   this->button6->Margin = System::Windows::Forms::Padding(5);
+			   this->button6->Location = System::Drawing::Point(129, 20);
+			   this->button6->Margin = System::Windows::Forms::Padding(4);
 			   this->button6->Name = L"button6";
-			   this->button6->Size = System::Drawing::Size(100, 28);
+			   this->button6->Size = System::Drawing::Size(75, 23);
 			   this->button6->TabIndex = 10;
 			   this->button6->Text = L"Punk 3";
 			   this->button6->UseVisualStyleBackColor = true;
@@ -433,10 +437,10 @@ private: System::Windows::Forms::Timer^ timerAnimacion;
 			   // 
 			   // button8
 			   // 
-			   this->button8->Location = System::Drawing::Point(28, 25);
-			   this->button8->Margin = System::Windows::Forms::Padding(5);
+			   this->button8->Location = System::Drawing::Point(21, 20);
+			   this->button8->Margin = System::Windows::Forms::Padding(4);
 			   this->button8->Name = L"button8";
-			   this->button8->Size = System::Drawing::Size(100, 28);
+			   this->button8->Size = System::Drawing::Size(75, 23);
 			   this->button8->TabIndex = 11;
 			   this->button8->Text = L"Punk m";
 			   this->button8->UseVisualStyleBackColor = true;
@@ -448,19 +452,18 @@ private: System::Windows::Forms::Timer^ timerAnimacion;
 			   this->pnlJuego3->Controls->Add(this->button4);
 			   this->pnlJuego3->Controls->Add(this->button3);
 			   this->pnlJuego3->Controls->Add(this->button1);
-			   this->pnlJuego3->Location = System::Drawing::Point(16, 121);
-			   this->pnlJuego3->Margin = System::Windows::Forms::Padding(4);
+			   this->pnlJuego3->Location = System::Drawing::Point(12, 98);
 			   this->pnlJuego3->Name = L"pnlJuego3";
-			   this->pnlJuego3->Size = System::Drawing::Size(1620, 839);
+			   this->pnlJuego3->Size = System::Drawing::Size(1215, 682);
 			   this->pnlJuego3->TabIndex = 3;
 			   this->pnlJuego3->Visible = false;
 			   // 
 			   // button4
 			   // 
-			   this->button4->Location = System::Drawing::Point(460, 25);
-			   this->button4->Margin = System::Windows::Forms::Padding(5);
+			   this->button4->Location = System::Drawing::Point(345, 20);
+			   this->button4->Margin = System::Windows::Forms::Padding(4);
 			   this->button4->Name = L"button4";
-			   this->button4->Size = System::Drawing::Size(100, 28);
+			   this->button4->Size = System::Drawing::Size(75, 23);
 			   this->button4->TabIndex = 4;
 			   this->button4->Text = L"Punk 1";
 			   this->button4->UseVisualStyleBackColor = true;
@@ -469,10 +472,10 @@ private: System::Windows::Forms::Timer^ timerAnimacion;
 			   // 
 			   // button3
 			   // 
-			   this->button3->Location = System::Drawing::Point(316, 25);
-			   this->button3->Margin = System::Windows::Forms::Padding(5);
+			   this->button3->Location = System::Drawing::Point(237, 20);
+			   this->button3->Margin = System::Windows::Forms::Padding(4);
 			   this->button3->Name = L"button3";
-			   this->button3->Size = System::Drawing::Size(100, 28);
+			   this->button3->Size = System::Drawing::Size(75, 23);
 			   this->button3->TabIndex = 5;
 			   this->button3->Text = L"Punk 2";
 			   this->button3->UseVisualStyleBackColor = true;
@@ -481,10 +484,10 @@ private: System::Windows::Forms::Timer^ timerAnimacion;
 			   // 
 			   // button1
 			   // 
-			   this->button1->Location = System::Drawing::Point(28, 25);
-			   this->button1->Margin = System::Windows::Forms::Padding(5);
+			   this->button1->Location = System::Drawing::Point(21, 20);
+			   this->button1->Margin = System::Windows::Forms::Padding(4);
 			   this->button1->Name = L"button1";
-			   this->button1->Size = System::Drawing::Size(100, 28);
+			   this->button1->Size = System::Drawing::Size(75, 23);
 			   this->button1->TabIndex = 7;
 			   this->button1->Text = L"Punk m";
 			   this->button1->UseVisualStyleBackColor = true;
@@ -496,20 +499,20 @@ private: System::Windows::Forms::Timer^ timerAnimacion;
 			   this->pnlJuegoMusical->Controls->Add(this->btnPunk3);
 			   this->pnlJuegoMusical->Controls->Add(this->btnPunk2);
 			   this->pnlJuegoMusical->Controls->Add(this->btnPunk1);
-			   this->pnlJuegoMusical->Location = System::Drawing::Point(16, 121);
-			   this->pnlJuegoMusical->Margin = System::Windows::Forms::Padding(5);
+			   this->pnlJuegoMusical->Location = System::Drawing::Point(12, 98);
+			   this->pnlJuegoMusical->Margin = System::Windows::Forms::Padding(4);
 			   this->pnlJuegoMusical->Name = L"pnlJuegoMusical";
-			   this->pnlJuegoMusical->Size = System::Drawing::Size(1620, 839);
+			   this->pnlJuegoMusical->Size = System::Drawing::Size(1215, 682);
 			   this->pnlJuegoMusical->TabIndex = 4;
 			   this->pnlJuegoMusical->Visible = false;
 			   this->pnlJuegoMusical->Paint += gcnew System::Windows::Forms::PaintEventHandler(this, &NivelPunk::pnlJuegoMusical_Paint);
 			   // 
 			   // btnPunk3
 			   // 
-			   this->btnPunk3->Location = System::Drawing::Point(32, 25);
-			   this->btnPunk3->Margin = System::Windows::Forms::Padding(5);
+			   this->btnPunk3->Location = System::Drawing::Point(24, 20);
+			   this->btnPunk3->Margin = System::Windows::Forms::Padding(4);
 			   this->btnPunk3->Name = L"btnPunk3";
-			   this->btnPunk3->Size = System::Drawing::Size(100, 28);
+			   this->btnPunk3->Size = System::Drawing::Size(75, 23);
 			   this->btnPunk3->TabIndex = 2;
 			   this->btnPunk3->Text = L"Punk 3";
 			   this->btnPunk3->UseVisualStyleBackColor = true;
@@ -518,10 +521,10 @@ private: System::Windows::Forms::Timer^ timerAnimacion;
 			   // 
 			   // btnPunk2
 			   // 
-			   this->btnPunk2->Location = System::Drawing::Point(176, 25);
-			   this->btnPunk2->Margin = System::Windows::Forms::Padding(5);
+			   this->btnPunk2->Location = System::Drawing::Point(132, 20);
+			   this->btnPunk2->Margin = System::Windows::Forms::Padding(4);
 			   this->btnPunk2->Name = L"btnPunk2";
-			   this->btnPunk2->Size = System::Drawing::Size(100, 28);
+			   this->btnPunk2->Size = System::Drawing::Size(75, 23);
 			   this->btnPunk2->TabIndex = 1;
 			   this->btnPunk2->Text = L"Punk 2";
 			   this->btnPunk2->UseVisualStyleBackColor = true;
@@ -530,10 +533,10 @@ private: System::Windows::Forms::Timer^ timerAnimacion;
 			   // 
 			   // btnPunk1
 			   // 
-			   this->btnPunk1->Location = System::Drawing::Point(320, 25);
-			   this->btnPunk1->Margin = System::Windows::Forms::Padding(5);
+			   this->btnPunk1->Location = System::Drawing::Point(240, 20);
+			   this->btnPunk1->Margin = System::Windows::Forms::Padding(4);
 			   this->btnPunk1->Name = L"btnPunk1";
-			   this->btnPunk1->Size = System::Drawing::Size(100, 28);
+			   this->btnPunk1->Size = System::Drawing::Size(75, 23);
 			   this->btnPunk1->TabIndex = 0;
 			   this->btnPunk1->Text = L"Punk 1";
 			   this->btnPunk1->UseVisualStyleBackColor = true;
@@ -543,10 +546,10 @@ private: System::Windows::Forms::Timer^ timerAnimacion;
 			   // pnlTexto
 			   // 
 			   this->pnlTexto->Controls->Add(this->label4);
-			   this->pnlTexto->Location = System::Drawing::Point(16, 11);
-			   this->pnlTexto->Margin = System::Windows::Forms::Padding(3, 2, 3, 2);
+			   this->pnlTexto->Location = System::Drawing::Point(12, 9);
+			   this->pnlTexto->Margin = System::Windows::Forms::Padding(2);
 			   this->pnlTexto->Name = L"pnlTexto";
-			   this->pnlTexto->Size = System::Drawing::Size(1620, 109);
+			   this->pnlTexto->Size = System::Drawing::Size(1215, 89);
 			   this->pnlTexto->TabIndex = 4;
 			   this->pnlTexto->Visible = false;
 			   // 
@@ -558,9 +561,10 @@ private: System::Windows::Forms::Timer^ timerAnimacion;
 				   static_cast<System::Byte>(0)));
 			   this->label4->ForeColor = System::Drawing::Color::FromArgb(static_cast<System::Int32>(static_cast<System::Byte>(255)), static_cast<System::Int32>(static_cast<System::Byte>(128)),
 				   static_cast<System::Int32>(static_cast<System::Byte>(0)));
-			   this->label4->Location = System::Drawing::Point(25, 12);
+			   this->label4->Location = System::Drawing::Point(19, 10);
+			   this->label4->Margin = System::Windows::Forms::Padding(2, 0, 2, 0);
 			   this->label4->Name = L"label4";
-			   this->label4->Size = System::Drawing::Size(67, 28);
+			   this->label4->Size = System::Drawing::Size(56, 23);
 			   this->label4->TabIndex = 0;
 			   this->label4->Text = L"label4";
 			   // 
@@ -569,24 +573,32 @@ private: System::Windows::Forms::Timer^ timerAnimacion;
 			   this->timerAnimacion->Enabled = true;
 			   this->timerAnimacion->Tick += gcnew System::EventHandler(this, &NivelPunk::timerAnimacion_Tick);
 			   // 
+			   // timerMovimiento
+			   // 
+			   this->timerMovimiento->Enabled = true;
+			   this->timerMovimiento->Interval = 1;
+			   this->timerMovimiento->Tick += gcnew System::EventHandler(this, &NivelPunk::timerMovimiento_Tick);
+			   // 
 			   // NivelPunk
 			   // 
-			   this->AutoScaleDimensions = System::Drawing::SizeF(8, 16);
+			   this->AutoScaleDimensions = System::Drawing::SizeF(6, 13);
 			   this->AutoScaleMode = System::Windows::Forms::AutoScaleMode::Font;
 			   this->BackColor = System::Drawing::SystemColors::ActiveCaptionText;
-			   this->ClientSize = System::Drawing::Size(1655, 1040);
+			   this->ClientSize = System::Drawing::Size(1241, 845);
 			   this->Controls->Add(this->pnlTexto);
 			   this->Controls->Add(this->pnlDeControl);
 			   this->Controls->Add(this->pnlJuego2);
 			   this->Controls->Add(this->pnlJuego1);
 			   this->Controls->Add(this->pnlJuego3);
 			   this->Controls->Add(this->pnlJuegoMusical);
-			   this->Margin = System::Windows::Forms::Padding(4, 2, 4, 2);
+			   this->Margin = System::Windows::Forms::Padding(3, 2, 3, 2);
 			   this->Name = L"NivelPunk";
 			   this->Text = L"NivelPunk";
+			   this->Deactivate += gcnew System::EventHandler(this, &NivelPunk::NivelPunk_Deactivate);
 			   this->FormClosing += gcnew System::Windows::Forms::FormClosingEventHandler(this, &NivelPunk::NivelPunk_FormClosing);
 			   this->Load += gcnew System::EventHandler(this, &NivelPunk::NivelPunk_Load);
 			   this->KeyDown += gcnew System::Windows::Forms::KeyEventHandler(this, &NivelPunk::NivelPunk_KeyDown);
+			   this->KeyUp += gcnew System::Windows::Forms::KeyEventHandler(this, &NivelPunk::NivelPunk_KeyUp);
 			   this->pnlDeControl->ResumeLayout(false);
 			   this->pnlDeControl->PerformLayout();
 			   this->pnlJuego1->ResumeLayout(false);
@@ -634,7 +646,7 @@ private: System::Windows::Forms::Timer^ timerAnimacion;
 			   bmpMancha = gcnew Bitmap("Imagenes/ManchaSpot.png");
 			   bmpPeny = gcnew Bitmap("Imagenes/PenyParker.png");
 
-			   punk = new SpiderPunk(100, 300, 64, 64, 100, 10, 10, 100, 100, 0, "Punk", 'S', 1, 1);
+			   punk = new SpiderPunk(100, 300, 64, 64, 100, 4, 4, 100, 100, 0, "Punk", 'S', 1, 1);
 			   novela = gcnew NovelaVisual(pnlTexto);
 			   IrASala(1, 100, 300);
 			   novela->Iniciar(1); 
@@ -689,12 +701,69 @@ private: System::Windows::Forms::Timer^ timerAnimacion;
 			lblSpot->Text = " ";
 		}
 	}
+	private: System::Void timerMovimiento_Tick(System::Object^ sender, System::EventArgs^ e) {
+		if (punk == nullptr || buffer1 == nullptr || !timerJuego->Enabled) return;
+		if (novela != nullptr && novela->EstaActivo()) { punk->ProtaQuieto(); return; }
+
+		char dir = ' ';
+		if (ultimaDir == 'A' && teclaA) dir = 'A';
+		else if (ultimaDir == 'D' && teclaD) dir = 'D';
+		else if (ultimaDir == 'W' && teclaW) dir = 'W';
+		else if (ultimaDir == 'S' && teclaS) dir = 'S';
+		else if (teclaA) dir = 'A';
+		else if (teclaD) dir = 'D';
+		else if (teclaW) dir = 'W';
+		else if (teclaS) dir = 'S';
+
+		if (dir == ' ') {           
+			punk->ProtaQuieto();
+			return;
+		}
+		int xAnterior = punk->GetPX();
+		int yAnterior = punk->GetPY();
+		punk->SetCaminando(true);
+		int frame = punk->GetIdX();
+		punk->move(buffer1->Graphics, dir);
+		punk->SetIdX(frame);      
+
+		if (controladora->HayColision(punk)) {
+			punk->SetPX(xAnterior);
+			punk->SetPY(yAnterior);
+		}
+		Puerta* puerta = controladora->PuertaColisionando(punk);
+		if (puerta != nullptr) {
+			if (PuedeEntrarSala(puerta->GetNivelDestino())) {
+				IrASala(puerta->GetNivelDestino(), puerta->GetXDestino(), puerta->GetYDestino());
+				return;
+			}
+			punk->SetPX(xAnterior);
+			punk->SetPY(yAnterior);
+			punk->ProtaQuieto();
+			SoltarTeclas();
+			MessageBox::Show("La puerta esta cerrada. Abre los 3 cofres primero.");
+		}
+	}
 	private: System::Void NivelPunk_FormClosing(System::Object^ sender, System::Windows::Forms::FormClosingEventArgs^ e) {
 		timerJuego->Enabled = false;
 		if (novela != nullptr) novela->Liberar();
+		timerMovimiento->Enabled = false;
+	}
+	private: void SoltarTeclas() {
+		teclaA = false; teclaD = false; teclaW = false; teclaS = false;
+	}
+	private: System::Void NivelPunk_Deactivate(System::Object^ sender, System::EventArgs^ e) {
+		SoltarTeclas();
+	}
+	private: System::Void NivelPunk_KeyUp(System::Object^ sender, System::Windows::Forms::KeyEventArgs^ e) {
+		switch (e->KeyCode) {
+		case Keys::A: teclaA = false; break;
+		case Keys::D: teclaD = false; break;
+		case Keys::W: teclaW = false; break;
+		case Keys::S: teclaS = false; break;
+		default: break;
+		}
 	}
 	private: System::Void NivelPunk_KeyDown(System::Object^ sender, System::Windows::Forms::KeyEventArgs^ e) {
-		punk->SetCaminando(false);
 		if (novela != nullptr && novela->EstaActivo()) {
 			novela->ProcesarTecla(e->KeyCode);
 			e->SuppressKeyPress = true;
@@ -703,22 +772,10 @@ private: System::Windows::Forms::Timer^ timerAnimacion;
 		int xAnterior = punk->GetPX();
 		int yAnterior = punk->GetPY();
 		switch (e->KeyCode) {
-		case Keys::A:
-			punk->SetCaminando(true);
-			punk->move(buffer1->Graphics, 'A');
-			break;
-		case Keys::D:
-			punk->SetCaminando(true);
-			punk->move(buffer1->Graphics, 'D');
-			break;
-		case Keys::W:
-			punk->SetCaminando(true);
-			punk->move(buffer1->Graphics, 'W');
-			break;
-		case Keys::S:
-			punk->SetCaminando(true);
-			punk->move(buffer1->Graphics, 'S');
-			break;
+		case Keys::A: teclaA = true; ultimaDir = 'A'; break;
+		case Keys::D: teclaD = true; ultimaDir = 'D'; break;
+		case Keys::W: teclaW = true; ultimaDir = 'W'; break;
+		case Keys::S: teclaS = true; ultimaDir = 'S'; break;
 		case Keys::F:
 			if (pnlJuego3->Visible == true) {
 				controladora->Disparar(punk);

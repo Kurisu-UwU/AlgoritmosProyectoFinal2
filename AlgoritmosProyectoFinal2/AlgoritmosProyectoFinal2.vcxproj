@@ -160,6 +160,7 @@
     <ClInclude Include="Proyectil.h" />
     <ClInclude Include="Proyectiles.h" />
     <ClInclude Include="ProyectilHorizontal.h" />
+    <ClInclude Include="Prueba.h" />
     <ClInclude Include="Puerta.h" />
     <ClInclude Include="SpiderPunk.h" />
     <ClInclude Include="VariablesGlobales.h" />

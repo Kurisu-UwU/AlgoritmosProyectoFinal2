@@ -84,7 +84,6 @@ namespace AlgoritmosProyectoFinal2 {
 			timer->Tick += gcnew EventHandler(this, &NovelaVisual::Tick);
 			panel->Click += gcnew EventHandler(this, &NovelaVisual::AlClick);
 
-			// el label de prueba (label4) ya no hace falta: se oculta
 			int i = 0;
 			while (i < panel->Controls->Count) { panel->Controls[i]->Visible = false; i++; }
 			panel->Visible = false;
@@ -108,7 +107,7 @@ namespace AlgoritmosProyectoFinal2 {
 			space = BufferedGraphicsManager::Current;
 			buffer = space->Allocate(grp, panel->ClientRectangle);
 			buffer->Graphics->TextRenderingHint = System::Drawing::Text::TextRenderingHint::ClearTypeGridFit;
-			buffer->Graphics->InterpolationMode = InterpolationMode::NearestNeighbor;   // pixel art nitido
+			buffer->Graphics->InterpolationMode = InterpolationMode::NearestNeighbor;  
 			buffer->Graphics->PixelOffsetMode = PixelOffsetMode::Half;
 
 			PrepararTexto();
@@ -286,13 +285,13 @@ namespace AlgoritmosProyectoFinal2 {
 
 		Color ColorDe(int perfil) {
 			switch (perfil) {
-			case 1:  return Color::FromArgb(220, 40, 70);     // Miles
-			case 2:  return Color::FromArgb(210, 30, 30);     // Miguel
-			case 3:  return Color::FromArgb(235, 60, 60);     // Punk
-			case 4:  return Color::FromArgb(255, 105, 180);   // Gwen
-			case 5:  return Color::FromArgb(235, 235, 235);   // Spot
-			case 8:  return Color::FromArgb(150, 110, 255);   // Peny (morado, como el corazon de su arte)
-			default: return Color::FromArgb(255, 128, 0);     // naranja, como tu label4
+			case 1:  return Color::FromArgb(220, 40, 70);   
+			case 2:  return Color::FromArgb(210, 30, 30);     
+			case 3:  return Color::FromArgb(235, 60, 60);    
+			case 4:  return Color::FromArgb(255, 105, 180);   
+			case 5:  return Color::FromArgb(235, 235, 235);  
+			case 8:  return Color::FromArgb(150, 110, 255);  
+			default: return Color::FromArgb(255, 128, 0);    
 			}
 		}
 
@@ -339,13 +338,13 @@ namespace AlgoritmosProyectoFinal2 {
 				// retrato
 				int px = izqActual ? MARG : W - MARG - RET;
 				System::Drawing::Rectangle marco = System::Drawing::Rectangle(px, MARG, RET, RET);
-				SolidBrush^ brFondo = gcnew SolidBrush(Color::FromArgb(120, 120, 150));   // gris azulado: se ven Spot (blanco) y Miles (oscuro)
+				SolidBrush^ brFondo = gcnew SolidBrush(Color::FromArgb(120, 120, 150));  
 				g->FillRectangle(brFondo, marco);
 				Bitmap^ bmp = BmpDe(perfilActual);
 				if (bmp != nullptr) {
-					// recorte de cabeza y torso del primer cuadro del sprite (64x64). Ajusta aqui si quieres otro encuadre.
+
 					System::Drawing::Rectangle recorte = System::Drawing::Rectangle(12, 0, 40, 40);
-					if (perfilActual == 8) recorte = System::Drawing::Rectangle(140, 45, 190, 190);   // Peny: imagen grande (461x462), cabeza y torso
+					if (perfilActual == 8) recorte = System::Drawing::Rectangle(140, 45, 190, 190);   
 					g->DrawImage(bmp, marco, recorte, GraphicsUnit::Pixel);
 				}
 				g->DrawRectangle(penBorde, marco);
@@ -360,7 +359,6 @@ namespace AlgoritmosProyectoFinal2 {
 					RectangleF((float)x0, 8.0f, (float)(x1 - x0), 18.0f), fmtDer);
 			}
 
-			// triangulito parpadeante: "ya termino, pulsa para seguir"
 			if (lineaCompleta && ((Environment::TickCount / 400) % 2 == 0)) {
 				int tx = W - 40;
 				int ty = H - 24;
