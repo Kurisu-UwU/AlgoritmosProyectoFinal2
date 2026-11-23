@@ -101,5 +101,8 @@
     <ClInclude Include="Cofre.h">
       <Filter>Header Files\Entidades\Objetos</Filter>
     </ClInclude>
+    <ClInclude Include="ProyectilHorizontal.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>
