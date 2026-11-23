@@ -12,19 +12,12 @@ namespace AlgoritmosProyectoFinal2 {
 	using namespace System::Data;
 	using namespace System::Drawing;
 
-	/// <summary>
-	/// Resumen de NivelPunk
-	/// </summary>
 	public ref class NivelPunk : public System::Windows::Forms::Form
 	{
 	public:
 		NivelPunk(void)
 		{
 			InitializeComponent();
-			//
-			//TODO: agregar c?digo de constructor aqu?
-			//
-
 			controladora = new Controladora();
 			this->KeyPreview = true;
 			srand((unsigned int)time(nullptr));
@@ -46,7 +39,6 @@ namespace AlgoritmosProyectoFinal2 {
 			controladora->GenerarCofre(600, 350, 32, 32, 2, CofreAbierto(2));
 			controladora->GenerarPuerta(1200, 0, 60, 840, 2, 60, 340);   // (x, y, ancho, alto, salaDestino, xLlegada, yLlegada)
 		}
-
 		void CargarNivel2() {
 			controladora->LimpiarPuertas();
 			controladora->LimpiarObstaculos();
@@ -62,7 +54,6 @@ namespace AlgoritmosProyectoFinal2 {
 			controladora->GenerarPuerta(0, 285, 40, 183, 1, 1100, 300);
 			controladora->GenerarPuerta(1200, 0, 60, 840, 3, 60, 650);
 		}
-
 		void CargarNivel3() {
 			modoDebug = false;
 			controladora->LimpiarPuertas();
@@ -88,22 +79,17 @@ namespace AlgoritmosProyectoFinal2 {
 				novela->Iniciar(2);           
 			}
 		}
-			
 		bool CofreAbierto(int id) {
 			switch (id) {
-			case 0:
-				return estadocofre1; break;
-			case 1:
-				return estadocofre2; break;
-			case 2:
-				return estadocofre3; break;
+			case 0: return estadocofre1; break;
+			case 1: return estadocofre2; break;
+			case 2: return estadocofre3; break;
 			default: return false;
 			}
 		}
 		void MarcarCofre(int id) {
 			switch (id) {
-			case 0:
-				estadocofre1 = true; break;
+			case 0: estadocofre1 = true; break;
 			case 1: estadocofre2 = true; break;
 			default: estadocofre3 = true; break;
 			}
@@ -124,7 +110,6 @@ namespace AlgoritmosProyectoFinal2 {
 			punk->SetPX(px);
 			punk->SetPY(py);
 		}
-
 		bool JugarRitmo(int nivelRitmo) {
 			int px = punk->GetPX();
 			int py = punk->GetPY();
@@ -137,13 +122,10 @@ namespace AlgoritmosProyectoFinal2 {
 			timerJuego->Enabled = true;
 			return r == System::Windows::Forms::DialogResult::OK;
 		}
-
 		void CargarNivelMusical(int n) {
 			JugarRitmo(n);
 		}
-		// Overlay de ayuda: hitboxes de puertas (con sus datos) y coordenadas del mouse y de Punk.
-		// Pasa el mouse sobre el mapa y lee la coordenada para escribirla en GenerarPuerta(...). F2 lo oculta.
-		void DibujarDebug(Graphics^ g, Panel^ panel) {
+		void DibujarDebug(Graphics^ g, Panel^ panel) {  // Overley con f2
 			if (!modoDebug) return;
 			controladora->DibujarPuertas(g);
 			controladora->DibujarObstaculos(g);
@@ -156,24 +138,22 @@ namespace AlgoritmosProyectoFinal2 {
 		bool ComprobarFinCombate() {
 			Jefe* spot = controladora->getJefe();
 			if (spot == nullptr || combateTerminado) return false;
-
 			if (spot->getVida() <= 0) {
 				combateTerminado = true;
 				timerJuego->Enabled = false;
 				MessageBox::Show("Derrotaste a Spot! Nivel completado.");
-				this->DialogResult = System::Windows::Forms::DialogResult::OK;   // cierra el nivel y vuelve al menu
+				this->DialogResult = System::Windows::Forms::DialogResult::OK;
 				return true;
 			}
 			if (punk->getVida() <= 0) {
-				timerJuego->Enabled = false;   // el MessageBox procesa mensajes: sin esto el timer se re-entra
+				timerJuego->Enabled = false;   
 				MessageBox::Show("Spot te derroto. Intentalo de nuevo!");
-				IrASala(3, 60, 650);           // recarga la sala: Spot, lasers y vida de Punk reiniciados
+				IrASala(3, 60, 650);           
 				timerJuego->Enabled = false;
 				return true;
 			}
 			return false;
 		}
-
 	protected:
 		~NivelPunk()
 		{
@@ -193,14 +173,9 @@ namespace AlgoritmosProyectoFinal2 {
 	private: System::Windows::Forms::Panel^ pnlDeControl;
 	private: System::Windows::Forms::Panel^ pnlJuego1;
 	protected:
-
-
 	private: System::Windows::Forms::Timer^ timerJuego;
-
 	private: System::ComponentModel::IContainer^ components;
-
 	private:
-
 		int salaActual = 1;
 		bool modoDebug = false;   // F2: muestra/oculta hitboxes de puertas y coordenadas
 		bool estadocofre1 = false;
@@ -238,25 +213,19 @@ namespace AlgoritmosProyectoFinal2 {
 		Bitmap^ bmpNota3;
 		Bitmap^ bmpProyectilMalo;
 		Controladora* controladora;
-
 	private: System::Windows::Forms::Panel^ pnlJuego2;
 	private: System::Windows::Forms::Panel^ pnlJuego3;
 	private: System::Windows::Forms::Panel^ pnlJuegoMusical;
-
-	private: System::Windows::Forms::Button^ btnPunk1;
-
+	private: System::Windows::Forms::Button^ btnPunk;
 	private: System::Windows::Forms::Button^ btnPunk3;
 	private: System::Windows::Forms::Button^ btnPunk2;
-
 	private: System::Windows::Forms::Button^ button10;
 	private: System::Windows::Forms::Button^ button11;
 	private: System::Windows::Forms::Button^ button12;
 	private: System::Windows::Forms::Button^ button5;
 	private: System::Windows::Forms::Button^ button6;
-
 	private: System::Windows::Forms::Button^ button8;
 	private: System::Windows::Forms::Button^ button4;
-
 	private: System::Windows::Forms::Button^ button3;
 	private: System::Windows::Forms::Button^ button1;
 	private: System::Windows::Forms::Label^ lblSpot;
@@ -264,12 +233,9 @@ namespace AlgoritmosProyectoFinal2 {
 	private: System::Windows::Forms::Label^ lblVida;
 	private: System::Windows::Forms::Label^ lblPersonaje;
 private: System::Windows::Forms::Panel^ pnlTexto;
-
 private: System::Windows::Forms::Label^ label4;
 private: System::Windows::Forms::Timer^ timerAnimacion;
-
 	   SpiderPunk* punk;
-
 #pragma region Windows Form Designer generated code
 
 		   void InitializeComponent(void)
@@ -701,6 +667,8 @@ private: System::Windows::Forms::Timer^ timerAnimacion;
 				controladora->ActualizarProyectiles(pnlJuego3->Width, pnlJuego3->Height);
 				controladora->ActualizarProyectilesHorizontales(punk, pnlJuego3->Width);
 			}
+			controladora->DibujarProyectilesHorizontales(buffer3->Graphics, bmpProyectilMalo);
+			controladora->DibujarProyectiles(buffer3->Graphics, bmpNota1);
 			controladora->DibujarJefe(buffer3->Graphics, bmpSpot);
 			controladora->ComprobarColisionJefe(punk);
 			punk->Dibujar(buffer3->Graphics, bmpPunk);
@@ -708,7 +676,6 @@ private: System::Windows::Forms::Timer^ timerAnimacion;
 			buffer3->Render(gr3);
 			if (ComprobarFinCombate()) return;
 		}
-
 		bufferp->Render(grp);
 
 		lblVida->Text = "Vida: " + punk->getVida();
@@ -789,14 +756,13 @@ private: System::Windows::Forms::Timer^ timerAnimacion;
 		if (puerta != nullptr) {
 			if (PuedeEntrarSala(puerta->GetNivelDestino())) {
 				IrASala(puerta->GetNivelDestino(), puerta->GetXDestino(), puerta->GetYDestino());
-				return;   
+				return;
 			}
 			MessageBox::Show("La puerta esta cerrada. Abre los 3 cofres primero.");
 			punk->SetPX(xAnterior);
 			punk->SetPY(yAnterior);
 			return;
 		}
-
 		if (controladora->HayColision(punk)) {
 			punk->SetPX(xAnterior);
 			punk->SetPY(yAnterior);

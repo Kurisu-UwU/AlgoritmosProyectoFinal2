@@ -117,11 +117,7 @@ inline int NivelesRitmo1(Graphics^ gr, ControladoraNivelRitmo* controladora, int
 		tiempo++;
 		break;
 	}
-
-
-		
 		 default: break;
 	}
-
 	return 0;
 }
