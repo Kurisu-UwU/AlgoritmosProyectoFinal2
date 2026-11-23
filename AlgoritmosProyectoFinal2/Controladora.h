@@ -52,7 +52,6 @@ public:
         LimpiarObjetos();
         LimpiarPuertas();
         LimpiarJefe();
-        LimpiarNotasAtaque();
     }
 
     vector<Obstaculos*> GetObstaculos() { return obstaculos; }
