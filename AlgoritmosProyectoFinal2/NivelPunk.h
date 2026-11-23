@@ -35,6 +35,8 @@ namespace AlgoritmosProyectoFinal2 {
 			controladora->LimpiarObjetos();
 			controladora->LimpiarPuertas();
 
+			controladora->GenerarPeny(60, 320, 50, 50);
+
 			controladora->GenerarObstaculo(0, 0, 0, 225, 450);
 			controladora->GenerarObstaculo(770, 0, 0, 225, 440);
 			controladora->GenerarObstaculo(0, 415, 0, 225, 1210);
@@ -84,6 +86,8 @@ namespace AlgoritmosProyectoFinal2 {
 			controladora->AgregarMancha(20, 450, 50, 50);
 			controladora->AgregarMancha(20, 520, 50, 50);
 			controladora->AgregarMancha(20, 590, 50, 50);
+
+			
 
 			//controladora->GenerarPuerta(0, 560, 40, 280, 2, 1250, 380);     // oeste -> sala 2
 		}
@@ -212,6 +216,7 @@ namespace AlgoritmosProyectoFinal2 {
 		BufferedGraphics^ buffer3;
 		BufferedGraphics^ bufferp;
 		Bitmap^ bmpMancha;
+		Bitmap^ bmpPeny;
 		Bitmap^ bmpPanelControl;
 		Bitmap^ bmpMapa1;
 		Bitmap^ bmpMapa2;
@@ -647,6 +652,7 @@ private: System::Windows::Forms::Label^ label4;
 			   bmpNota3 = gcnew Bitmap("Imagenes/NotasMusicales3.png");
 			   bmpProyectilMalo = gcnew Bitmap("Imagenes/Misiles.png");
 			   bmpMancha = gcnew Bitmap("Imagenes/ManchaSpot.png");
+			   bmpPeny = gcnew Bitmap("Imagenes/PenyParker.png");
 
 			   punk = new SpiderPunk(100, 300, 64, 64, 100, 10, 10, 100, 100, 0, "Punk", 'S', 1, 1);
 			   novela = gcnew NovelaVisual(pnlTexto);
@@ -660,6 +666,7 @@ private: System::Windows::Forms::Label^ label4;
 
 		if (pnlJuego1->Visible == true) {
 			buffer1->Graphics->DrawImage(bmpMapa1, 0, 0, pnlJuego1->Width * 1.0, pnlJuego1->Height * 1.0);
+			controladora->DibujarPeny(buffer1->Graphics, bmpPeny);
 			controladora->DibujarCofres(buffer1->Graphics, bmpCofreC, bmpCofreA);
 			punk->Dibujar(buffer1->Graphics, bmpPunk);
 			DibujarDebug(buffer1->Graphics, pnlJuego1);

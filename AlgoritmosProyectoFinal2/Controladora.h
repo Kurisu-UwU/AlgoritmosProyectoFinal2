@@ -29,6 +29,7 @@ private:
     vector<Proyectil*> proyectiles;
     vector<Mancha*> manchas;
     Jefe* jefe;
+    Mancha* Peny;
     vector<ProyectilHorizontal*> proyectilesHorizontales;
     vector<NotaAtaque*> notasAtaque;
     int contadorProyectiles;
@@ -39,6 +40,7 @@ private:
 public:
     Controladora() {
         jefe = nullptr;
+        Peny = nullptr;
         contadorProyectiles = 0;
         intervaloProyectiles = 60;
         srand((unsigned)time(NULL));
@@ -101,6 +103,8 @@ public:
         Objeto* ent = new Objeto(x, y, velocidad, alto, ancho, true);
         objetos.push_back(ent);
     }
+
+    
 
     void DibujarObjetos(Graphics^ g, Bitmap^ bmp) {
         for (int i = 0; i < objetos.size(); i++) {
@@ -185,7 +189,10 @@ public:
     // =======
     // Manchas
     // =======
-
+    void GenerarPeny(int x, int y, int ancho, int alto) {
+        Mancha* ent = new Mancha(x, y, ancho, alto);
+        Peny = ent;
+    }
 
     void AgregarMancha(int x, int y, int ancho, int alto) {
         manchas.push_back(new Mancha(x, y, ancho, alto));
@@ -195,6 +202,10 @@ public:
         for (int i = 0; i < manchas.size(); i++) {
             manchas[i]->Dibujar(g, bmp);
         }
+    }
+
+    void DibujarPeny(Graphics^ g, Bitmap^ bmp) {
+            Peny->Dibujar(g, bmp);
     }
 
     // =======
