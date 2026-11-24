@@ -134,6 +134,7 @@
     <ClInclude Include="Jefe.h" />
     <ClInclude Include="Laser.h" />
     <ClInclude Include="Mancha.h" />
+    <ClInclude Include="MiguelOhara.h" />
     <ClInclude Include="MilesMorales.h" />
     <ClInclude Include="NivelesRitmo.h" />
     <ClInclude Include="NivelMiguel.h">
