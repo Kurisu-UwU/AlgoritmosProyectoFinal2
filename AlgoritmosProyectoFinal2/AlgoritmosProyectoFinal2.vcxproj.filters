@@ -119,6 +119,12 @@
     <ClInclude Include="Mancha.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="MiguelOhara.h">
+      <Filter>Header Files\Protagonistas</Filter>
+    </ClInclude>
+    <ClInclude Include="Mancha.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
     <ClInclude Include="Prueba.h">
       <Filter>Header Files</Filter>
     </ClInclude>
