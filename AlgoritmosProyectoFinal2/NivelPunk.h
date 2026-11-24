@@ -234,8 +234,10 @@ namespace AlgoritmosProyectoFinal2 {
 	private: System::Windows::Forms::Label^ lblPersonaje;
 private: System::Windows::Forms::Panel^ pnlTexto;
 private: System::Windows::Forms::Label^ label4;
-private: System::Windows::Forms::Timer^ timerAnimacion;
 private: System::Windows::Forms::Timer^ timerMovimiento;
+private: System::Windows::Forms::Timer^ timerAnimacion;
+
+
 	   SpiderPunk* punk;
 #pragma region Windows Form Designer generated code
 
@@ -266,8 +268,8 @@ private: System::Windows::Forms::Timer^ timerMovimiento;
 			   this->btnPunk1 = (gcnew System::Windows::Forms::Button());
 			   this->pnlTexto = (gcnew System::Windows::Forms::Panel());
 			   this->label4 = (gcnew System::Windows::Forms::Label());
-			   this->timerAnimacion = (gcnew System::Windows::Forms::Timer(this->components));
 			   this->timerMovimiento = (gcnew System::Windows::Forms::Timer(this->components));
+			   this->timerAnimacion = (gcnew System::Windows::Forms::Timer(this->components));
 			   this->pnlDeControl->SuspendLayout();
 			   this->pnlJuego1->SuspendLayout();
 			   this->pnlJuego2->SuspendLayout();
@@ -568,16 +570,16 @@ private: System::Windows::Forms::Timer^ timerMovimiento;
 			   this->label4->TabIndex = 0;
 			   this->label4->Text = L"label4";
 			   // 
-			   // timerAnimacion
-			   // 
-			   this->timerAnimacion->Enabled = true;
-			   this->timerAnimacion->Tick += gcnew System::EventHandler(this, &NivelPunk::timerAnimacion_Tick);
-			   // 
 			   // timerMovimiento
 			   // 
 			   this->timerMovimiento->Enabled = true;
 			   this->timerMovimiento->Interval = 1;
 			   this->timerMovimiento->Tick += gcnew System::EventHandler(this, &NivelPunk::timerMovimiento_Tick);
+			   // 
+			   // timerAnimacion
+			   // 
+			   this->timerAnimacion->Enabled = true;
+			   this->timerAnimacion->Tick += gcnew System::EventHandler(this, &NivelPunk::timerAnimacion_Tick);
 			   // 
 			   // NivelPunk
 			   // 
@@ -649,7 +651,7 @@ private: System::Windows::Forms::Timer^ timerMovimiento;
 			   punk = new SpiderPunk(100, 300, 64, 64, 100, 4, 4, 100, 100, 0, "Punk", 'S', 1, 1);
 			   novela = gcnew NovelaVisual(pnlTexto);
 			   IrASala(1, 100, 300);
-			   novela->Iniciar(1); 
+			   novela->Iniciar(1);
 		   }
 
 	private: System::Void timerJuego_Tick(System::Object^ sender, System::EventArgs^ e) {
