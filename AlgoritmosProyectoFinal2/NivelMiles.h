@@ -339,9 +339,11 @@ private: System::Windows::Forms::Timer^ timerMovimiento;
 			   this->lblPersonaje->Size = System::Drawing::Size(125, 28);
 			   this->lblPersonaje->TabIndex = 0;
 			   this->lblPersonaje->Text = L"lblPersonaje";
+			   this->lblPersonaje->Click += gcnew System::EventHandler(this, &NivelMiles::lblPersonaje_Click);
 			   // 
 			   // pnlJuego1
 			   // 
+			   this->pnlJuego1->BackColor = System::Drawing::SystemColors::ActiveCaptionText;
 			   this->pnlJuego1->Location = System::Drawing::Point(11, 123);
 			   this->pnlJuego1->Margin = System::Windows::Forms::Padding(4, 4, 4, 4);
 			   this->pnlJuego1->Name = L"pnlJuego1";
@@ -418,6 +420,7 @@ private: System::Windows::Forms::Timer^ timerMovimiento;
 			   // 
 			   this->AutoScaleDimensions = System::Drawing::SizeF(8, 16);
 			   this->AutoScaleMode = System::Windows::Forms::AutoScaleMode::Font;
+			   this->BackColor = System::Drawing::SystemColors::ActiveCaptionText;
 			   this->ClientSize = System::Drawing::Size(1655, 1040);
 			   this->Controls->Add(this->pnlJuego1);
 			   this->Controls->Add(this->pnlJuego4);
@@ -667,5 +670,7 @@ private: System::Void NivelMiles_KeyDown(System::Object^ sender, System::Windows
 	private: System::Void timerAnimacion_Tick(System::Object^ sender, System::EventArgs^ e) {
 		miles->ProtaAnimacion();
 	}
+private: System::Void lblPersonaje_Click(System::Object^ sender, System::EventArgs^ e) {
+}
 };
 }

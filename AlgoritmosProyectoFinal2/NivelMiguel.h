@@ -121,6 +121,8 @@ namespace AlgoritmosProyectoFinal2 {
 	private: System::Windows::Forms::Panel^ pnlJuego1;
 
 	protected private: System::Windows::Forms::Panel^ pnlAnimacion;
+private: System::ComponentModel::IContainer^ components;
+protected private:
 	private:
 
 	private:
@@ -130,7 +132,7 @@ namespace AlgoritmosProyectoFinal2 {
 		/// <summary>
 		/// Variable del diseñador necesaria.
 		/// </summary>
-		System::ComponentModel::Container^ components;
+
 
 		Controladora* controladora;
 
@@ -221,7 +223,20 @@ namespace AlgoritmosProyectoFinal2 {
 		Bitmap^ bmpMapa1;
 		Bitmap^ bmpMapa2;
 		Bitmap^ bmpMapa3;
-		Bitmap^ bmpMapa4;
+private: System::Windows::Forms::Label^ lblPersonaje;
+private: System::Windows::Forms::Label^ lblVida;
+private: System::Windows::Forms::Label^ lblPuntaje;
+private: System::Windows::Forms::Label^ lblLejania;
+private: System::Windows::Forms::Timer^ timerJuego;
+private: System::Windows::Forms::Timer^ timerMovimiento;
+private: System::Windows::Forms::Timer^ timerAnimacion;
+
+
+
+
+
+
+	   Bitmap^ bmpMapa4;
 
 
 
@@ -232,6 +247,7 @@ namespace AlgoritmosProyectoFinal2 {
 		/// </summary>
 		void InitializeComponent(void)
 		{
+			this->components = (gcnew System::ComponentModel::Container());
 			this->pnlJuego2 = (gcnew System::Windows::Forms::Panel());
 			this->pnlTexto = (gcnew System::Windows::Forms::Panel());
 			this->label4 = (gcnew System::Windows::Forms::Label());
@@ -261,7 +277,15 @@ namespace AlgoritmosProyectoFinal2 {
 			this->pnlJuego3 = (gcnew System::Windows::Forms::Panel());
 			this->pnlJuego1 = (gcnew System::Windows::Forms::Panel());
 			this->pnlAnimacion = (gcnew System::Windows::Forms::Panel());
+			this->lblPersonaje = (gcnew System::Windows::Forms::Label());
+			this->lblLejania = (gcnew System::Windows::Forms::Label());
+			this->lblPuntaje = (gcnew System::Windows::Forms::Label());
+			this->lblVida = (gcnew System::Windows::Forms::Label());
+			this->timerJuego = (gcnew System::Windows::Forms::Timer(this->components));
+			this->timerMovimiento = (gcnew System::Windows::Forms::Timer(this->components));
+			this->timerAnimacion = (gcnew System::Windows::Forms::Timer(this->components));
 			this->pnlTexto->SuspendLayout();
+			this->pnlDeControl->SuspendLayout();
 			this->SuspendLayout();
 			// 
 			// pnlJuego2
@@ -299,6 +323,10 @@ namespace AlgoritmosProyectoFinal2 {
 			// 
 			// pnlDeControl
 			// 
+			this->pnlDeControl->Controls->Add(this->lblVida);
+			this->pnlDeControl->Controls->Add(this->lblPuntaje);
+			this->pnlDeControl->Controls->Add(this->lblLejania);
+			this->pnlDeControl->Controls->Add(this->lblPersonaje);
 			this->pnlDeControl->Location = System::Drawing::Point(16, 11);
 			this->pnlDeControl->Margin = System::Windows::Forms::Padding(4);
 			this->pnlDeControl->Name = L"pnlDeControl";
@@ -526,6 +554,63 @@ namespace AlgoritmosProyectoFinal2 {
 			this->pnlAnimacion->Size = System::Drawing::Size(1620, 839);
 			this->pnlAnimacion->TabIndex = 29;
 			// 
+			// lblPersonaje
+			// 
+			this->lblPersonaje->AutoSize = true;
+			this->lblPersonaje->BackColor = System::Drawing::Color::Transparent;
+			this->lblPersonaje->Font = (gcnew System::Drawing::Font(L"Comic Sans MS", 12, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point,
+				static_cast<System::Byte>(0)));
+			this->lblPersonaje->ForeColor = System::Drawing::Color::FromArgb(static_cast<System::Int32>(static_cast<System::Byte>(255)), static_cast<System::Int32>(static_cast<System::Byte>(128)),
+				static_cast<System::Int32>(static_cast<System::Byte>(0)));
+			this->lblPersonaje->Location = System::Drawing::Point(25, 12);
+			this->lblPersonaje->Name = L"lblPersonaje";
+			this->lblPersonaje->Size = System::Drawing::Size(125, 28);
+			this->lblPersonaje->TabIndex = 1;
+			this->lblPersonaje->Text = L"lblPersonaje";
+			// 
+			// lblLejania
+			// 
+			this->lblLejania->AutoSize = true;
+			this->lblLejania->BackColor = System::Drawing::Color::Transparent;
+			this->lblLejania->Font = (gcnew System::Drawing::Font(L"Comic Sans MS", 12, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point,
+				static_cast<System::Byte>(0)));
+			this->lblLejania->ForeColor = System::Drawing::Color::FromArgb(static_cast<System::Int32>(static_cast<System::Byte>(255)), static_cast<System::Int32>(static_cast<System::Byte>(128)),
+				static_cast<System::Int32>(static_cast<System::Byte>(0)));
+			this->lblLejania->Location = System::Drawing::Point(783, 55);
+			this->lblLejania->Name = L"lblLejania";
+			this->lblLejania->Size = System::Drawing::Size(100, 28);
+			this->lblLejania->TabIndex = 2;
+			this->lblLejania->Text = L"lblLejania";
+			// 
+			// lblPuntaje
+			// 
+			this->lblPuntaje->AutoSize = true;
+			this->lblPuntaje->BackColor = System::Drawing::Color::Transparent;
+			this->lblPuntaje->Font = (gcnew System::Drawing::Font(L"Comic Sans MS", 12, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point,
+				static_cast<System::Byte>(0)));
+			this->lblPuntaje->ForeColor = System::Drawing::Color::FromArgb(static_cast<System::Int32>(static_cast<System::Byte>(255)), static_cast<System::Int32>(static_cast<System::Byte>(128)),
+				static_cast<System::Int32>(static_cast<System::Byte>(0)));
+			this->lblPuntaje->Location = System::Drawing::Point(783, 12);
+			this->lblPuntaje->Name = L"lblPuntaje";
+			this->lblPuntaje->Size = System::Drawing::Size(101, 28);
+			this->lblPuntaje->TabIndex = 3;
+			this->lblPuntaje->Text = L"lblPuntaje";
+			// 
+			// lblVida
+			// 
+			this->lblVida->AutoSize = true;
+			this->lblVida->BackColor = System::Drawing::Color::Transparent;
+			this->lblVida->Font = (gcnew System::Drawing::Font(L"Comic Sans MS", 12, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point,
+				static_cast<System::Byte>(0)));
+			this->lblVida->ForeColor = System::Drawing::Color::FromArgb(static_cast<System::Int32>(static_cast<System::Byte>(255)), static_cast<System::Int32>(static_cast<System::Byte>(128)),
+				static_cast<System::Int32>(static_cast<System::Byte>(0)));
+			this->lblVida->Location = System::Drawing::Point(25, 55);
+			this->lblVida->Name = L"lblVida";
+			this->lblVida->Size = System::Drawing::Size(75, 28);
+			this->lblVida->TabIndex = 4;
+			this->lblVida->Text = L"lblVida";
+			this->lblVida->Click += gcnew System::EventHandler(this, &NivelMiguel::label3_Click);
+			// 
 			// NivelMiguel
 			// 
 			this->AutoScaleDimensions = System::Drawing::SizeF(8, 16);
@@ -565,6 +650,8 @@ namespace AlgoritmosProyectoFinal2 {
 			this->Load += gcnew System::EventHandler(this, &NivelMiguel::NivelMiguel_Load);
 			this->pnlTexto->ResumeLayout(false);
 			this->pnlTexto->PerformLayout();
+			this->pnlDeControl->ResumeLayout(false);
+			this->pnlDeControl->PerformLayout();
 			this->ResumeLayout(false);
 
 		}
@@ -680,5 +767,7 @@ namespace AlgoritmosProyectoFinal2 {
 		buffer25 = space25->Allocate(gr25, pnlJuego25->ClientRectangle);
 
 	}
-	};
+	private: System::Void label3_Click(System::Object^ sender, System::EventArgs^ e) {
+	}
+};
 }
