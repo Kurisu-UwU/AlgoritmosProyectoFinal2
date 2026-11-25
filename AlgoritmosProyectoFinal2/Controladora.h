@@ -67,8 +67,8 @@ public:
         }
     }
 
-    void GenerarObstaculo(int x, int y, int velocidad, int ancho, int alto) {
-        Obstaculos* ent = new Obstaculos(x, y, velocidad, ancho, alto, true);
+    void GenerarObstaculo(int x, int y, int velocidad, int alto, int ancho) {
+        Obstaculos* ent = new Obstaculos(x, y, velocidad, alto, ancho, true);
         obstaculos.push_back(ent);
     }
 

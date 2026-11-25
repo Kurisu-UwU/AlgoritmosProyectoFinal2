@@ -46,11 +46,28 @@ namespace AlgoritmosProyectoFinal2 {
 
 			controladora->GenerarPeny(60, 320, 50, 50);
 
-			controladora->GenerarObstaculo(0, 0, 0, 225, 450);
-			controladora->GenerarObstaculo(770, 0, 0, 225, 440);
-			controladora->GenerarObstaculo(0, 415, 0, 225, 1210);
+			controladora->GenerarObstaculo(0, 0, 0, 223, 300);
+			controladora->GenerarObstaculo(0, 223, 0, 680-223, 130);
+			controladora->GenerarObstaculo(433, 0, 0, 284, 10);
+			controladora->GenerarObstaculo(887, 0, 0, 255, 40);
+			controladora->GenerarObstaculo(1082, 0, 0, 478, 30);
+			controladora->GenerarObstaculo(84, 662, 0, 680-662, 1214-84);
+			controladora->GenerarObstaculo(249, 224, 0, 320-224, 304-249);
+			controladora->GenerarObstaculo(397,453 , 0, 552-453, 595-397);
+			controladora->GenerarObstaculo(473,405 , 0, 465-405, 655-473);
+			controladora->GenerarObstaculo(218,455 , 0, 506-455, 320-218);
+			controladora->GenerarObstaculo(254,387 , 0,80, 10);
+			controladora->GenerarObstaculo(450,250 , 0, 50, 205);
+			controladora->GenerarObstaculo(640, 250, 0, 80, 20);
+			controladora->GenerarObstaculo(1012, 250, 0,20 , 70);
+			controladora->GenerarObstaculo(841,250 , 0, 284-250, 925-841);
+			controladora->GenerarObstaculo(841,392 , 0, 478-392, 863-841);
+			controladora->GenerarObstaculo(841,284 , 0, 333-284, 863-841);
+			controladora->GenerarObstaculo(863,453 , 0, 478-453,1082-863 );
+			controladora->GenerarObstaculo(0,0, 0, 20,1220);
 
-			controladora->GenerarPuerta(1200, 0, 60, 840, 2, 60, 340);   // (x, y, ancho, alto, salaDestino, xLlegada, yLlegada)
+			controladora->GenerarPuerta(1114,36,1200-1114,75-36, 2,50,50);
+			controladora->GenerarObstaculo(1200, 0,0, 840, 60);   // (x, y, ancho, alto, salaDestino, xLlegada, yLlegada)
 		}
 		void CargarNivel2() {
 			controladora->LimpiarPuertas();
@@ -61,7 +78,7 @@ namespace AlgoritmosProyectoFinal2 {
 			controladora->GenerarPeny(60, 320, 50, 50);
 
 			controladora->GenerarObstaculo(0, 0, 0, 225, 450);
-			controladora->GenerarObstaculo(770, 0, 0, 225, 440);
+			controladora->GenerarObstaculo(0,220, 0, 225, 440);
 			controladora->GenerarObstaculo(0, 415, 0, 225, 1210);
 
 			controladora->GenerarPuerta(1200, 0, 60, 840, 2, 60, 340);   // (x, y, ancho, alto, salaDestino, xLlegada, yLlegada)
@@ -119,6 +136,13 @@ namespace AlgoritmosProyectoFinal2 {
 				+ "   miles: " + System::Convert::ToString(miles->GetPX()) + ", " + System::Convert::ToString(miles->GetPY());
 			g->FillRectangle(Brushes::Black, 0, 0, 430, 20);
 			g->DrawString(info, SystemFonts::DefaultFont, Brushes::Lime, 4.0f, 4.0f);
+		}
+		void PonerInvisibleTodo() {
+			pnlPersecusion->Visible = false;
+			pnlJuego1->Visible = false;
+			pnlJuego2->Visible = false;
+			pnlJuego3->Visible = false;
+			pnlJuego4->Visible = false;
 		}
 	protected:
 		/// <summary>
@@ -192,11 +216,13 @@ private: System::Windows::Forms::Label^ lblVida;
 private: System::Windows::Forms::Label^ lblPersonaje;
 private: System::Windows::Forms::Panel^ pnlJuego1;
 private: System::Windows::Forms::Panel^ pnlJuego3;
-private: System::Windows::Forms::Panel^ pnlDebug;
-private: System::Windows::Forms::Button^ button5;
-private: System::Windows::Forms::Button^ button6;
-private: System::Windows::Forms::Button^ button8;
 private: System::Windows::Forms::Panel^ pnlJuego4;
+private: System::Windows::Forms::Panel^ pnlPersecusion;
+private: System::Windows::Forms::Button^ btnPersecucion;
+private: System::Windows::Forms::Button^ btnNivel4;
+private: System::Windows::Forms::Button^ btnNivel3;
+private: System::Windows::Forms::Button^ btnNivel2;
+private: System::Windows::Forms::Button^ btnNivel1;
 private: System::Windows::Forms::Timer^ timerMovimiento;
 #pragma region Windows Form Designer generated code
 		   /// <summary>
@@ -219,15 +245,16 @@ private: System::Windows::Forms::Timer^ timerMovimiento;
 			   this->lblPersonaje = (gcnew System::Windows::Forms::Label());
 			   this->pnlJuego1 = (gcnew System::Windows::Forms::Panel());
 			   this->pnlJuego3 = (gcnew System::Windows::Forms::Panel());
-			   this->pnlDebug = (gcnew System::Windows::Forms::Panel());
-			   this->button5 = (gcnew System::Windows::Forms::Button());
-			   this->button6 = (gcnew System::Windows::Forms::Button());
-			   this->button8 = (gcnew System::Windows::Forms::Button());
+			   this->btnNivel4 = (gcnew System::Windows::Forms::Button());
+			   this->btnNivel3 = (gcnew System::Windows::Forms::Button());
+			   this->btnNivel2 = (gcnew System::Windows::Forms::Button());
+			   this->btnPersecucion = (gcnew System::Windows::Forms::Button());
 			   this->pnlJuego4 = (gcnew System::Windows::Forms::Panel());
 			   this->timerMovimiento = (gcnew System::Windows::Forms::Timer(this->components));
+			   this->pnlPersecusion = (gcnew System::Windows::Forms::Panel());
+			   this->btnNivel1 = (gcnew System::Windows::Forms::Button());
 			   this->pnlTexto->SuspendLayout();
 			   this->pnlDeControl->SuspendLayout();
-			   this->pnlDebug->SuspendLayout();
 			   this->SuspendLayout();
 			   // 
 			   // timerJuego
@@ -248,28 +275,28 @@ private: System::Windows::Forms::Timer^ timerMovimiento;
 				   static_cast<System::Byte>(0)));
 			   this->label4->ForeColor = System::Drawing::Color::FromArgb(static_cast<System::Int32>(static_cast<System::Byte>(255)), static_cast<System::Int32>(static_cast<System::Byte>(128)),
 				   static_cast<System::Int32>(static_cast<System::Byte>(0)));
-			   this->label4->Location = System::Drawing::Point(25, 12);
+			   this->label4->Location = System::Drawing::Point(19, 10);
+			   this->label4->Margin = System::Windows::Forms::Padding(2, 0, 2, 0);
 			   this->label4->Name = L"label4";
-			   this->label4->Size = System::Drawing::Size(67, 28);
+			   this->label4->Size = System::Drawing::Size(56, 23);
 			   this->label4->TabIndex = 0;
 			   this->label4->Text = L"label4";
 			   // 
 			   // pnlTexto
 			   // 
 			   this->pnlTexto->Controls->Add(this->label4);
-			   this->pnlTexto->Location = System::Drawing::Point(15, 14);
-			   this->pnlTexto->Margin = System::Windows::Forms::Padding(3, 2, 3, 2);
+			   this->pnlTexto->Location = System::Drawing::Point(11, 11);
+			   this->pnlTexto->Margin = System::Windows::Forms::Padding(2);
 			   this->pnlTexto->Name = L"pnlTexto";
-			   this->pnlTexto->Size = System::Drawing::Size(1620, 110);
+			   this->pnlTexto->Size = System::Drawing::Size(1215, 89);
 			   this->pnlTexto->TabIndex = 5;
 			   this->pnlTexto->Visible = false;
 			   // 
 			   // pnlJuego2
 			   // 
-			   this->pnlJuego2->Location = System::Drawing::Point(17, 100);
-			   this->pnlJuego2->Margin = System::Windows::Forms::Padding(4, 4, 4, 4);
+			   this->pnlJuego2->Location = System::Drawing::Point(13, 81);
 			   this->pnlJuego2->Name = L"pnlJuego2";
-			   this->pnlJuego2->Size = System::Drawing::Size(1620, 839);
+			   this->pnlJuego2->Size = System::Drawing::Size(1215, 682);
 			   this->pnlJuego2->TabIndex = 6;
 			   // 
 			   // pnlDeControl
@@ -278,10 +305,10 @@ private: System::Windows::Forms::Timer^ timerMovimiento;
 			   this->pnlDeControl->Controls->Add(this->lblPuntaje);
 			   this->pnlDeControl->Controls->Add(this->lblVida);
 			   this->pnlDeControl->Controls->Add(this->lblPersonaje);
-			   this->pnlDeControl->Location = System::Drawing::Point(12, 7);
-			   this->pnlDeControl->Margin = System::Windows::Forms::Padding(3, 2, 3, 2);
+			   this->pnlDeControl->Location = System::Drawing::Point(9, 6);
+			   this->pnlDeControl->Margin = System::Windows::Forms::Padding(2);
 			   this->pnlDeControl->Name = L"pnlDeControl";
-			   this->pnlDeControl->Size = System::Drawing::Size(1620, 110);
+			   this->pnlDeControl->Size = System::Drawing::Size(1215, 89);
 			   this->pnlDeControl->TabIndex = 7;
 			   // 
 			   // lblSpot
@@ -292,9 +319,10 @@ private: System::Windows::Forms::Timer^ timerMovimiento;
 				   static_cast<System::Byte>(0)));
 			   this->lblSpot->ForeColor = System::Drawing::Color::FromArgb(static_cast<System::Int32>(static_cast<System::Byte>(255)), static_cast<System::Int32>(static_cast<System::Byte>(128)),
 				   static_cast<System::Int32>(static_cast<System::Byte>(0)));
-			   this->lblSpot->Location = System::Drawing::Point(783, 55);
+			   this->lblSpot->Location = System::Drawing::Point(587, 45);
+			   this->lblSpot->Margin = System::Windows::Forms::Padding(2, 0, 2, 0);
 			   this->lblSpot->Name = L"lblSpot";
-			   this->lblSpot->Size = System::Drawing::Size(78, 28);
+			   this->lblSpot->Size = System::Drawing::Size(65, 23);
 			   this->lblSpot->TabIndex = 3;
 			   this->lblSpot->Text = L"lblSpot";
 			   // 
@@ -306,9 +334,10 @@ private: System::Windows::Forms::Timer^ timerMovimiento;
 				   static_cast<System::Byte>(0)));
 			   this->lblPuntaje->ForeColor = System::Drawing::Color::FromArgb(static_cast<System::Int32>(static_cast<System::Byte>(255)), static_cast<System::Int32>(static_cast<System::Byte>(128)),
 				   static_cast<System::Int32>(static_cast<System::Byte>(0)));
-			   this->lblPuntaje->Location = System::Drawing::Point(783, 12);
+			   this->lblPuntaje->Location = System::Drawing::Point(587, 10);
+			   this->lblPuntaje->Margin = System::Windows::Forms::Padding(2, 0, 2, 0);
 			   this->lblPuntaje->Name = L"lblPuntaje";
-			   this->lblPuntaje->Size = System::Drawing::Size(101, 28);
+			   this->lblPuntaje->Size = System::Drawing::Size(83, 23);
 			   this->lblPuntaje->TabIndex = 2;
 			   this->lblPuntaje->Text = L"lblPuntaje";
 			   // 
@@ -320,9 +349,10 @@ private: System::Windows::Forms::Timer^ timerMovimiento;
 				   static_cast<System::Byte>(0)));
 			   this->lblVida->ForeColor = System::Drawing::Color::FromArgb(static_cast<System::Int32>(static_cast<System::Byte>(255)), static_cast<System::Int32>(static_cast<System::Byte>(128)),
 				   static_cast<System::Int32>(static_cast<System::Byte>(0)));
-			   this->lblVida->Location = System::Drawing::Point(25, 55);
+			   this->lblVida->Location = System::Drawing::Point(19, 45);
+			   this->lblVida->Margin = System::Windows::Forms::Padding(2, 0, 2, 0);
 			   this->lblVida->Name = L"lblVida";
-			   this->lblVida->Size = System::Drawing::Size(75, 28);
+			   this->lblVida->Size = System::Drawing::Size(62, 23);
 			   this->lblVida->TabIndex = 1;
 			   this->lblVida->Text = L"lblVida";
 			   // 
@@ -334,9 +364,10 @@ private: System::Windows::Forms::Timer^ timerMovimiento;
 				   static_cast<System::Byte>(0)));
 			   this->lblPersonaje->ForeColor = System::Drawing::Color::FromArgb(static_cast<System::Int32>(static_cast<System::Byte>(255)), static_cast<System::Int32>(static_cast<System::Byte>(128)),
 				   static_cast<System::Int32>(static_cast<System::Byte>(0)));
-			   this->lblPersonaje->Location = System::Drawing::Point(25, 12);
+			   this->lblPersonaje->Location = System::Drawing::Point(19, 10);
+			   this->lblPersonaje->Margin = System::Windows::Forms::Padding(2, 0, 2, 0);
 			   this->lblPersonaje->Name = L"lblPersonaje";
-			   this->lblPersonaje->Size = System::Drawing::Size(125, 28);
+			   this->lblPersonaje->Size = System::Drawing::Size(99, 23);
 			   this->lblPersonaje->TabIndex = 0;
 			   this->lblPersonaje->Text = L"lblPersonaje";
 			   this->lblPersonaje->Click += gcnew System::EventHandler(this, &NivelMiles::lblPersonaje_Click);
@@ -344,92 +375,115 @@ private: System::Windows::Forms::Timer^ timerMovimiento;
 			   // pnlJuego1
 			   // 
 			   this->pnlJuego1->BackColor = System::Drawing::SystemColors::ActiveCaptionText;
-			   this->pnlJuego1->Location = System::Drawing::Point(11, 123);
-			   this->pnlJuego1->Margin = System::Windows::Forms::Padding(4, 4, 4, 4);
+			   this->pnlJuego1->Location = System::Drawing::Point(8, 100);
 			   this->pnlJuego1->Name = L"pnlJuego1";
-			   this->pnlJuego1->Size = System::Drawing::Size(1620, 839);
+			   this->pnlJuego1->Size = System::Drawing::Size(1215, 682);
 			   this->pnlJuego1->TabIndex = 8;
 			   // 
 			   // pnlJuego3
 			   // 
-			   this->pnlJuego3->Location = System::Drawing::Point(13, 123);
-			   this->pnlJuego3->Margin = System::Windows::Forms::Padding(4, 4, 4, 4);
+			   this->pnlJuego3->Location = System::Drawing::Point(10, 100);
 			   this->pnlJuego3->Name = L"pnlJuego3";
-			   this->pnlJuego3->Size = System::Drawing::Size(1620, 839);
+			   this->pnlJuego3->Size = System::Drawing::Size(1215, 682);
 			   this->pnlJuego3->TabIndex = 9;
 			   this->pnlJuego3->Visible = false;
 			   // 
-			   // pnlDebug
+			   // btnNivel4
 			   // 
-			   this->pnlDebug->Controls->Add(this->button5);
-			   this->pnlDebug->Controls->Add(this->button6);
-			   this->pnlDebug->Controls->Add(this->button8);
-			   this->pnlDebug->Location = System::Drawing::Point(9, 119);
-			   this->pnlDebug->Margin = System::Windows::Forms::Padding(4, 4, 4, 4);
-			   this->pnlDebug->Name = L"pnlDebug";
-			   this->pnlDebug->Size = System::Drawing::Size(1620, 839);
-			   this->pnlDebug->TabIndex = 10;
+			   this->btnNivel4->Location = System::Drawing::Point(465, 127);
+			   this->btnNivel4->Name = L"btnNivel4";
+			   this->btnNivel4->Size = System::Drawing::Size(75, 23);
+			   this->btnNivel4->TabIndex = 4;
+			   this->btnNivel4->Text = L"Nivel 4";
+			   this->btnNivel4->UseVisualStyleBackColor = true;
+			   this->btnNivel4->Visible = false;
+			   this->btnNivel4->Click += gcnew System::EventHandler(this, &NivelMiles::btnNivel4_Click);
 			   // 
-			   // button5
+			   // btnNivel3
 			   // 
-			   this->button5->Location = System::Drawing::Point(460, 25);
-			   this->button5->Margin = System::Windows::Forms::Padding(5, 5, 5, 5);
-			   this->button5->Name = L"button5";
-			   this->button5->Size = System::Drawing::Size(100, 28);
-			   this->button5->TabIndex = 8;
-			   this->button5->Text = L"miles 1";
-			   this->button5->UseVisualStyleBackColor = true;
-			   this->button5->Visible = false;
+			   this->btnNivel3->Location = System::Drawing::Point(366, 127);
+			   this->btnNivel3->Name = L"btnNivel3";
+			   this->btnNivel3->Size = System::Drawing::Size(75, 23);
+			   this->btnNivel3->TabIndex = 3;
+			   this->btnNivel3->Text = L"Nivel 3";
+			   this->btnNivel3->UseVisualStyleBackColor = true;
+			   this->btnNivel3->Visible = false;
+			   this->btnNivel3->Click += gcnew System::EventHandler(this, &NivelMiles::btnNivel3_Click);
 			   // 
-			   // button6
+			   // btnNivel2
 			   // 
-			   this->button6->Location = System::Drawing::Point(172, 25);
-			   this->button6->Margin = System::Windows::Forms::Padding(5, 5, 5, 5);
-			   this->button6->Name = L"button6";
-			   this->button6->Size = System::Drawing::Size(100, 28);
-			   this->button6->TabIndex = 10;
-			   this->button6->Text = L"miles 3";
-			   this->button6->UseVisualStyleBackColor = true;
-			   this->button6->Visible = false;
+			   this->btnNivel2->Location = System::Drawing::Point(268, 127);
+			   this->btnNivel2->Name = L"btnNivel2";
+			   this->btnNivel2->Size = System::Drawing::Size(75, 23);
+			   this->btnNivel2->TabIndex = 2;
+			   this->btnNivel2->Text = L"Nivel 2";
+			   this->btnNivel2->UseVisualStyleBackColor = true;
+			   this->btnNivel2->Visible = false;
+			   this->btnNivel2->Click += gcnew System::EventHandler(this, &NivelMiles::btnNivel2_Click);
 			   // 
-			   // button8
+			   // btnPersecucion
 			   // 
-			   this->button8->Location = System::Drawing::Point(28, 25);
-			   this->button8->Margin = System::Windows::Forms::Padding(5, 5, 5, 5);
-			   this->button8->Name = L"button8";
-			   this->button8->Size = System::Drawing::Size(100, 28);
-			   this->button8->TabIndex = 11;
-			   this->button8->Text = L"miles m";
-			   this->button8->UseVisualStyleBackColor = true;
-			   this->button8->Visible = false;
+			   this->btnPersecucion->Location = System::Drawing::Point(30, 127);
+			   this->btnPersecucion->Name = L"btnPersecucion";
+			   this->btnPersecucion->Size = System::Drawing::Size(106, 23);
+			   this->btnPersecucion->TabIndex = 0;
+			   this->btnPersecucion->Text = L"NivelPersecusion";
+			   this->btnPersecucion->UseVisualStyleBackColor = true;
+			   this->btnPersecucion->Visible = false;
+			   this->btnPersecucion->Click += gcnew System::EventHandler(this, &NivelMiles::btnPersecucion_Click);
 			   // 
 			   // pnlJuego4
 			   // 
-			   this->pnlJuego4->Location = System::Drawing::Point(9, 116);
-			   this->pnlJuego4->Margin = System::Windows::Forms::Padding(4, 4, 4, 4);
+			   this->pnlJuego4->Location = System::Drawing::Point(7, 94);
 			   this->pnlJuego4->Name = L"pnlJuego4";
-			   this->pnlJuego4->Size = System::Drawing::Size(1620, 839);
+			   this->pnlJuego4->Size = System::Drawing::Size(1215, 682);
 			   this->pnlJuego4->TabIndex = 9;
 			   this->pnlJuego4->Visible = false;
 			   // 
 			   // timerMovimiento
 			   // 
+			   this->timerMovimiento->Enabled = true;
 			   this->timerMovimiento->Tick += gcnew System::EventHandler(this, &NivelMiles::timerMovimiento_Tick);
+			   // 
+			   // pnlPersecusion
+			   // 
+			   this->pnlPersecusion->BackColor = System::Drawing::SystemColors::ActiveCaptionText;
+			   this->pnlPersecusion->Location = System::Drawing::Point(4, 103);
+			   this->pnlPersecusion->Name = L"pnlPersecusion";
+			   this->pnlPersecusion->Size = System::Drawing::Size(1215, 682);
+			   this->pnlPersecusion->TabIndex = 11;
+			   this->pnlPersecusion->Paint += gcnew System::Windows::Forms::PaintEventHandler(this, &NivelMiles::pnlPersecusion_Paint);
+			   // 
+			   // btnNivel1
+			   // 
+			   this->btnNivel1->Location = System::Drawing::Point(167, 127);
+			   this->btnNivel1->Name = L"btnNivel1";
+			   this->btnNivel1->Size = System::Drawing::Size(75, 23);
+			   this->btnNivel1->TabIndex = 1;
+			   this->btnNivel1->Text = L"Nivel 1";
+			   this->btnNivel1->UseVisualStyleBackColor = true;
+			   this->btnNivel1->Visible = false;
+			   this->btnNivel1->Click += gcnew System::EventHandler(this, &NivelMiles::btnNivel1_Click);
 			   // 
 			   // NivelMiles
 			   // 
-			   this->AutoScaleDimensions = System::Drawing::SizeF(8, 16);
+			   this->AutoScaleDimensions = System::Drawing::SizeF(6, 13);
 			   this->AutoScaleMode = System::Windows::Forms::AutoScaleMode::Font;
 			   this->BackColor = System::Drawing::SystemColors::ActiveCaptionText;
-			   this->ClientSize = System::Drawing::Size(1655, 1040);
+			   this->ClientSize = System::Drawing::Size(1241, 845);
+			   this->Controls->Add(this->btnPersecucion);
+			   this->Controls->Add(this->btnNivel4);
+			   this->Controls->Add(this->btnNivel3);
+			   this->Controls->Add(this->btnNivel2);
+			   this->Controls->Add(this->btnNivel1);
 			   this->Controls->Add(this->pnlJuego1);
 			   this->Controls->Add(this->pnlJuego4);
-			   this->Controls->Add(this->pnlDebug);
+			   this->Controls->Add(this->pnlPersecusion);
 			   this->Controls->Add(this->pnlJuego3);
 			   this->Controls->Add(this->pnlDeControl);
 			   this->Controls->Add(this->pnlJuego2);
 			   this->Controls->Add(this->pnlTexto);
-			   this->Margin = System::Windows::Forms::Padding(3, 2, 3, 2);
+			   this->Margin = System::Windows::Forms::Padding(2);
 			   this->Name = L"NivelMiles";
 			   this->Text = L"NivelMiles";
 			   this->Deactivate += gcnew System::EventHandler(this, &NivelMiles::NivelMiles_Deactivate);
@@ -441,7 +495,6 @@ private: System::Windows::Forms::Timer^ timerMovimiento;
 			   this->pnlTexto->PerformLayout();
 			   this->pnlDeControl->ResumeLayout(false);
 			   this->pnlDeControl->PerformLayout();
-			   this->pnlDebug->ResumeLayout(false);
 			   this->ResumeLayout(false);
 
 		   }
@@ -620,9 +673,11 @@ private: System::Void NivelMiles_KeyDown(System::Object^ sender, System::Windows
 		}
 		case Keys::F2:
 			modoDebug = !modoDebug;
-			button5->Visible = modoDebug;
-			button6->Visible = modoDebug;
-			button8->Visible = modoDebug;
+			btnPersecucion->Visible = modoDebug;
+			btnNivel1->Visible = modoDebug;
+			btnNivel2->Visible = modoDebug;
+			btnNivel3->Visible = modoDebug;
+			btnNivel4->Visible = modoDebug;
 			break;
 		default:break;
 		}
@@ -646,31 +701,47 @@ private: System::Void NivelMiles_KeyDown(System::Object^ sender, System::Windows
 			miles->SetPY(yAnterior);
 		}
 	}
-		private: System::Void button8_Click(System::Object^ sender, System::EventArgs^ e) {
-			if (modoDebug) {
-				pnlJuego2->Visible = false;
-				//pnlJuegoMusical->Visible = true;
-				//CargarNivelMusical(1);
-			}
-		}
-	private: System::Void button6_Click(System::Object^ sender, System::EventArgs^ e) {
-		if (modoDebug) {
-			pnlJuego2->Visible = false;
-			pnlJuego3->Visible = true;
-			CargarNivel3();
-		}
-	}
-	private: System::Void button5_Click(System::Object^ sender, System::EventArgs^ e) {
-		if (modoDebug) {
-			pnlJuego2->Visible = false;
-			pnlJuego1->Visible = true;
-			CargarNivel1();
-		}
-	}
 	private: System::Void timerAnimacion_Tick(System::Object^ sender, System::EventArgs^ e) {
 		miles->ProtaAnimacion();
 	}
 private: System::Void lblPersonaje_Click(System::Object^ sender, System::EventArgs^ e) {
+}
+private: System::Void pnlPersecusion_Paint(System::Object^ sender, System::Windows::Forms::PaintEventArgs^ e) {
+}
+private: System::Void btnPersecucion_Click(System::Object^ sender, System::EventArgs^ e) {
+	if (modoDebug) {
+		PonerInvisibleTodo();
+		pnlPersecusion->Visible = true;
+		CargaNivelPersecusion();
+	}
+}
+private: System::Void btnNivel1_Click(System::Object^ sender, System::EventArgs^ e) {
+	if (modoDebug) {
+		PonerInvisibleTodo();
+		pnlJuego1->Visible = true;
+		CargarNivel1();
+	}
+}
+private: System::Void btnNivel2_Click(System::Object^ sender, System::EventArgs^ e) {
+	if (modoDebug) {
+		PonerInvisibleTodo();
+		pnlJuego2->Visible = true;
+		CargarNivel2();
+	}
+}
+private: System::Void btnNivel3_Click(System::Object^ sender, System::EventArgs^ e) {
+	if (modoDebug) {
+		PonerInvisibleTodo();
+		pnlJuego3->Visible = true;
+		CargarNivel3();
+	}
+}
+private: System::Void btnNivel4_Click(System::Object^ sender, System::EventArgs^ e) {
+	if (modoDebug) {
+		PonerInvisibleTodo();
+		pnlJuego4->Visible = true;
+		CargarNivel4();
+	}
 }
 };
 }
