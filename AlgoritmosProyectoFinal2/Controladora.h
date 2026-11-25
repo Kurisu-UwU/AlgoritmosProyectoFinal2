@@ -404,5 +404,9 @@ public:
         for (int i = 0; i < (int)notasAtaque.size(); i++) { delete notasAtaque[i]; }
         notasAtaque.clear();
     }
-    Jefe* getJefe() { return jefe; }
+    Jefe* getJefe() {
+        if (jefe != nullptr) {
+            return jefe;
+        }
+    }
 };
