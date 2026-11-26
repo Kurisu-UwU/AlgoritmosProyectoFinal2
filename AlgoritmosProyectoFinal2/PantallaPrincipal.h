@@ -91,6 +91,7 @@ namespace AlgoritmosProyectoFinal2 {
 			this->components = (gcnew System::ComponentModel::Container());
 			this->timerPantalla = (gcnew System::Windows::Forms::Timer(this->components));
 			this->pnlPrincipal = (gcnew System::Windows::Forms::Panel());
+			this->label1 = (gcnew System::Windows::Forms::Label());
 			this->btnJugar = (gcnew System::Windows::Forms::Button());
 			this->btnSalir = (gcnew System::Windows::Forms::Button());
 			this->btnCreditos = (gcnew System::Windows::Forms::Button());
@@ -100,7 +101,6 @@ namespace AlgoritmosProyectoFinal2 {
 			this->btnAtras = (gcnew System::Windows::Forms::Button());
 			this->btnMiguel = (gcnew System::Windows::Forms::Button());
 			this->btnPunk = (gcnew System::Windows::Forms::Button());
-			this->label1 = (gcnew System::Windows::Forms::Label());
 			this->pnlPrincipal->SuspendLayout();
 			this->pnlPersonaje->SuspendLayout();
 			this->SuspendLayout();
@@ -124,6 +124,19 @@ namespace AlgoritmosProyectoFinal2 {
 			this->pnlPrincipal->Size = System::Drawing::Size(1405, 484);
 			this->pnlPrincipal->TabIndex = 4;
 			this->pnlPrincipal->Paint += gcnew System::Windows::Forms::PaintEventHandler(this, &PantallaPrincipal::pnlPrincipal_Paint);
+			// 
+			// label1
+			// 
+			this->label1->AutoSize = true;
+			this->label1->BackColor = System::Drawing::Color::Transparent;
+			this->label1->Font = (gcnew System::Drawing::Font(L"Comic Sans MS", 28.2F, System::Drawing::FontStyle::Bold, System::Drawing::GraphicsUnit::Point,
+				static_cast<System::Byte>(0)));
+			this->label1->ForeColor = System::Drawing::Color::Lime;
+			this->label1->Location = System::Drawing::Point(24, 17);
+			this->label1->Name = L"label1";
+			this->label1->Size = System::Drawing::Size(456, 65);
+			this->label1->TabIndex = 4;
+			this->label1->Text = L"SPIDER JOURNEY";
 			// 
 			// btnJugar
 			// 
@@ -229,6 +242,7 @@ namespace AlgoritmosProyectoFinal2 {
 			this->btnMiguel->TabIndex = 1;
 			this->btnMiguel->Text = L"MIGUEL O\'HARA";
 			this->btnMiguel->UseVisualStyleBackColor = true;
+			this->btnMiguel->Click += gcnew System::EventHandler(this, &PantallaPrincipal::btnMiguel_Click);
 			// 
 			// btnPunk
 			// 
@@ -242,19 +256,6 @@ namespace AlgoritmosProyectoFinal2 {
 			this->btnPunk->Text = L"SPIDER PUNK";
 			this->btnPunk->UseVisualStyleBackColor = true;
 			this->btnPunk->Click += gcnew System::EventHandler(this, &PantallaPrincipal::btnPunk_Click);
-			// 
-			// label1
-			// 
-			this->label1->AutoSize = true;
-			this->label1->BackColor = System::Drawing::Color::Transparent;
-			this->label1->Font = (gcnew System::Drawing::Font(L"Comic Sans MS", 28.2F, System::Drawing::FontStyle::Bold, System::Drawing::GraphicsUnit::Point,
-				static_cast<System::Byte>(0)));
-			this->label1->ForeColor = System::Drawing::Color::Lime;
-			this->label1->Location = System::Drawing::Point(24, 17);
-			this->label1->Name = L"label1";
-			this->label1->Size = System::Drawing::Size(456, 65);
-			this->label1->TabIndex = 4;
-			this->label1->Text = L"SPIDER JOURNEY";
 			// 
 			// PantallaPrincipal
 			// 
@@ -305,6 +306,10 @@ namespace AlgoritmosProyectoFinal2 {
 		NivelMiles^ frm = gcnew NivelMiles();
 		frm->ShowDialog();
 	}
+	private: System::Void btnMiguel_Click(System::Object^ sender, System::EventArgs^ e) {
+		NivelMiguel^ frm = gcnew NivelMiguel();
+		frm->ShowDialog();
+	}
 	private: System::Void pnlPrincipal_Paint(System::Object^ sender, System::Windows::Forms::PaintEventArgs^ e) {
 
 	}
@@ -320,5 +325,6 @@ private: System::Void timerPantalla_Tick(System::Object^ sender, System::EventAr
 }
 private: System::Void pnlPersonaje_Paint(System::Object^ sender, System::Windows::Forms::PaintEventArgs^ e) {
 }
+
 };
 }
