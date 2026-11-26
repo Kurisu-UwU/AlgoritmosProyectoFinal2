@@ -111,6 +111,9 @@ namespace AlgoritmosProyectoFinal2 {
 			controladora->GenerarObstaculo(0, 415, 0, 225, 450);
 			controladora->GenerarObstaculo(760, 415, 0, 225, 450);
 
+			controladora->AgregarMancha(35, 260, 75, 150);
+
+			controladora->GenerarPuerta(35, 260, 75, 150, 18, 1050, 340);   // (x, y, ancho, alto, salaDestino, xLlegada, yLlegada)
 			controladora->GenerarPuerta(1200, 0, 60, 840, 2, 60, 340);   // (x, y, ancho, alto, salaDestino, xLlegada, yLlegada)
 		}
 		void CargarNivel2() {
@@ -181,8 +184,7 @@ namespace AlgoritmosProyectoFinal2 {
 
 			controladora->GenerarPeny(60, 320, 50, 50);
 
-			controladora->GenerarObstaculo(0, 0, 0, 225, 450);
-			controladora->GenerarObstaculo(760, 0, 0, 225, 450);
+			controladora->GenerarObstaculo(0, 0, 0, 225, 1210);
 			controladora->GenerarObstaculo(0, 415, 0, 225, 450);
 			controladora->GenerarObstaculo(760, 415, 0, 225, 450);
 
@@ -250,10 +252,10 @@ namespace AlgoritmosProyectoFinal2 {
 			controladora->GenerarObstaculo(0, 0, 0, 225, 1210);
 			controladora->GenerarObstaculo(0, 415, 0, 225, 1210);
 
-			controladora->AgregarMancha(1050, 260, 75, 150);
+			controladora->AgregarMancha(1100, 260, 75, 150);
 
 			controladora->GenerarPuerta(0, 0, 30, 840, 17, 1120, 340);   // (x, y, ancho, alto, salaDestino, xLlegada, yLlegada)
-			controladora->GenerarPuerta(1050, 260, 75, 150, 1, 1120, 340);   // (x, y, ancho, alto, salaDestino, xLlegada, yLlegada)
+			controladora->GenerarPuerta(1100, 260, 75, 150, 1, 150, 340);   // (x, y, ancho, alto, salaDestino, xLlegada, yLlegada)
 		}
 
 		void CargarNivel19() {
@@ -274,8 +276,7 @@ namespace AlgoritmosProyectoFinal2 {
 
 			controladora->GenerarObstaculo(0, 0, 0, 225, 450);
 			controladora->GenerarObstaculo(760, 0, 0, 225, 450);
-			controladora->GenerarObstaculo(0, 415, 0, 225, 450);
-			controladora->GenerarObstaculo(760, 415, 0, 225, 450);
+			controladora->GenerarObstaculo(0, 415, 0, 225, 1210);
 
 			controladora->GenerarPuerta(0, 0, 1210, 30, 16, 590, 580);   // (x, y, ancho, alto, salaDestino, xLlegada, yLlegada)
 		}
@@ -1097,6 +1098,7 @@ private: System::Void timerJuego_Tick(System::Object^ sender, System::EventArgs^
 	if (pnlJuego1->Visible == true) {
 		buffer1->Graphics->DrawImage(bmpMapa1, 0, 0, pnlJuego1->Width * 1.0, pnlJuego1->Height * 1.0);
 		miguel->Dibujar(buffer1->Graphics, bmpMiguel);
+		controladora->DibujarManchas(buffer18->Graphics, bmpMancha);
 		DibujarDebug(buffer1->Graphics, pnlJuego1);
 		buffer1->Render(gr1);
 	}
@@ -1236,7 +1238,7 @@ private: System::Void timerJuego_Tick(System::Object^ sender, System::EventArgs^
 	}
 
 	if (pnlJuego21->Visible == true) {
-		buffer21->Graphics->DrawImage(bmpMapa4, 0, 0, pnlJuego21->Width * 1.0, pnlJuego21->Height * 1.0);
+		buffer21->Graphics->DrawImage(bmpMapa3, 0, 0, pnlJuego21->Width * 1.0, pnlJuego21->Height * 1.0);
 		miguel->Dibujar(buffer21->Graphics, bmpMiguel);
 		DibujarDebug(buffer21->Graphics, pnlJuego21);
 		buffer21->Render(gr21);
