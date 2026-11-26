@@ -296,6 +296,7 @@ private: System::Windows::Forms::Timer^ timerPersecucion;
 			   // timerAnimacion
 			   // 
 			   this->timerAnimacion->Enabled = true;
+			   this->timerAnimacion->Interval = 25;
 			   this->timerAnimacion->Tick += gcnew System::EventHandler(this, &NivelMiles::timerAnimacion_Tick);
 			   // 
 			   // label4
@@ -572,7 +573,7 @@ private: System::Windows::Forms::Timer^ timerPersecucion;
 		bmpPeny = gcnew Bitmap("Imagenes/PenyParker.png");
 		CargarRecursosPersecucion();
 
-		miles = new MilesMorales(350, 50, bmpMiles->Width / 16, bmpMiles->Height / 8, 100, 4, 4, 100, 100, 0, "Miles", 'S', 1, 1);
+		miles = new MilesMorales(350, 50, bmpMiles->Width / 16, bmpMiles->Height / 8, 100, 1, 1, 100, 100, 0, "Miles", 'S', 1, 1);
 		novela = gcnew NovelaVisual(pnlTexto);
 		IrASala(1, 350, 50);
 		//novela->Iniciar(1);
