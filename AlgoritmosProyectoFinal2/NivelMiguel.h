@@ -115,6 +115,7 @@ namespace AlgoritmosProyectoFinal2 {
 
 			controladora->GenerarPuerta(35, 260, 75, 150, 18, 1050, 340);   // (x, y, ancho, alto, salaDestino, xLlegada, yLlegada)
 			controladora->GenerarPuerta(1200, 0, 60, 840, 2, 60, 340);   // (x, y, ancho, alto, salaDestino, xLlegada, yLlegada)
+			controladora->GenerarPuerta(0, 650, 1210, 30, 6, 590, 40);   // (x, y, ancho, alto, salaDestino, xLlegada, yLlegada) hacia abajo
 		}
 		void CargarNivel2() {
 			controladora->LimpiarPuertas();
@@ -157,7 +158,22 @@ namespace AlgoritmosProyectoFinal2 {
 		}
 
 		void CargarNivel6() {
+			controladora->LimpiarPuertas();
+			controladora->LimpiarObstaculos();
+			controladora->LimpiarObjetos();
+			controladora->LimpiarPuertas();
 
+			controladora->GenerarPeny(60, 320, 50, 50);
+
+			controladora->GenerarObstaculo(0, 0, 0, 225, 450);
+			controladora->GenerarObstaculo(760, 0, 0, 225, 450);
+			controladora->GenerarObstaculo(0, 415, 0, 225, 450);
+			controladora->GenerarObstaculo(760, 415, 0, 225, 450);
+
+
+			controladora->GenerarPuerta(1200, 0, 30, 840, 17, 60, 340);   // (x, y, ancho, alto, salaDestino, xLlegada, yLlegada) hacia la derecha
+			controladora->GenerarPuerta(0, 0, 1210, 30, 11, 590, 580);   // (x, y, ancho, alto, salaDestino, xLlegada, yLlegada) hacia arriba
+			controladora->GenerarPuerta(0, 650, 1210, 30, 21, 590, 40);   // (x, y, ancho, alto, salaDestino, xLlegada, yLlegada) hacia abajo
 		}
 
 		void CargarNivel7() {
@@ -221,9 +237,9 @@ namespace AlgoritmosProyectoFinal2 {
 			controladora->GenerarObstaculo(760, 415, 0, 225, 450);
 
 
-			controladora->GenerarPuerta(1200, 0, 30, 840, 17, 60, 340);   // (x, y, ancho, alto, salaDestino, xLlegada, yLlegada)
-			controladora->GenerarPuerta(0, 0, 1210, 30, 11, 590, 580);   // (x, y, ancho, alto, salaDestino, xLlegada, yLlegada)
-			controladora->GenerarPuerta(0, 650, 1210, 30, 21, 590, 40);   // (x, y, ancho, alto, salaDestino, xLlegada, yLlegada)
+			controladora->GenerarPuerta(1200, 0, 30, 840, 17, 60, 340);   // (x, y, ancho, alto, salaDestino, xLlegada, yLlegada) hacia la derecha
+			controladora->GenerarPuerta(0, 0, 1210, 30, 11, 590, 580);   // (x, y, ancho, alto, salaDestino, xLlegada, yLlegada) hacia arriba
+			controladora->GenerarPuerta(0, 650, 1210, 30, 21, 590, 40);   // (x, y, ancho, alto, salaDestino, xLlegada, yLlegada) hacia abajo
 		}
 
 		void CargarNivel17() {
@@ -1096,9 +1112,9 @@ private: System::Void timerJuego_Tick(System::Object^ sender, System::EventArgs^
 	if (!(novela != nullptr && novela->EstaActivo())) bufferp->Render(grp);
 
 	if (pnlJuego1->Visible == true) {
-		buffer1->Graphics->DrawImage(bmpMapa1, 0, 0, pnlJuego1->Width * 1.0, pnlJuego1->Height * 1.0);
+		buffer1->Graphics->DrawImage(bmpMapa2, 0, 0, pnlJuego1->Width * 1.0, pnlJuego1->Height * 1.0);
 		miguel->Dibujar(buffer1->Graphics, bmpMiguel);
-		controladora->DibujarManchas(buffer18->Graphics, bmpMancha);
+		controladora->DibujarManchas(buffer1->Graphics, bmpMancha);
 		DibujarDebug(buffer1->Graphics, pnlJuego1);
 		buffer1->Render(gr1);
 	}
@@ -1132,7 +1148,7 @@ private: System::Void timerJuego_Tick(System::Object^ sender, System::EventArgs^
 	}
 
 	if (pnlJuego6->Visible == true) {
-		buffer6->Graphics->DrawImage(bmpMapa4, 0, 0, pnlJuego6->Width * 1.0, pnlJuego6->Height * 1.0);
+		buffer6->Graphics->DrawImage(bmpMapa3, 0, 0, pnlJuego6->Width * 1.0, pnlJuego6->Height * 1.0);
 		miguel->Dibujar(buffer6->Graphics, bmpMiguel);
 		DibujarDebug(buffer6->Graphics, pnlJuego6);
 		buffer6->Render(gr6);
@@ -1167,7 +1183,7 @@ private: System::Void timerJuego_Tick(System::Object^ sender, System::EventArgs^
 	}
 
 	if (pnlJuego11->Visible == true) {
-		buffer11->Graphics->DrawImage(bmpMapa4, 0, 0, pnlJuego11->Width * 1.0, pnlJuego11->Height * 1.0);
+		buffer11->Graphics->DrawImage(bmpMapa2, 0, 0, pnlJuego11->Width * 1.0, pnlJuego11->Height * 1.0);
 		miguel->Dibujar(buffer11->Graphics, bmpMiguel);
 		DibujarDebug(buffer11->Graphics, pnlJuego11);
 		buffer11->Render(gr11);
