@@ -4,8 +4,6 @@
 using namespace std;
 using namespace System::Drawing;
 
-enum Direccion { Arriba, Abajo, Derecha, Izquierda, Ninguno };
-
 class Protagonista {
 protected:
 	int x, y;
@@ -66,6 +64,8 @@ public:
 	char GetMirada() { return direccion; }
 	int GetIdX() { return idX; }
 	void SetIdX(int v) { idX = v; }
+	void SetIdY(int v) { idY = v; }
+	int GetIdY() { return idY; }
 
 
 	void Dibujar(Graphics^ g, Bitmap^ bmp) {

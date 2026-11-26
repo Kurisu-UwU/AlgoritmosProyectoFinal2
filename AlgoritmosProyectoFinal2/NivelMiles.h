@@ -1,7 +1,8 @@
-#pragma once
+ï»¿#pragma once
 #include "MilesMorales.h"
 #include "Dialogos.h"
 #include "Controladora.h"
+#include "ControladoraPersecucion.h"
 namespace AlgoritmosProyectoFinal2 {
 
 	using namespace System;
@@ -28,15 +29,7 @@ namespace AlgoritmosProyectoFinal2 {
 			controladora->LimpiarPuertas();
 			controladora->LimpiarObstaculos();
 			controladora->LimpiarObjetos();
-			controladora->LimpiarPuertas();
-
-			controladora->GenerarPeny(60, 320, 50, 50);
-
-			controladora->GenerarObstaculo(0, 0, 0, 225, 450);
-			controladora->GenerarObstaculo(770, 0, 0, 225, 440);
-			controladora->GenerarObstaculo(0, 415, 0, 225, 1210);
-
-			controladora->GenerarPuerta(1200, 0, 60, 840, 2, 60, 340);   // (x, y, ancho, alto, salaDestino, xLlegada, yLlegada)
+			IniciarPersecucion();   // ver bloque "NIVEL DE PERSECUCION" al final de la clase
 		}
 		void CargarNivel1() {
 			controladora->LimpiarPuertas();
@@ -47,27 +40,27 @@ namespace AlgoritmosProyectoFinal2 {
 			controladora->GenerarPeny(60, 320, 50, 50);
 
 			controladora->GenerarObstaculo(0, 0, 0, 223, 300);
-			controladora->GenerarObstaculo(0, 223, 0, 680-223, 130);
+			controladora->GenerarObstaculo(0, 223, 0, 680 - 223, 130);
 			controladora->GenerarObstaculo(433, 0, 0, 284, 10);
 			controladora->GenerarObstaculo(887, 0, 0, 255, 40);
 			controladora->GenerarObstaculo(1082, 0, 0, 478, 30);
-			controladora->GenerarObstaculo(84, 662, 0, 680-662, 1214-84);
-			controladora->GenerarObstaculo(249, 224, 0, 320-224, 304-249);
-			controladora->GenerarObstaculo(397,453 , 0, 552-453, 595-397);
-			controladora->GenerarObstaculo(473,405 , 0, 465-405, 655-473);
-			controladora->GenerarObstaculo(218,455 , 0, 506-455, 320-218);
-			controladora->GenerarObstaculo(254,387 , 0,80, 10);
-			controladora->GenerarObstaculo(450,250 , 0, 50, 205);
+			controladora->GenerarObstaculo(84, 662, 0, 680 - 662, 1214 - 84);
+			controladora->GenerarObstaculo(249, 224, 0, 320 - 224, 304 - 249);
+			controladora->GenerarObstaculo(397, 453, 0, 552 - 453, 595 - 397);
+			controladora->GenerarObstaculo(473, 405, 0, 465 - 405, 655 - 473);
+			controladora->GenerarObstaculo(218, 455, 0, 506 - 455, 320 - 218);
+			controladora->GenerarObstaculo(254, 387, 0, 80, 10);
+			controladora->GenerarObstaculo(450, 250, 0, 50, 205);
 			controladora->GenerarObstaculo(640, 250, 0, 80, 20);
-			controladora->GenerarObstaculo(1012, 250, 0,20 , 70);
-			controladora->GenerarObstaculo(841,250 , 0, 284-250, 925-841);
-			controladora->GenerarObstaculo(841,392 , 0, 478-392, 863-841);
-			controladora->GenerarObstaculo(841,284 , 0, 333-284, 863-841);
-			controladora->GenerarObstaculo(863,453 , 0, 478-453,1082-863 );
-			controladora->GenerarObstaculo(0,0, 0, 20,1220);
+			controladora->GenerarObstaculo(1012, 250, 0, 20, 70);
+			controladora->GenerarObstaculo(841, 250, 0, 284 - 250, 925 - 841);
+			controladora->GenerarObstaculo(841, 392, 0, 478 - 392, 863 - 841);
+			controladora->GenerarObstaculo(841, 284, 0, 333 - 284, 863 - 841);
+			controladora->GenerarObstaculo(863, 453, 0, 478 - 453, 1082 - 863);
+			controladora->GenerarObstaculo(0, 0, 0, 20, 1220);
 
-			controladora->GenerarPuerta(1114,36,1200-1114,75-36, 3,1100,550);
-			controladora->GenerarObstaculo(1200, 0,0, 840, 60);
+			controladora->GenerarPuerta(1114, 36, 1200 - 1114, 75 - 36, 3, 1100, 550);
+			controladora->GenerarObstaculo(1200, 0, 0, 840, 60);
 		}
 		void CargarNivel2() {
 			controladora->LimpiarPuertas();
@@ -81,9 +74,9 @@ namespace AlgoritmosProyectoFinal2 {
 			controladora->GenerarObstaculo(1200, 0, 0, 840, 60);
 			controladora->GenerarObstaculo(0, 662, 0, 680 - 662, 1220);
 
-			controladora->GenerarObstaculo(157, 0, 0, 250, 1220-157);
-			controladora->GenerarObstaculo(0,420, 0, 680-420, 1016);
-			controladora->GenerarObstaculo(1016, 420, 0, 15, 1063-1016);
+			controladora->GenerarObstaculo(157, 0, 0, 250, 1220 - 157);
+			controladora->GenerarObstaculo(0, 420, 0, 680 - 420, 1016);
+			controladora->GenerarObstaculo(1016, 420, 0, 15, 1063 - 1016);
 			controladora->GenerarObstaculo(1142, 420, 0, 15, 1220 - 1142);
 
 			controladora->GenerarPuerta(0, 10, 1200, 20, 4, 1120, 530);
@@ -99,20 +92,20 @@ namespace AlgoritmosProyectoFinal2 {
 			controladora->GenerarObstaculo(1200, 0, 0, 840, 60);
 			controladora->GenerarObstaculo(0, 662, 0, 680 - 662, 1220);
 
-			controladora->GenerarObstaculo(0, 227, 0, 680-227, 340);
-			controladora->GenerarObstaculo(343, 471, 0, 488-471, 736-343);
-			controladora->GenerarObstaculo(343, 226, 0, 362-226, 520-343);
+			controladora->GenerarObstaculo(0, 227, 0, 680 - 227, 340);
+			controladora->GenerarObstaculo(343, 471, 0, 488 - 471, 736 - 343);
+			controladora->GenerarObstaculo(343, 226, 0, 362 - 226, 520 - 343);
 			controladora->GenerarObstaculo(500, 133, 0, 235 - 133, 738 - 500);
-			controladora->GenerarObstaculo(720,142 , 0,487-142 , 738-720);
-			controladora->GenerarObstaculo(340,470 , 0,487-470 ,736-340 );
-			controladora->GenerarObstaculo(850,130 , 0, 680-130, 20);
-			controladora->GenerarObstaculo(850,220 , 0, 490-220, 1020-850);
+			controladora->GenerarObstaculo(720, 142, 0, 487 - 142, 738 - 720);
+			controladora->GenerarObstaculo(340, 470, 0, 487 - 470, 736 - 340);
+			controladora->GenerarObstaculo(850, 130, 0, 680 - 130, 20);
+			controladora->GenerarObstaculo(850, 220, 0, 490 - 220, 1020 - 850);
 			controladora->GenerarObstaculo(1024, 614, 0, 680 - 614, 1220 - 1024);
-			controladora->GenerarObstaculo(1120,220 , 0, 20, 100);
-			controladora->GenerarObstaculo(1020,414 , 0, 436-414,1096-1020 );
-			controladora->GenerarObstaculo(1163,414 , 0,436-414 ,1220-1163 );
+			controladora->GenerarObstaculo(1120, 220, 0, 20, 100);
+			controladora->GenerarObstaculo(1020, 414, 0, 436 - 414, 1096 - 1020);
+			controladora->GenerarObstaculo(1163, 414, 0, 436 - 414, 1220 - 1163);
 
-			controladora->GenerarPuerta(0, 0, 180  , 680, 5, 1100, 550);
+			controladora->GenerarPuerta(0, 0, 180, 680, 5, 1100, 550);
 		}
 		void CargarNivel4() {
 			controladora->LimpiarPuertas();
@@ -132,6 +125,7 @@ namespace AlgoritmosProyectoFinal2 {
 		//	return sala != 3;
 		//}
 		void IrASala(int sala, int px, int py) {
+			if (sala != 1) DetenerPersecucion();
 			salaActual = sala;
 			pnlPersecusion->Visible = (sala == 1);
 			pnlJuego1->Visible = (sala == 2);
@@ -145,8 +139,10 @@ namespace AlgoritmosProyectoFinal2 {
 			case 4: CargarNivel3(); break;
 			case 5: CargarNivel4(); break;
 			}
-			miles->SetPX(px);
-			miles->SetPY(py);
+			if (sala != 1) {   // en la persecucion la posicion de Miles la pone la propia persecucion
+				miles->SetPX(px);
+				miles->SetPY(py);
+			}
 		}
 		void DibujarDebug(Graphics^ g, Panel^ panel) {  // Overley con f2
 			if (!modoDebug) return;
@@ -159,6 +155,7 @@ namespace AlgoritmosProyectoFinal2 {
 			g->DrawString(info, SystemFonts::DefaultFont, Brushes::Lime, 4.0f, 4.0f);
 		}
 		void PonerInvisibleTodo() {
+			DetenerPersecucion();
 			pnlPersecusion->Visible = false;
 			pnlJuego1->Visible = false;
 			pnlJuego2->Visible = false;
@@ -167,7 +164,7 @@ namespace AlgoritmosProyectoFinal2 {
 		}
 	protected:
 		/// <summary>
-		/// Limpiar los recursos que se estén usando.
+		/// Limpiar los recursos que se estÃ©n usando.
 		/// </summary>
 		~NivelMiles()
 		{
@@ -184,8 +181,8 @@ namespace AlgoritmosProyectoFinal2 {
 			}
 			return Form::ProcessCmdKey(msg, keyData);
 		}
-private: System::Windows::Forms::Timer^ timerJuego;
-protected:
+	private: System::Windows::Forms::Timer^ timerJuego;
+	protected:
 
 	protected:
 	private: System::ComponentModel::IContainer^ components;
@@ -227,31 +224,40 @@ protected:
 		MilesMorales* miles;
 		Controladora* controladora;
 		NovelaVisual^ novela;
+		// --- nivel de persecucion ---
+		ControladoraPersecucion* perse;
+		cli::array<Bitmap^>^ bmpCarros;
+		Bitmap^ bmpFondoPerse;
+		System::Drawing::Font^ fuenteTituloPerse;
+		System::Drawing::Font^ fuenteTextoPerse;
+		bool persecucionActiva = false;
 	private: System::ComponentModel::BackgroundWorker^ backgroundWorker1;
 
-private: System::Windows::Forms::Timer^ timerAnimacion;
-private: System::Windows::Forms::Label^ label4;
-private: System::Windows::Forms::Panel^ pnlTexto;
-private: System::Windows::Forms::Panel^ pnlJuego2;
-private: System::Windows::Forms::Panel^ pnlDeControl;
-private: System::Windows::Forms::Label^ lblSpot;
-private: System::Windows::Forms::Label^ lblPuntaje;
-private: System::Windows::Forms::Label^ lblVida;
-private: System::Windows::Forms::Label^ lblPersonaje;
-private: System::Windows::Forms::Panel^ pnlJuego1;
-private: System::Windows::Forms::Panel^ pnlJuego3;
-private: System::Windows::Forms::Panel^ pnlJuego4;
-private: System::Windows::Forms::Panel^ pnlPersecusion;
-private: System::Windows::Forms::Button^ btnPersecucion;
-private: System::Windows::Forms::Button^ btnNivel4;
-private: System::Windows::Forms::Button^ btnNivel3;
-private: System::Windows::Forms::Button^ btnNivel2;
-private: System::Windows::Forms::Button^ btnNivel1;
-private: System::Windows::Forms::Timer^ timerMovimiento;
+	private: System::Windows::Forms::Timer^ timerAnimacion;
+	private: System::Windows::Forms::Label^ label4;
+	private: System::Windows::Forms::Panel^ pnlTexto;
+	private: System::Windows::Forms::Panel^ pnlJuego2;
+	private: System::Windows::Forms::Panel^ pnlDeControl;
+	private: System::Windows::Forms::Label^ lblSpot;
+	private: System::Windows::Forms::Label^ lblPuntaje;
+	private: System::Windows::Forms::Label^ lblVida;
+	private: System::Windows::Forms::Label^ lblPersonaje;
+	private: System::Windows::Forms::Panel^ pnlJuego1;
+	private: System::Windows::Forms::Panel^ pnlJuego3;
+	private: System::Windows::Forms::Panel^ pnlJuego4;
+	private: System::Windows::Forms::Panel^ pnlPersecusion;
+	private: System::Windows::Forms::Button^ btnPersecucion;
+	private: System::Windows::Forms::Button^ btnNivel4;
+	private: System::Windows::Forms::Button^ btnNivel3;
+	private: System::Windows::Forms::Button^ btnNivel2;
+	private: System::Windows::Forms::Button^ btnNivel1;
+private: System::Windows::Forms::Timer^ timerPersecucion;
+
+	private: System::Windows::Forms::Timer^ timerMovimiento;
 #pragma region Windows Form Designer generated code
 		   /// <summary>
-		   /// Método necesario para admitir el Diseñador. No se puede modificar
-		   /// el contenido de este método con el editor de código.
+		   /// MÃ©todo necesario para admitir el DiseÃ±ador. No se puede modificar
+		   /// el contenido de este mÃ©todo con el editor de cÃ³digo.
 		   /// </summary>
 		   void InitializeComponent(void)
 		   {
@@ -277,6 +283,7 @@ private: System::Windows::Forms::Timer^ timerMovimiento;
 			   this->timerMovimiento = (gcnew System::Windows::Forms::Timer(this->components));
 			   this->pnlPersecusion = (gcnew System::Windows::Forms::Panel());
 			   this->btnNivel1 = (gcnew System::Windows::Forms::Button());
+			   this->timerPersecucion = (gcnew System::Windows::Forms::Timer(this->components));
 			   this->pnlTexto->SuspendLayout();
 			   this->pnlDeControl->SuspendLayout();
 			   this->SuspendLayout();
@@ -490,6 +497,11 @@ private: System::Windows::Forms::Timer^ timerMovimiento;
 			   this->btnNivel1->Visible = false;
 			   this->btnNivel1->Click += gcnew System::EventHandler(this, &NivelMiles::btnNivel1_Click);
 			   // 
+			   // timerPersecucion
+			   // 
+			   this->timerPersecucion->Interval = 30;
+			   this->timerPersecucion->Tick += gcnew System::EventHandler(this, &NivelMiles::timerPersecucion_Tick);
+			   // 
 			   // NivelMiles
 			   // 
 			   this->AutoScaleDimensions = System::Drawing::SizeF(6, 13);
@@ -529,6 +541,10 @@ private: System::Windows::Forms::Timer^ timerMovimiento;
 		spacep = BufferedGraphicsManager::Current;
 		bufferp = spacep->Allocate(grp, pnlDeControl->ClientRectangle);
 
+		grperse = pnlPersecusion->CreateGraphics();
+		spaceperse = BufferedGraphicsManager::Current;
+		bufferperse = spaceperse->Allocate(grperse, pnlPersecusion->ClientRectangle);
+
 		gr1 = pnlJuego1->CreateGraphics();
 		space1 = BufferedGraphicsManager::Current;
 		buffer1 = space1->Allocate(gr1, pnlJuego1->ClientRectangle);
@@ -554,22 +570,18 @@ private: System::Windows::Forms::Timer^ timerMovimiento;
 		bmpGwen = gcnew Bitmap("Imagenes/Gwen.png");
 		bmpMiles = gcnew Bitmap("Imagenes/MilesMorales.png");
 		bmpPeny = gcnew Bitmap("Imagenes/PenyParker.png");
+		CargarRecursosPersecucion();
 
 		miles = new MilesMorales(350, 50, bmpMiles->Width / 16, bmpMiles->Height / 8, 100, 4, 4, 100, 100, 0, "Miles", 'S', 1, 1);
 		novela = gcnew NovelaVisual(pnlTexto);
-		IrASala(2, 350, 50);
-		novela->Iniciar(1);
+		IrASala(1, 350, 50);
+		//novela->Iniciar(1);
 	}
 	private: System::Void timerJuego_Tick(System::Object^ sender, System::EventArgs^ e) {
 		bufferp->Graphics->DrawImage(bmpPanelControl, 0, 0, pnlDeControl->Width * 1.0, pnlDeControl->Height * 1.0);
 		if (!(novela != nullptr && novela->EstaActivo())) bufferp->Render(grp);
 
-		if (pnlPersecusion->Visible == true) {
-			bufferperse->Graphics->DrawImage(bmpMapaPersecusion, 0, 0, pnlPersecusion->Width * 1.0, pnlPersecusion->Height * 1.0);
-			miles->Dibujar(bufferperse->Graphics, bmpMiles);
-			DibujarDebug(bufferperse->Graphics, pnlPersecusion);
-			bufferperse->Render(grperse);
-}
+		// pnlPersecusion se dibuja en timerPersecucion_Tick (30 ms)
 		if (pnlJuego1->Visible == true) {
 			buffer1->Graphics->DrawImage(bmpMapa1, 0, 0, pnlJuego1->Width * 1.0, pnlJuego1->Height * 1.0);
 			miles->Dibujar(buffer1->Graphics, bmpMiles);
@@ -599,11 +611,12 @@ private: System::Windows::Forms::Timer^ timerMovimiento;
 
 		lblVida->Text = "Vida: " + miles->getVida();
 		lblPersonaje->Text = "Spider miles: ";
-		lblPuntaje->Text = "Puntaje: " + 10;
+		if (!persecucionActiva) lblPuntaje->Text = "Puntaje: " + 10;
 
 	}
 	private: System::Void timerMovimiento_Tick(System::Object^ sender, System::EventArgs^ e) {
 		if (miles == nullptr || buffer1 == nullptr || !timerJuego->Enabled) return;
+		if (persecucionActiva) return;
 		if (novela != nullptr && novela->EstaActivo()) { miles->ProtaQuieto(); return; }
 
 		char dir = ' ';
@@ -636,27 +649,29 @@ private: System::Windows::Forms::Timer^ timerMovimiento;
 			IrASala(puerta->GetNivelDestino(), puerta->GetXDestino(), puerta->GetYDestino());
 		}
 	}
-private: System::Void NivelMiles_FormClosing(System::Object^ sender, System::Windows::Forms::FormClosingEventArgs^ e) {
-	timerJuego->Enabled = false;
-	if (novela != nullptr) novela->Liberar();
-	timerMovimiento->Enabled = false;
-}
-		private: void SoltarTeclas() {
-			teclaA = false; teclaD = false; teclaW = false; teclaS = false;
-		}
-private: System::Void NivelMiles_Deactivate(System::Object^ sender, System::EventArgs^ e) {
-	SoltarTeclas();
-}
-private: System::Void NivelMiles_KeyUp(System::Object^ sender, System::Windows::Forms::KeyEventArgs^ e) {
-	switch (e->KeyCode) {
-	case Keys::A: teclaA = false; break;
-	case Keys::D: teclaD = false; break;
-	case Keys::W: teclaW = false; break;
-	case Keys::S: teclaS = false; break;
-	default: break;
+	private: System::Void NivelMiles_FormClosing(System::Object^ sender, System::Windows::Forms::FormClosingEventArgs^ e) {
+		timerJuego->Enabled = false;
+		if (novela != nullptr) novela->Liberar();
+		timerMovimiento->Enabled = false;
+		persecucionActiva = false;
+		if (timerPersecucion != nullptr) timerPersecucion->Enabled = false;
 	}
-}	
-private: System::Void NivelMiles_KeyDown(System::Object^ sender, System::Windows::Forms::KeyEventArgs^ e) {
+	private: void SoltarTeclas() {
+		teclaA = false; teclaD = false; teclaW = false; teclaS = false;
+	}
+	private: System::Void NivelMiles_Deactivate(System::Object^ sender, System::EventArgs^ e) {
+		SoltarTeclas();
+	}
+	private: System::Void NivelMiles_KeyUp(System::Object^ sender, System::Windows::Forms::KeyEventArgs^ e) {
+		switch (e->KeyCode) {
+		case Keys::A: teclaA = false; break;
+		case Keys::D: teclaD = false; break;
+		case Keys::W: teclaW = false; break;
+		case Keys::S: teclaS = false; break;
+		default: break;
+		}
+	}
+	private: System::Void NivelMiles_KeyDown(System::Object^ sender, System::Windows::Forms::KeyEventArgs^ e) {
 		if (novela != nullptr && novela->EstaActivo()) {
 			novela->ProcesarTecla(e->KeyCode);
 			e->SuppressKeyPress = true;
@@ -680,6 +695,9 @@ private: System::Void NivelMiles_KeyDown(System::Object^ sender, System::Windows
 			}
 			break;
 		}
+		case Keys::Enter:
+			if (persecucionActiva) { PersecucionEnter(); e->SuppressKeyPress = true; }
+			break;
 		case Keys::F2:
 			modoDebug = !modoDebug;
 			btnPersecucion->Visible = modoDebug;
@@ -707,44 +725,144 @@ private: System::Void NivelMiles_KeyDown(System::Object^ sender, System::Windows
 	private: System::Void timerAnimacion_Tick(System::Object^ sender, System::EventArgs^ e) {
 		miles->ProtaAnimacion();
 	}
-private: System::Void lblPersonaje_Click(System::Object^ sender, System::EventArgs^ e) {
-}
-private: System::Void pnlPersecusion_Paint(System::Object^ sender, System::Windows::Forms::PaintEventArgs^ e) {
-}
-private: System::Void btnPersecucion_Click(System::Object^ sender, System::EventArgs^ e) {
-	if (modoDebug) {
-		PonerInvisibleTodo();
-		pnlPersecusion->Visible = true;
-		CargaNivelPersecusion();
+	private: System::Void lblPersonaje_Click(System::Object^ sender, System::EventArgs^ e) {
 	}
-}
-private: System::Void btnNivel1_Click(System::Object^ sender, System::EventArgs^ e) {
-	if (modoDebug) {
-		PonerInvisibleTodo();
-		pnlJuego1->Visible = true;
-		CargarNivel1();
+	private: System::Void pnlPersecusion_Paint(System::Object^ sender, System::Windows::Forms::PaintEventArgs^ e) {
 	}
-}
-private: System::Void btnNivel2_Click(System::Object^ sender, System::EventArgs^ e) {
-	if (modoDebug) {
-		PonerInvisibleTodo();
-		pnlJuego2->Visible = true;
-		CargarNivel2();
+	private: System::Void btnPersecucion_Click(System::Object^ sender, System::EventArgs^ e) {
+		if (modoDebug) {
+			PonerInvisibleTodo();
+			pnlPersecusion->Visible = true;
+			CargaNivelPersecusion();
+		}
 	}
-}
-private: System::Void btnNivel3_Click(System::Object^ sender, System::EventArgs^ e) {
-	if (modoDebug) {
-		PonerInvisibleTodo();
-		pnlJuego3->Visible = true;
-		CargarNivel3();
+	private: System::Void btnNivel1_Click(System::Object^ sender, System::EventArgs^ e) {
+		if (modoDebug) {
+			PonerInvisibleTodo();
+			pnlJuego1->Visible = true;
+			CargarNivel1();
+		}
 	}
-}
-private: System::Void btnNivel4_Click(System::Object^ sender, System::EventArgs^ e) {
-	if (modoDebug) {
-		PonerInvisibleTodo();
-		pnlJuego4->Visible = true;
-		CargarNivel4();
+	private: System::Void btnNivel2_Click(System::Object^ sender, System::EventArgs^ e) {
+		if (modoDebug) {
+			PonerInvisibleTodo();
+			pnlJuego2->Visible = true;
+			CargarNivel2();
+		}
 	}
-}
+	private: System::Void btnNivel3_Click(System::Object^ sender, System::EventArgs^ e) {
+		if (modoDebug) {
+			PonerInvisibleTodo();
+			pnlJuego3->Visible = true;
+			CargarNivel3();
+		}
+	}
+	private: System::Void btnNivel4_Click(System::Object^ sender, System::EventArgs^ e) {
+		if (modoDebug) {
+			PonerInvisibleTodo();
+			pnlJuego4->Visible = true;
+			CargarNivel4();
+		}
+	}
+
+		   // =====================================================================
+		   //  NIVEL DE PERSECUCION: Miles huye por la carretera, Miguel lo persigue
+		   //  (la logica esta en ControladoraPersecucion.h y Carro.h)
+		   // =====================================================================
+	private: void CargarRecursosPersecucion() {
+		bmpMiguel = gcnew Bitmap("Imagenes/MiguelOhara.png");
+
+		// sprites de los coches (todos miran a la derecha en el png: se voltean para que vengan de frente)
+		bmpCarros = gcnew cli::array<Bitmap^>(4);
+		bmpCarros[0] = gcnew Bitmap("Imagenes/AutoAmarillo.png");
+		bmpCarros[1] = gcnew Bitmap("Imagenes/CamionetaAzul.png");
+		bmpCarros[2] = gcnew Bitmap("Imagenes/CamionetaVerde.png");
+		bmpCarros[3] = gcnew Bitmap("Imagenes/AutoOxidado.png");
+		for (int i = 0; i < 4; i++) bmpCarros[i]->RotateFlip(RotateFlipType::RotateNoneFlipX);
+
+		// el mapa largo se escala UNA sola vez al alto del panel (asi el scroll es barato y sin costuras)
+		int anchoEsc = (int)(bmpMapaPersecusion->Width * (double)pnlPersecusion->Height / bmpMapaPersecusion->Height);
+		bmpFondoPerse = gcnew Bitmap(anchoEsc, pnlPersecusion->Height, System::Drawing::Imaging::PixelFormat::Format32bppPArgb);
+		Graphics^ gf = Graphics::FromImage(bmpFondoPerse);
+		gf->InterpolationMode = System::Drawing::Drawing2D::InterpolationMode::HighQualityBicubic;
+		gf->DrawImage(bmpMapaPersecusion, 0, 0, anchoEsc, pnlPersecusion->Height);
+		delete gf;
+
+		fuenteTituloPerse = gcnew System::Drawing::Font("Comic Sans MS", 28.0f, FontStyle::Bold);
+		fuenteTextoPerse = gcnew System::Drawing::Font("Comic Sans MS", 14.0f, FontStyle::Regular);
+
+		perse = new ControladoraPersecucion();
+		//timerPersecucion = gcnew System::Windows::Forms::Timer();
+		//timerPersecucion->Interval = MS_POR_FRAME;
+		//timerPersecucion->Enabled = false;
+		//timerPersecucion->Tick += gcnew System::EventHandler(this, &NivelMiles::timerPersecucion_Tick);
+	}
+	private: void IniciarPersecucion() {
+		SoltarTeclas();
+		perse->Iniciar(miles);
+		persecucionActiva = true;
+		timerPersecucion->Enabled = true;
+	}
+	private: void DetenerPersecucion() {
+		if (persecucionActiva && miles != nullptr) miles->ProtaQuieto();
+		persecucionActiva = false;
+		if (timerPersecucion != nullptr) timerPersecucion->Enabled = false;
+		lblSpot->Text = "";
+	}
+	private: void PersecucionEnter() {
+		switch (perse->GetEstado()) {
+		case PERSE_ESPERA: perse->Comenzar(); break;                  // empieza la huida
+		case PERSE_PERDIO: IniciarPersecucion(); break;               // reintentar
+		case PERSE_GANO:                                              // sigue a la sala 2
+			miles->SetVida(100);
+			DetenerPersecucion();
+			IrASala(2, 350, 50);
+			break;
+		default: break;
+		}
+	}
+	private: void DibujarMensajePerse(Graphics^ g, System::String^ titulo, System::String^ texto) {
+		float w = (float)pnlPersecusion->Width;
+		SolidBrush^ velo = gcnew SolidBrush(Color::FromArgb(170, 0, 0, 0));
+		g->FillRectangle(velo, 0.0f, 230.0f, w, 210.0f);
+		StringFormat^ centro = gcnew StringFormat();
+		centro->Alignment = StringAlignment::Center;
+		centro->LineAlignment = StringAlignment::Center;
+		g->DrawString(titulo, fuenteTituloPerse, Brushes::Yellow, RectangleF(0.0f, 245.0f, w, 90.0f), centro);
+		g->DrawString(texto, fuenteTextoPerse, Brushes::White, RectangleF(0.0f, 340.0f, w, 80.0f), centro);
+	}
+
+	private: System::Void timerPersecucion_Tick(System::Object^ sender, System::EventArgs^ e) {
+		if (perse == nullptr || bufferperse == nullptr || !persecucionActiva || !pnlPersecusion->Visible) return;
+
+		bool dialogo = (novela != nullptr && novela->EstaActivo());   // si hay dialogo, el juego espera
+		if (!dialogo) {
+			perse->MoverMiles(miles, teclaW, teclaA, teclaS, teclaD);
+			perse->Actualizar(miles);
+		}
+
+		Graphics^ g = bufferperse->Graphics;
+		perse->Dibujar(g, bmpFondoPerse, bmpCarros, bmpMiguel, miles, bmpMiles);
+		if (modoDebug) {
+			perse->DibujarHitboxes(g, miles);
+			DibujarDebug(g, pnlPersecusion);
+		}
+		switch (perse->GetEstado()) {
+		case PERSE_ESPERA:
+			DibujarMensajePerse(g, "MIGUEL TE PERSIGUE!", "Esquiva los coches: W / S cambian de carril, A / D ajustan tu distancia.\nAguanta hasta el final.   ENTER para empezar");
+			break;
+		case PERSE_GANO:
+			DibujarMensajePerse(g, "LO LOGRASTE!", "Despistaste a Miguel.   ENTER para continuar");
+			break;
+		case PERSE_PERDIO:
+			DibujarMensajePerse(g, "MIGUEL TE ATRAPO", "ENTER para intentarlo de nuevo");
+			break;
+		default: break;
+		}
+		bufferperse->Render(grperse);
+
+		lblSpot->Text = "Miguel a " + System::Convert::ToString(perse->GetLejania(miles)) + " m";
+		lblPuntaje->Text = "Tiempo: " + System::Convert::ToString(perse->GetSegundosRestantes()) + " s";
+	}
 };
 }

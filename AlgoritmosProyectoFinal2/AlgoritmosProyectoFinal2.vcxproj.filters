@@ -128,5 +128,11 @@
     <ClInclude Include="Prueba.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="ControladoraPersecucion.h">
+      <Filter>Header Files\Controladora</Filter>
+    </ClInclude>
+    <ClInclude Include="Carro.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>

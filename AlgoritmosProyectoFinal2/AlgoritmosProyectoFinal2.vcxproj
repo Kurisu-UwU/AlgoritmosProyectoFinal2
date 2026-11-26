@@ -125,9 +125,11 @@
     <ClCompile Include="PantallaPrincipal.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Carro.h" />
     <ClInclude Include="Cofre.h" />
     <ClInclude Include="Controladora.h" />
     <ClInclude Include="ControladoraNivelRitmo.h" />
+    <ClInclude Include="ControladoraPersecucion.h" />
     <ClInclude Include="Dialogos.h" />
     <ClInclude Include="Enemigo.h" />
     <ClInclude Include="Entidades.h" />
