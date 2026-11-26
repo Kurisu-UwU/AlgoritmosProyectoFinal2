@@ -584,19 +584,10 @@ private: System::Windows::Forms::Timer^ timerMovimiento;
 		}
 		if (pnlJuego3->Visible == true) {
 			buffer3->Graphics->DrawImage(bmpMapa3, 0, 0, pnlJuego3->Width * 1.0, pnlJuego3->Height * 1.0);
-			if (!novela->EstaActivo()) {
-				//controladora->ActualizarJefes(miles, pnlJuego3->Width, pnlJuego3->Height);
-				//controladora->ActualizarProyectiles(pnlJuego3->Width, pnlJuego3->Height);
-				//controladora->ActualizarProyectilesHorizontales(miles, pnlJuego3->Width);
-			}
-			//controladora->DibujarProyectilesHorizontales(buffer3->Graphics, bmpProyectilMalo);
-			//controladora->DibujarProyectiles(buffer3->Graphics, bmpNota1);
-			//controladora->DibujarJefe(buffer3->Graphics, bmpSpot);
-			//controladora->ComprobarColisionJefe(miles);
+
 			miles->Dibujar(buffer3->Graphics, bmpMiles);
 			DibujarDebug(buffer3->Graphics, pnlJuego3);
 			buffer3->Render(gr3);
-			//if (ComprobarFinCombate()) return;
 		}
 		if (pnlJuego4->Visible == true) {
 			buffer4->Graphics->DrawImage(bmpMapa4, 0, 0, pnlJuego4->Width * 1.0, pnlJuego4->Height * 1.0);
@@ -686,10 +677,6 @@ private: System::Void NivelMiles_KeyDown(System::Object^ sender, System::Windows
 		case Keys::E: {
 			Cofre* cofre = controladora->CofreColisionando(miles);
 			if (cofre != nullptr && !cofre->GetAbierto()) {
-				//if (JugarRitmo(1)) {
-				//	cofre->SetAbierto(true);
-				//	MarcarCofre(cofre->GetId());
-				//}
 			}
 			break;
 		}
