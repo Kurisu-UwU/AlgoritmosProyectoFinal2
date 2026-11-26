@@ -66,8 +66,8 @@ namespace AlgoritmosProyectoFinal2 {
 			controladora->GenerarObstaculo(863,453 , 0, 478-453,1082-863 );
 			controladora->GenerarObstaculo(0,0, 0, 20,1220);
 
-			controladora->GenerarPuerta(1114,36,1200-1114,75-36, 2,50,50);
-			controladora->GenerarObstaculo(1200, 0,0, 840, 60);   // (x, y, ancho, alto, salaDestino, xLlegada, yLlegada)
+			controladora->GenerarPuerta(1114,36,1200-1114,75-36, 3,1100,550);
+			controladora->GenerarObstaculo(1200, 0,0, 840, 60);
 		}
 		void CargarNivel2() {
 			controladora->LimpiarPuertas();
@@ -75,13 +75,18 @@ namespace AlgoritmosProyectoFinal2 {
 			controladora->LimpiarObjetos();
 			controladora->LimpiarPuertas();
 
-			controladora->GenerarPeny(60, 320, 50, 50);
 
-			controladora->GenerarObstaculo(0, 0, 0, 225, 450);
-			controladora->GenerarObstaculo(0,220, 0, 225, 440);
-			controladora->GenerarObstaculo(0, 415, 0, 225, 1210);
+			controladora->GenerarObstaculo(0, 0, 0, 20, 1220);
+			controladora->GenerarObstaculo(0, 0, 0, 680, 20);
+			controladora->GenerarObstaculo(1200, 0, 0, 840, 60);
+			controladora->GenerarObstaculo(0, 662, 0, 680 - 662, 1220);
 
-			controladora->GenerarPuerta(1200, 0, 60, 840, 2, 60, 340);   // (x, y, ancho, alto, salaDestino, xLlegada, yLlegada)
+			controladora->GenerarObstaculo(157, 0, 0, 250, 1220-157);
+			controladora->GenerarObstaculo(0,420, 0, 680-420, 1016);
+			controladora->GenerarObstaculo(1016, 420, 0, 15, 1063-1016);
+			controladora->GenerarObstaculo(1142, 420, 0, 15, 1220 - 1142);
+
+			controladora->GenerarPuerta(0, 10, 1200, 20, 4, 1120, 530);
 		}
 		void CargarNivel3() {
 			controladora->LimpiarPuertas();
@@ -89,13 +94,25 @@ namespace AlgoritmosProyectoFinal2 {
 			controladora->LimpiarObjetos();
 			controladora->LimpiarPuertas();
 
-			controladora->GenerarPeny(60, 320, 50, 50);
+			controladora->GenerarObstaculo(0, 0, 0, 20, 1220);
+			controladora->GenerarObstaculo(0, 0, 0, 680, 20);
+			controladora->GenerarObstaculo(1200, 0, 0, 840, 60);
+			controladora->GenerarObstaculo(0, 662, 0, 680 - 662, 1220);
 
-			controladora->GenerarObstaculo(0, 0, 0, 225, 450);
-			controladora->GenerarObstaculo(770, 0, 0, 225, 440);
-			controladora->GenerarObstaculo(0, 415, 0, 225, 1210);
+			controladora->GenerarObstaculo(0, 227, 0, 680-227, 340);
+			controladora->GenerarObstaculo(343, 471, 0, 488-471, 736-343);
+			controladora->GenerarObstaculo(343, 226, 0, 362-226, 520-343);
+			controladora->GenerarObstaculo(500, 133, 0, 235 - 133, 738 - 500);
+			controladora->GenerarObstaculo(720,142 , 0,487-142 , 738-720);
+			controladora->GenerarObstaculo(340,470 , 0,487-470 ,736-340 );
+			controladora->GenerarObstaculo(850,130 , 0, 680-130, 20);
+			controladora->GenerarObstaculo(850,220 , 0, 490-220, 1020-850);
+			controladora->GenerarObstaculo(1024, 614, 0, 680 - 614, 1220 - 1024);
+			controladora->GenerarObstaculo(1120,220 , 0, 20, 100);
+			controladora->GenerarObstaculo(1020,414 , 0, 436-414,1096-1020 );
+			controladora->GenerarObstaculo(1163,414 , 0,436-414 ,1220-1163 );
 
-			controladora->GenerarPuerta(1200, 0, 60, 840, 2, 60, 340);   // (x, y, ancho, alto, salaDestino, xLlegada, yLlegada)
+			controladora->GenerarPuerta(0, 0, 180  , 680, 5, 1100, 550);
 		}
 		void CargarNivel4() {
 			controladora->LimpiarPuertas();
@@ -109,20 +126,24 @@ namespace AlgoritmosProyectoFinal2 {
 			controladora->GenerarObstaculo(770, 0, 0, 225, 440);
 			controladora->GenerarObstaculo(0, 415, 0, 225, 1210);
 
-			controladora->GenerarPuerta(1200, 0, 60, 840, 2, 60, 340);   // (x, y, ancho, alto, salaDestino, xLlegada, yLlegada)
+			controladora->GenerarPuerta(1200, 0, 60, 840, 3, 60, 340);   // (x, y, ancho, alto, salaDestino, xLlegada, yLlegada)
 		}
-		bool PuedeEntrarSala(int sala) {
-			return sala != 3;
-		}
+		//bool PuedeEntrarSala(int sala) {
+		//	return sala != 3;
+		//}
 		void IrASala(int sala, int px, int py) {
 			salaActual = sala;
-			pnlJuego1->Visible = (sala == 1);
-			pnlJuego2->Visible = (sala == 2);
-			pnlJuego3->Visible = (sala == 3);
+			pnlPersecusion->Visible = (sala == 1);
+			pnlJuego1->Visible = (sala == 2);
+			pnlJuego2->Visible = (sala == 3);
+			pnlJuego3->Visible = (sala == 4);
+			pnlJuego4->Visible = (sala == 5);
 			switch (sala) {
-			case 1: CargarNivel1(); break;
-			case 2: CargarNivel2(); break;
-			case 3: CargarNivel3(); break;
+			case 1: CargaNivelPersecusion(); break;
+			case 2: CargarNivel1(); break;
+			case 3: CargarNivel2(); break;
+			case 4: CargarNivel3(); break;
+			case 5: CargarNivel4(); break;
 			}
 			miles->SetPX(px);
 			miles->SetPY(py);
@@ -170,21 +191,24 @@ protected:
 	private: System::ComponentModel::IContainer^ components;
 
 	private:
-		int salaActual = 1;
+		int salaActual = 2;
 		bool modoDebug = false;
 		bool teclaA = false, teclaD = false, teclaW = false, teclaS = false;
 		char ultimaDir = ' ';
 
+		Graphics^ grperse;
 		Graphics^ gr1;
 		Graphics^ gr2;
 		Graphics^ gr3;
 		Graphics^ gr4;
 		Graphics^ grp;
+		BufferedGraphicsContext^ spaceperse;
 		BufferedGraphicsContext^ space1;
 		BufferedGraphicsContext^ space2;
 		BufferedGraphicsContext^ space3;
 		BufferedGraphicsContext^ space4;
 		BufferedGraphicsContext^ spacep;
+		BufferedGraphics^ bufferperse;
 		BufferedGraphics^ buffer1;
 		BufferedGraphics^ buffer2;
 		BufferedGraphics^ buffer3;
@@ -294,7 +318,7 @@ private: System::Windows::Forms::Timer^ timerMovimiento;
 			   // 
 			   // pnlJuego2
 			   // 
-			   this->pnlJuego2->Location = System::Drawing::Point(13, 81);
+			   this->pnlJuego2->Location = System::Drawing::Point(8, 100);
 			   this->pnlJuego2->Name = L"pnlJuego2";
 			   this->pnlJuego2->Size = System::Drawing::Size(1215, 682);
 			   this->pnlJuego2->TabIndex = 6;
@@ -382,7 +406,7 @@ private: System::Windows::Forms::Timer^ timerMovimiento;
 			   // 
 			   // pnlJuego3
 			   // 
-			   this->pnlJuego3->Location = System::Drawing::Point(10, 100);
+			   this->pnlJuego3->Location = System::Drawing::Point(8, 100);
 			   this->pnlJuego3->Name = L"pnlJuego3";
 			   this->pnlJuego3->Size = System::Drawing::Size(1215, 682);
 			   this->pnlJuego3->TabIndex = 9;
@@ -434,7 +458,7 @@ private: System::Windows::Forms::Timer^ timerMovimiento;
 			   // 
 			   // pnlJuego4
 			   // 
-			   this->pnlJuego4->Location = System::Drawing::Point(7, 94);
+			   this->pnlJuego4->Location = System::Drawing::Point(8, 100);
 			   this->pnlJuego4->Name = L"pnlJuego4";
 			   this->pnlJuego4->Size = System::Drawing::Size(1215, 682);
 			   this->pnlJuego4->TabIndex = 9;
@@ -443,12 +467,13 @@ private: System::Windows::Forms::Timer^ timerMovimiento;
 			   // timerMovimiento
 			   // 
 			   this->timerMovimiento->Enabled = true;
+			   this->timerMovimiento->Interval = 1;
 			   this->timerMovimiento->Tick += gcnew System::EventHandler(this, &NivelMiles::timerMovimiento_Tick);
 			   // 
 			   // pnlPersecusion
 			   // 
 			   this->pnlPersecusion->BackColor = System::Drawing::SystemColors::ActiveCaptionText;
-			   this->pnlPersecusion->Location = System::Drawing::Point(4, 103);
+			   this->pnlPersecusion->Location = System::Drawing::Point(8, 100);
 			   this->pnlPersecusion->Name = L"pnlPersecusion";
 			   this->pnlPersecusion->Size = System::Drawing::Size(1215, 682);
 			   this->pnlPersecusion->TabIndex = 11;
@@ -530,18 +555,23 @@ private: System::Windows::Forms::Timer^ timerMovimiento;
 		bmpMiles = gcnew Bitmap("Imagenes/MilesMorales.png");
 		bmpPeny = gcnew Bitmap("Imagenes/PenyParker.png");
 
-		miles = new MilesMorales(100, 100, bmpMiles->Width / 16, bmpMiles->Height / 8, 100, 2, 2, 100, 100, 0, "miles", 'S', 0, 0);
+		miles = new MilesMorales(350, 50, bmpMiles->Width / 16, bmpMiles->Height / 8, 100, 4, 4, 100, 100, 0, "Miles", 'S', 1, 1);
 		novela = gcnew NovelaVisual(pnlTexto);
-		IrASala(1, 100, 300);
+		IrASala(2, 350, 50);
 		novela->Iniciar(1);
 	}
 	private: System::Void timerJuego_Tick(System::Object^ sender, System::EventArgs^ e) {
 		bufferp->Graphics->DrawImage(bmpPanelControl, 0, 0, pnlDeControl->Width * 1.0, pnlDeControl->Height * 1.0);
 		if (!(novela != nullptr && novela->EstaActivo())) bufferp->Render(grp);
 
+		if (pnlPersecusion->Visible == true) {
+			bufferperse->Graphics->DrawImage(bmpMapaPersecusion, 0, 0, pnlPersecusion->Width * 1.0, pnlPersecusion->Height * 1.0);
+			miles->Dibujar(bufferperse->Graphics, bmpMiles);
+			DibujarDebug(bufferperse->Graphics, pnlPersecusion);
+			bufferperse->Render(grperse);
+}
 		if (pnlJuego1->Visible == true) {
 			buffer1->Graphics->DrawImage(bmpMapa1, 0, 0, pnlJuego1->Width * 1.0, pnlJuego1->Height * 1.0);
-			controladora->DibujarPeny(buffer1->Graphics, bmpPeny);
 			miles->Dibujar(buffer1->Graphics, bmpMiles);
 			DibujarDebug(buffer1->Graphics, pnlJuego1);
 			buffer1->Render(gr1);
@@ -568,18 +598,18 @@ private: System::Windows::Forms::Timer^ timerMovimiento;
 			buffer3->Render(gr3);
 			//if (ComprobarFinCombate()) return;
 		}
+		if (pnlJuego4->Visible == true) {
+			buffer4->Graphics->DrawImage(bmpMapa4, 0, 0, pnlJuego4->Width * 1.0, pnlJuego4->Height * 1.0);
+			miles->Dibujar(buffer4->Graphics, bmpMiles);
+			DibujarDebug(buffer4->Graphics, pnlJuego4);
+			buffer4->Render(gr4);
+		}
 		bufferp->Render(grp);
 
 		lblVida->Text = "Vida: " + miles->getVida();
 		lblPersonaje->Text = "Spider miles: ";
 		lblPuntaje->Text = "Puntaje: " + 10;
 
-		if (pnlJuego3->Visible == true) {
-			lblSpot->Text = "Vida de Spot: " + controladora->getJefe()->getVida();
-		}
-		else {
-			lblSpot->Text = " ";
-		}
 	}
 	private: System::Void timerMovimiento_Tick(System::Object^ sender, System::EventArgs^ e) {
 		if (miles == nullptr || buffer1 == nullptr || !timerJuego->Enabled) return;
@@ -612,15 +642,7 @@ private: System::Windows::Forms::Timer^ timerMovimiento;
 		}
 		Puerta* puerta = controladora->PuertaColisionando(miles);
 		if (puerta != nullptr) {
-			if (PuedeEntrarSala(puerta->GetNivelDestino())) {
-				IrASala(puerta->GetNivelDestino(), puerta->GetXDestino(), puerta->GetYDestino());
-				return;
-			}
-			miles->SetPX(xAnterior);
-			miles->SetPY(yAnterior);
-			miles->ProtaQuieto();
-			SoltarTeclas();
-			MessageBox::Show("La puerta esta cerrada. Abre los 3 cofres primero.");
+			IrASala(puerta->GetNivelDestino(), puerta->GetXDestino(), puerta->GetYDestino());
 		}
 	}
 private: System::Void NivelMiles_FormClosing(System::Object^ sender, System::Windows::Forms::FormClosingEventArgs^ e) {
@@ -687,13 +709,7 @@ private: System::Void NivelMiles_KeyDown(System::Object^ sender, System::Windows
 		}
 		Puerta* puerta = controladora->PuertaColisionando(miles);
 		if (puerta != nullptr) {
-			if (PuedeEntrarSala(puerta->GetNivelDestino())) {
-				IrASala(puerta->GetNivelDestino(), puerta->GetXDestino(), puerta->GetYDestino());
-				return;
-			}
-			MessageBox::Show("La puerta esta cerrada. Abre los 3 cofres primero.");
-			miles->SetPX(xAnterior);
-			miles->SetPY(yAnterior);
+			IrASala(puerta->GetNivelDestino(), puerta->GetXDestino(), puerta->GetYDestino());
 			return;
 		}
 		if (controladora->HayColision(miles)) {
