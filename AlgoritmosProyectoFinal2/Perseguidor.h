@@ -16,7 +16,7 @@ public:
         vida = 20;
     }
     ~Perseguidor() { }
-    void Dibujar(Graphics^ g, Bitmap^ bmp) {
+    virtual void Dibujar(Graphics^ g, Bitmap^ bmp) {
         System::Drawing::Rectangle sectionshow = System::Drawing::Rectangle(idX * anchura, idY * altura, anchura, altura);
         System::Drawing::Rectangle zoom = System::Drawing::Rectangle(x, y, anchura * 1.0, altura * 1.0);
         g->DrawImage(bmp, zoom, sectionshow, GraphicsUnit::Pixel);

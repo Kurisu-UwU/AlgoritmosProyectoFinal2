@@ -140,5 +140,8 @@
     <ClInclude Include="Gwen.h">
       <Filter>Header Files\Entidades\Perseguidor</Filter>
     </ClInclude>
+    <ClInclude Include="EnemigoPerseguidor.h">
+      <Filter>Header Files\Entidades\Perseguidor</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>

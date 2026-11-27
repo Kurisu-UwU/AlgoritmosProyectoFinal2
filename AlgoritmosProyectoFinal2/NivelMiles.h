@@ -218,6 +218,7 @@ namespace AlgoritmosProyectoFinal2 {
 		BufferedGraphics^ buffer4;
 		BufferedGraphics^ bufferp;
 		Bitmap^ bmpPeny;
+		Bitmap^ bmpEnemigo;
 		Bitmap^ bmpPanelControl;
 		Bitmap^ bmpMapa1;
 		Bitmap^ bmpMapa2;
@@ -229,6 +230,9 @@ namespace AlgoritmosProyectoFinal2 {
 		Bitmap^ bmpMiguel;
 		MilesMorales* miles;
 		Gwen* gwen;
+		Perseguidor* enemigo1;
+		Perseguidor* enemigo2;
+		Perseguidor* enemigo3;
 		Controladora* controladora;
 		NovelaVisual^ novela;
 		// --- nivel de persecucion ---
@@ -589,12 +593,16 @@ namespace AlgoritmosProyectoFinal2 {
 		bmpMapa3 = EscalarFondo("Imagenes/MilesMapa4.png", pnlJuego1->Width, pnlJuego1->Height);
 		bmpMapa4 = EscalarFondo("Imagenes/MilesMapa5.png", pnlJuego1->Width, pnlJuego1->Height);
 		bmpGwen = gcnew Bitmap("Imagenes/Gwen.png");
+		bmpEnemigo = gcnew Bitmap("Imagenes/NotasMusicales1.png");
 		bmpMiles = gcnew Bitmap("Imagenes/MilesMorales.png");
 		bmpPeny = gcnew Bitmap("Imagenes/PenyParker.png");
 		CargarRecursosPersecucion();
 
 		miles = new MilesMorales(350, 50, 64, 64, 100, 4, 4, 100, 100, 0, "Miles", 'S', 1, 1);
-		gwen = new Gwen(535, 105, 4, 64, 64, true, 0);
+		gwen = new Gwen(535, 105, 4, bmpGwen->Width, bmpGwen->Height, true, 0);
+		enemigo1 = new Perseguidor(100, 100, 4, bmpEnemigo->Width, bmpEnemigo->Height, true);
+		enemigo2 = new Perseguidor(200, 200, 4, bmpEnemigo->Width, bmpEnemigo->Height, true);
+		enemigo3 = new Perseguidor(300, 300, 4, bmpEnemigo->Width, bmpEnemigo->Height, true);
 		novela = gcnew NovelaVisual(pnlTexto);
 		novela->Iniciar(3);
 		IrASala(1, 350, 50);
@@ -625,6 +633,10 @@ namespace AlgoritmosProyectoFinal2 {
 				gwen->Perseguir(miles, controladora->GetObstaculos());
 				gwen->Dibujar(buffer2->Graphics, bmpGwen);
 			}
+			if (!miles->GetInvisibilidad()) {
+				enemigo1->Perseguir(miles, controladora->GetObstaculos());
+			}
+			enemigo1->Dibujar(buffer2->Graphics, bmpEnemigo);
 			DibujarDebug(buffer2->Graphics, pnlJuego2);
 			buffer2->Render(gr2);
 		}
@@ -636,6 +648,10 @@ namespace AlgoritmosProyectoFinal2 {
 				gwen->Perseguir(miles, controladora->GetObstaculos());
 				gwen->Dibujar(buffer3->Graphics, bmpGwen);
 			}
+			if (!miles->GetInvisibilidad()) {
+				enemigo2->Perseguir(miles, controladora->GetObstaculos());
+			}
+			enemigo2->Dibujar(buffer3->Graphics, bmpEnemigo);
 			DibujarDebug(buffer3->Graphics, pnlJuego3);
 			buffer3->Render(gr3);
 		}
@@ -646,6 +662,10 @@ namespace AlgoritmosProyectoFinal2 {
 				gwen->Perseguir(miles, controladora->GetObstaculos());
 				gwen->Dibujar(buffer4->Graphics, bmpGwen);
 			}
+			if (!miles->GetInvisibilidad()) {
+				enemigo3->Perseguir(miles, controladora->GetObstaculos());
+			}
+			enemigo3->Dibujar(buffer4->Graphics, bmpEnemigo);
 			DibujarDebug(buffer4->Graphics, pnlJuego4);
 			buffer4->Render(gr4);
 		}
@@ -688,6 +708,10 @@ namespace AlgoritmosProyectoFinal2 {
 		Puerta* puerta = controladora->PuertaColisionando(miles);
 		if (puerta != nullptr) {
 			IrASala(puerta->GetNivelDestino(), puerta->GetXDestino(), puerta->GetYDestino());
+			if (gwen->GetPersigue()) {
+				gwen->SetX(puerta->GetXDestino()); gwen->SetY(puerta->GetYDestino());
+				gwen->SetExsistencia(true);
+			}
 		}
 	}
 	private: System::Void NivelMiles_FormClosing(System::Object^ sender, System::Windows::Forms::FormClosingEventArgs^ e) {

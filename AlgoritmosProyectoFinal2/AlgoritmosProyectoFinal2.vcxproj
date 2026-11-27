@@ -132,6 +132,7 @@
     <ClInclude Include="ControladoraPersecucion.h" />
     <ClInclude Include="Dialogos.h" />
     <ClInclude Include="Enemigo.h" />
+    <ClInclude Include="EnemigoPerseguidor.h" />
     <ClInclude Include="Entidades.h" />
     <ClInclude Include="Gwen.h" />
     <ClInclude Include="Jefe.h" />

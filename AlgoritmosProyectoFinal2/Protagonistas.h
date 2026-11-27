@@ -67,7 +67,6 @@ public:
 	void SetIdY(int v) { idY = v; }
 	int GetIdY() { return idY; }
 
-
 	void Dibujar(Graphics^ g, Bitmap^ bmp) {
 		System::Drawing::Rectangle sectionshow = System::Drawing::Rectangle(idX * ancho, idY * alto, ancho, alto);
 		System::Drawing::Rectangle zoom = System::Drawing::Rectangle(x, y, ancho * 1, alto * 1);

@@ -3,6 +3,7 @@
 
 class MilesMorales : public Protagonista {
 private:
+	bool esInsisible;
 public:
 	MilesMorales() {}
 	MilesMorales(int x1, int y1, int anch, int alt, float e1, float vx1, float vy1, float a1, float vi1, float car, string n1, char mira, int idx, int idy) : Protagonista() {
@@ -20,7 +21,11 @@ public:
 		alto = alt;
 		idX = idx;
 		idY = idy;
+		esInsisible = false;
 	};
 	~MilesMorales() {}
+	void SetInvisibilidad(bool invisibilidad) { esInsisible = invisibilidad; }
+	bool GetInvisibilidad() { return esInsisible; }
+
 
 };
