@@ -28,6 +28,9 @@
     <Filter Include="Header Files\Proyectiles">
       <UniqueIdentifier>{f0579009-e041-4d38-9223-067f4a002a7f}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Header Files\Entidades\Perseguidor">
+      <UniqueIdentifier>{6d93468a-2040-46e0-823e-774abae3a4ba}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="PantallaPrincipal.cpp">
@@ -71,22 +74,10 @@
     <ClInclude Include="Obstaculos.h">
       <Filter>Header Files\Entidades</Filter>
     </ClInclude>
-    <ClInclude Include="Enemigo.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Perseguidor.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Proyectil.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="VariablesGlobales.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="NivelesRitmo.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Jefe.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="Puerta.h">
@@ -104,9 +95,6 @@
     <ClInclude Include="Notas.h">
       <Filter>Header Files\Proyectiles</Filter>
     </ClInclude>
-    <ClInclude Include="ProyectilHorizontal.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="Laser.h">
       <Filter>Header Files</Filter>
     </ClInclude>
@@ -114,9 +102,6 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="Dialogos.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Mancha.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="MiguelOhara.h">
@@ -132,7 +117,25 @@
       <Filter>Header Files\Controladora</Filter>
     </ClInclude>
     <ClInclude Include="Carro.h">
-      <Filter>Header Files</Filter>
+      <Filter>Header Files\Entidades</Filter>
+    </ClInclude>
+    <ClInclude Include="Enemigo.h">
+      <Filter>Header Files\Entidades</Filter>
+    </ClInclude>
+    <ClInclude Include="ProyectilHorizontal.h">
+      <Filter>Header Files\Entidades</Filter>
+    </ClInclude>
+    <ClInclude Include="Proyectil.h">
+      <Filter>Header Files\Entidades</Filter>
+    </ClInclude>
+    <ClInclude Include="Mancha.h">
+      <Filter>Header Files\Entidades\Objetos</Filter>
+    </ClInclude>
+    <ClInclude Include="Perseguidor.h">
+      <Filter>Header Files\Entidades\Perseguidor</Filter>
+    </ClInclude>
+    <ClInclude Include="Jefe.h">
+      <Filter>Header Files\Entidades\Perseguidor</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

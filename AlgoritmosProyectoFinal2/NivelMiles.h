@@ -113,11 +113,16 @@ namespace AlgoritmosProyectoFinal2 {
 			controladora->LimpiarObjetos();
 			controladora->LimpiarPuertas();
 
-			controladora->GenerarPeny(60, 320, 50, 50);
-
-			controladora->GenerarObstaculo(0, 0, 0, 225, 450);
-			controladora->GenerarObstaculo(770, 0, 0, 225, 440);
-			controladora->GenerarObstaculo(0, 415, 0, 225, 1210);
+			controladora->GenerarObstaculo(0, 0, 0, 20, 1220);
+			controladora->GenerarObstaculo(0, 0, 0, 680, 20);
+			controladora->GenerarObstaculo(1200, 0, 0, 840, 60);
+			controladora->GenerarObstaculo(0, 662, 0, 680 - 662, 1220);
+			controladora->GenerarObstaculo(140, 160, 0, 30,1220-140);
+			controladora->GenerarObstaculo(345, 160, 0, 300-160, 485 - 345);
+			controladora->GenerarObstaculo(140, 160, 0, 480-160, 30);
+			controladora->GenerarObstaculo(140, 450, 0, 30, 1220 - 140);
+			controladora->GenerarObstaculo(610,270 , 0, 480-270, 1220-610);
+			controladora->GenerarObstaculo(1030,190 , 0,300-190 ,30 );
 
 			controladora->GenerarPuerta(1200, 0, 60, 840, 3, 60, 340);   // (x, y, ancho, alto, salaDestino, xLlegada, yLlegada)
 		}
@@ -573,10 +578,10 @@ private: System::Windows::Forms::Timer^ timerPersecucion;
 		bmpPeny = gcnew Bitmap("Imagenes/PenyParker.png");
 		CargarRecursosPersecucion();
 
-		miles = new MilesMorales(350, 50, bmpMiles->Width / 16, bmpMiles->Height / 8, 100, 1, 1, 100, 100, 0, "Miles", 'S', 1, 1);
+		miles = new MilesMorales(350, 50, 64, 64, 100, 4, 4, 100, 100, 0, "Miles", 'S', 1, 1);
 		novela = gcnew NovelaVisual(pnlTexto);
+		novela->Iniciar(3);
 		IrASala(1, 350, 50);
-		//novela->Iniciar(1);
 	}
 	private: System::Void timerJuego_Tick(System::Object^ sender, System::EventArgs^ e) {
 		bufferp->Graphics->DrawImage(bmpPanelControl, 0, 0, pnlDeControl->Width * 1.0, pnlDeControl->Height * 1.0);
@@ -613,7 +618,6 @@ private: System::Windows::Forms::Timer^ timerPersecucion;
 		lblVida->Text = "Vida: " + miles->getVida();
 		lblPersonaje->Text = "Spider miles: ";
 		if (!persecucionActiva) lblPuntaje->Text = "Puntaje: " + 10;
-
 	}
 	private: System::Void timerMovimiento_Tick(System::Object^ sender, System::EventArgs^ e) {
 		if (miles == nullptr || buffer1 == nullptr || !timerJuego->Enabled) return;
@@ -766,10 +770,6 @@ private: System::Windows::Forms::Timer^ timerPersecucion;
 		}
 	}
 
-		   // =====================================================================
-		   //  NIVEL DE PERSECUCION: Miles huye por la carretera, Miguel lo persigue
-		   //  (la logica esta en ControladoraPersecucion.h y Carro.h)
-		   // =====================================================================
 	private: void CargarRecursosPersecucion() {
 		bmpMiguel = gcnew Bitmap("Imagenes/MiguelOhara.png");
 
@@ -793,10 +793,10 @@ private: System::Windows::Forms::Timer^ timerPersecucion;
 		fuenteTextoPerse = gcnew System::Drawing::Font("Comic Sans MS", 14.0f, FontStyle::Regular);
 
 		perse = new ControladoraPersecucion();
-		//timerPersecucion = gcnew System::Windows::Forms::Timer();
-		//timerPersecucion->Interval = MS_POR_FRAME;
-		//timerPersecucion->Enabled = false;
-		//timerPersecucion->Tick += gcnew System::EventHandler(this, &NivelMiles::timerPersecucion_Tick);
+		timerPersecucion = gcnew System::Windows::Forms::Timer();
+		timerPersecucion->Interval = MS_POR_FRAME;
+		timerPersecucion->Enabled = false;
+		timerPersecucion->Tick += gcnew System::EventHandler(this, &NivelMiles::timerPersecucion_Tick);
 	}
 	private: void IniciarPersecucion() {
 		SoltarTeclas();

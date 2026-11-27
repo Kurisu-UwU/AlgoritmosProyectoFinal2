@@ -1,11 +1,4 @@
 #pragma once
-// ============================================================================
-//  DialogosPanel.h  -  Dialogos estilo novela visual dentro de un Panel (no ventana)
-//  - Sin listas ni arrays: cada dialogo es un switch por numero de linea,
-//    igual que TextPunk1(int n) de la version consola.
-//  - Perfiles con los mismos numeros que CuadroDeTexto: 1 Miles, 2 Miguel, 3 Punk, 4 Gwen, 5 Spot, 8 Peny (0 = sin retrato)
-//  - Controles: Z = texto rapido, X = saltar todo, ESPACIO / ENTER / E / clic = siguiente linea.
-// ============================================================================
 
 namespace AlgoritmosProyectoFinal2 {
 
@@ -16,8 +9,8 @@ namespace AlgoritmosProyectoFinal2 {
 
 	public ref class NovelaVisual {
 	private:
-		int MARG;                 // margen del panel
-		int RET;                  // lado del cuadro del retrato
+		int MARG;
+		int RET;
 
 		Panel^ panel;
 		System::Windows::Forms::Timer^ timer;
@@ -27,16 +20,16 @@ namespace AlgoritmosProyectoFinal2 {
 		int perfilActual;
 		bool izqActual;
 		String^ textoActual;
-		int velActual;            // milisegundos por letra (igual que el 'sleep' de EscribirTextoAnimado)
+		int velActual;
 
-		int escena;               // que dialogo se esta reproduciendo
-		int indice;               // numero de linea dentro del dialogo
-		int visibles;             // letras ya escritas de la linea actual
-		double acum;              // milisegundos acumulados para el efecto maquina de escribir
+		int escena;
+		int indice;
+		int visibles;       
+		double acum;              
 		int esperaAuto;
 		bool activo;
 		bool acelerado;
-		String^ textoEnvuelto;    // linea actual ya partida en renglones
+		String^ textoEnvuelto;
 
 		Graphics^ grp;
 		BufferedGraphicsContext^ space;
@@ -55,8 +48,8 @@ namespace AlgoritmosProyectoFinal2 {
 		System::Drawing::Font^ fuentePista;
 
 	public:
-		bool autoAvance;          // true: pasa sola a la siguiente linea (como la version consola)
-		int pausaAuto;            // ms de espera antes de pasar sola
+		bool autoAvance;
+		int pausaAuto;
 
 		NovelaVisual(Panel^ p) {
 			panel = p;
@@ -88,7 +81,6 @@ namespace AlgoritmosProyectoFinal2 {
 			while (i < panel->Controls->Count) { panel->Controls[i]->Visible = false; i++; }
 			panel->Visible = false;
 		}
-
 		bool EstaActivo() { return activo; }
 
 		// ---- reproducir un dialogo (1 = intro de Punk, 2 = antes de Spot) ---------------------------
@@ -113,7 +105,6 @@ namespace AlgoritmosProyectoFinal2 {
 			PrepararTexto();
 			timer->Start();
 		}
-
 		// Devuelve true si la tecla fue consumida por el dialogo
 		bool ProcesarTecla(Keys k) {
 			if (!activo) return false;
@@ -133,7 +124,6 @@ namespace AlgoritmosProyectoFinal2 {
 			}
 			return true;
 		}
-
 		void Liberar() {
 			timer->Stop();
 			activo = false;
@@ -143,20 +133,67 @@ namespace AlgoritmosProyectoFinal2 {
 
 	private:
 		// =====================  LOS DIALOGOS  =====================
-		// Linea(nombre, perfil, retratoALaIzquierda, texto, velocidad)
 		void Linea(String^ n, int perfil, bool izq, String^ t, int v) {
 			nombreActual = n; perfilActual = perfil; izqActual = izq; textoActual = t->Trim(); velActual = v;
 		}
-
 		// Devuelve false cuando ya no hay mas lineas
 		bool CargarLinea() {
 			switch (escena) {
 			case 1: return DialogoPunkIntro(indice);
 			case 2: return DialogoPunkSpot(indice);
+			case 3: return DialogoMilesIntro(indice);
 			default: return false;
 			}
 		}
+		bool DialogoMilesIntro(int n) {
+			switch (n) {  // 1 = miles / 2 = miguel / 3 = punk / 4 = gwen / 5 = spot / 8 = peny
+				// ---- titulo ----
+			case 0:  Linea("", 0, false, "La realidad que aveces duele", 25); return true;
+			case 1:  Linea("", 0, false, "Adentrandose en la recamara de contencion...", 50); return true;
+				// ---- Punk y Peny ----
+			case 2:  Linea("Miles Morales", 1, true, "Que... acabas de hacer?... quien.. eres?", 40); return true;
 
+			case 3:  Linea("The Spot", 5, false, "Yo?....      ", 40); return true;
+			case 4:  Linea("The Spot", 5, false, "Yo soy tu         ", 40); return true;
+			case 5:  Linea("The Spot", 5, false, "Y tu... eres yo      ", 40); return true;
+			case 6:  Linea("The Spot", 5, false, "Yo te cree a ti          ", 40); return true;
+			case 7:  Linea("The Spot", 5, false, "Te converti en lo que eres ahora       ", 40); return true;
+			case 8:  Linea("The Spot", 5, false, "Un HEROE      ", 40); return true;
+			case 9:  Linea("The Spot", 5, false, "Y tu? me creaste como un monstruo     ", 40); return true;
+			case 10: Linea("The Spot", 5, false, "YO SOY TU NEMESIS        ", 50); return true;
+
+			case 11: Linea("Miguel O'hara", 2, true, "........       ", 40); return true;
+
+			case 12: Linea("Spider Punk", 3, true, "Vaya problema         ", 25); return true;
+
+			case 13: Linea("Miles Morales", 1, true, "Que... piensas hacerle a mi padre?      ", 40); return true;
+
+			case 14: Linea("The Spot", 5, false, "Que pienso hacer?... es simple    ", 50); return true;
+			case 15: Linea("The Spot", 5, false, "TU destruiste mi vida        ", 50); return true;
+			case 16: Linea("The Spot", 5, false, "Yo destruire la TUYA        ", 50); return true;
+			case 17: Linea("The Spot", 5, false, "Es tu destino, asi como lo fue el mio        ", 50); return true;
+			case 18: Linea("The Spot", 5, false, "El CANON no puede cambiarse, Miles        ", 50); return true;
+
+			case 19: Linea("Miles Morales", 1, true, "No te atrevas a HACERLE DANO!!!!!!        ", 50); return true;
+
+			case 20: Linea("Miguel O'hara", 2, false, "ALTO!     ", 50); return true;
+
+			case 21: Linea("Miles Morales", 1, true, "....", 50); return true;
+
+			case 22: Linea("Miguel O'hara", 2, false, "Miles      ", 50); return true;
+			case 23: Linea("Miguel O'hara", 2, false, "Sabes muy bien qu-", 50); return true;
+
+			case 24: Linea("Miles Morales", 1, true, "Y QUE?    ", 50); return true;
+			case 25: Linea("Miles Morales", 1, true, "DICES QUE DEJE MORIR A MI PADRE???", 50); return true;
+			case 26: Linea("Miles Morales", 1, true, "ASI SIN MAS??", 50); return true;
+
+			case 27: Linea("Spider Punk", 3, false, ".....      ", 50); return true;
+			case 28: Linea("Spider Punk", 3, false, "Miles, escu-", 50); return true;
+
+			case 29: Linea("Miles Morales", 1, true, "No, Lo entiendo", 50); return true;
+			default: return false;
+			}
+		}
 		bool DialogoPunkIntro(int n) {
 			switch (n) {
 				// ---- titulo ----
@@ -206,10 +243,9 @@ namespace AlgoritmosProyectoFinal2 {
 		// =========================================================
 
 		void AlClick(Object^ sender, EventArgs^ e) { Avanzar(); }
-
 		void Avanzar() {
 			if (!activo) return;
-			if (visibles < textoEnvuelto->Length) {      // primero completa la linea
+			if (visibles < textoEnvuelto->Length) {
 				visibles = textoEnvuelto->Length;
 				return;
 			}
@@ -217,21 +253,18 @@ namespace AlgoritmosProyectoFinal2 {
 			if (!CargarLinea()) { Terminar(); return; }
 			PrepararTexto();
 		}
-
 		void Terminar() {
 			timer->Stop();
 			activo = false;
 			acelerado = false;
 			panel->Visible = false;
 		}
-
 		void PrepararTexto() {
 			visibles = 0; acum = 0; esperaAuto = 0;
 			int W = panel->ClientSize.Width;
 			if (perfilActual == 0) { textoEnvuelto = Envolver(textoActual, fuenteTitulo, W - 80.0f); }
 			else { textoEnvuelto = Envolver(textoActual, fuenteTexto, W - (MARG + RET + 16) - 24.0f); }
 		}
-
 		// parte el texto en renglones segun el ancho disponible, palabra por palabra
 		String^ Envolver(String^ t, System::Drawing::Font^ f, float ancho) {
 			Graphics^ g = buffer->Graphics;
@@ -252,14 +285,12 @@ namespace AlgoritmosProyectoFinal2 {
 			}
 			return resultado + linea;
 		}
-
 		// pausa DESPUES de mostrar la letra anterior (los puntos y signos hacen pausa dramatica)
 		double RetardoDespuesDe(wchar_t anterior, int velocidad) {
 			if (anterior == L'\n') return 0.0;
 			if (anterior == L'.' || anterior == L',' || anterior == L'?' || anterior == L'!') return velocidad * 6.0;
 			return (double)velocidad;
 		}
-
 		void Tick(Object^ sender, EventArgs^ e) {
 			if (!activo) return;
 			int total = textoEnvuelto->Length;
@@ -282,7 +313,6 @@ namespace AlgoritmosProyectoFinal2 {
 			}
 			Dibujar();
 		}
-
 		Color ColorDe(int perfil) {
 			switch (perfil) {
 			case 1:  return Color::FromArgb(220, 40, 70);   
@@ -294,7 +324,6 @@ namespace AlgoritmosProyectoFinal2 {
 			default: return Color::FromArgb(255, 128, 0);    
 			}
 		}
-
 		Bitmap^ BmpDe(int perfil) {
 			switch (perfil) {
 			case 1:  return bmpMiles;
@@ -306,7 +335,6 @@ namespace AlgoritmosProyectoFinal2 {
 			default: return nullptr;
 			}
 		}
-
 		void Dibujar() {
 			Graphics^ g = buffer->Graphics;
 			int W = panel->ClientSize.Width;
@@ -342,14 +370,12 @@ namespace AlgoritmosProyectoFinal2 {
 				g->FillRectangle(brFondo, marco);
 				Bitmap^ bmp = BmpDe(perfilActual);
 				if (bmp != nullptr) {
-
 					System::Drawing::Rectangle recorte = System::Drawing::Rectangle(12, 0, 40, 40);
 					if (perfilActual == 8) recorte = System::Drawing::Rectangle(140, 45, 190, 190);   
 					g->DrawImage(bmp, marco, recorte, GraphicsUnit::Pixel);
 				}
 				g->DrawRectangle(penBorde, marco);
 				delete brFondo;
-
 				// nombre y texto
 				int x0 = izqActual ? (MARG + RET + 16) : 24;
 				int x1 = izqActual ? (W - 24) : (W - MARG - RET - 16);
@@ -358,7 +384,6 @@ namespace AlgoritmosProyectoFinal2 {
 				g->DrawString("Espacio: siguiente  |  Z: rapido  |  X: saltar", fuentePista, brPista,
 					RectangleF((float)x0, 8.0f, (float)(x1 - x0), 18.0f), fmtDer);
 			}
-
 			if (lineaCompleta && ((Environment::TickCount / 400) % 2 == 0)) {
 				int tx = W - 40;
 				int ty = H - 24;
@@ -367,7 +392,6 @@ namespace AlgoritmosProyectoFinal2 {
 					g->FillRectangle(brAcento, tx + i, ty + i, 16 - 2 * i, 1);
 				}
 			}
-
 			delete penBorde; delete brTexto; delete brAcento; delete brPista; delete fmtDer;
 			buffer->Render(grp);
 		}
