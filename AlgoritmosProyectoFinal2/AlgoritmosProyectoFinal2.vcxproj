@@ -133,6 +133,7 @@
     <ClInclude Include="Dialogos.h" />
     <ClInclude Include="Enemigo.h" />
     <ClInclude Include="Entidades.h" />
+    <ClInclude Include="Gwen.h" />
     <ClInclude Include="Jefe.h" />
     <ClInclude Include="Laser.h" />
     <ClInclude Include="Mancha.h" />

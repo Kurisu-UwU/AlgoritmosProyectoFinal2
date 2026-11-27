@@ -137,5 +137,8 @@
     <ClInclude Include="Jefe.h">
       <Filter>Header Files\Entidades\Perseguidor</Filter>
     </ClInclude>
+    <ClInclude Include="Gwen.h">
+      <Filter>Header Files\Entidades\Perseguidor</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>

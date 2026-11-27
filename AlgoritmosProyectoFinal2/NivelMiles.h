@@ -3,6 +3,7 @@
 #include "Dialogos.h"
 #include "Controladora.h"
 #include "ControladoraPersecucion.h"
+#include "Gwen.h"
 namespace AlgoritmosProyectoFinal2 {
 
 	using namespace System;
@@ -227,6 +228,7 @@ namespace AlgoritmosProyectoFinal2 {
 		Bitmap^ bmpGwen;
 		Bitmap^ bmpMiguel;
 		MilesMorales* miles;
+		Gwen* gwen;
 		Controladora* controladora;
 		NovelaVisual^ novela;
 		// --- nivel de persecucion ---
@@ -579,6 +581,7 @@ private: System::Windows::Forms::Timer^ timerPersecucion;
 		CargarRecursosPersecucion();
 
 		miles = new MilesMorales(350, 50, 64, 64, 100, 4, 4, 100, 100, 0, "Miles", 'S', 1, 1);
+		gwen = new Gwen(535,105,4,64,64,true,0);
 		novela = gcnew NovelaVisual(pnlTexto);
 		novela->Iniciar(3);
 		IrASala(1, 350, 50);
@@ -591,12 +594,20 @@ private: System::Windows::Forms::Timer^ timerPersecucion;
 		if (pnlJuego1->Visible == true) {
 			buffer1->Graphics->DrawImage(bmpMapa1, 0, 0, pnlJuego1->Width * 1.0, pnlJuego1->Height * 1.0);
 			miles->Dibujar(buffer1->Graphics, bmpMiles);
+			if (gwen->GetPersigue()) {
+				gwen->Perseguir(miles, controladora->GetObstaculos());
+			}
+			gwen->Dibujar(buffer1->Graphics, bmpGwen);
 			DibujarDebug(buffer1->Graphics, pnlJuego1);
 			buffer1->Render(gr1);
 		}
 		if (pnlJuego2->Visible == true) {
 			buffer2->Graphics->DrawImage(bmpMapa2, 0, 0, pnlJuego2->Width * 1.0, pnlJuego2->Height * 1.0);
 			miles->Dibujar(buffer2->Graphics, bmpMiles);
+			if (gwen->GetPersigue()) {
+				gwen->Perseguir(miles, controladora->GetObstaculos());
+				gwen->Dibujar(buffer2->Graphics, bmpGwen);
+			}
 			DibujarDebug(buffer2->Graphics, pnlJuego2);
 			buffer2->Render(gr2);
 		}
@@ -604,12 +615,20 @@ private: System::Windows::Forms::Timer^ timerPersecucion;
 			buffer3->Graphics->DrawImage(bmpMapa3, 0, 0, pnlJuego3->Width * 1.0, pnlJuego3->Height * 1.0);
 
 			miles->Dibujar(buffer3->Graphics, bmpMiles);
+			if (gwen->GetPersigue()) {
+				gwen->Perseguir(miles, controladora->GetObstaculos());
+				gwen->Dibujar(buffer3->Graphics, bmpGwen);
+			}
 			DibujarDebug(buffer3->Graphics, pnlJuego3);
 			buffer3->Render(gr3);
 		}
 		if (pnlJuego4->Visible == true) {
 			buffer4->Graphics->DrawImage(bmpMapa4, 0, 0, pnlJuego4->Width * 1.0, pnlJuego4->Height * 1.0);
 			miles->Dibujar(buffer4->Graphics, bmpMiles);
+			if (gwen->GetPersigue()) {
+				gwen->Perseguir(miles, controladora->GetObstaculos());
+				gwen->Dibujar(buffer4->Graphics, bmpGwen);
+			}
 			DibujarDebug(buffer4->Graphics, pnlJuego4);
 			buffer4->Render(gr4);
 		}
