@@ -69,7 +69,7 @@ public:
 
 	void Dibujar(Graphics^ g, Bitmap^ bmp) {
 		System::Drawing::Rectangle sectionshow = System::Drawing::Rectangle(idX * ancho, idY * alto, ancho, alto);
-		System::Drawing::Rectangle zoom = System::Drawing::Rectangle(x, y, ancho * 1, alto * 1);
+		System::Drawing::Rectangle zoom = System::Drawing::Rectangle(x, y, ancho, alto);
 		g->DrawImage(bmp, zoom, sectionshow, GraphicsUnit::Pixel);
 	}
 
@@ -121,7 +121,7 @@ public:
 		if (idX > 15) idX = 0;
 	}
 	virtual Rectangle CrearRectangle() {
-		return Rectangle(x, y, ancho * 0.75, alto * 0.75);
+		return Rectangle(x, y, ancho, alto);
 	}
 	int getVida() {
 		return vida;
