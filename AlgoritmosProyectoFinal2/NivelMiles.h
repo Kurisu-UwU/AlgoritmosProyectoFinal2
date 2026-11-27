@@ -118,12 +118,12 @@ namespace AlgoritmosProyectoFinal2 {
 			controladora->GenerarObstaculo(0, 0, 0, 680, 20);
 			controladora->GenerarObstaculo(1200, 0, 0, 840, 60);
 			controladora->GenerarObstaculo(0, 662, 0, 680 - 662, 1220);
-			controladora->GenerarObstaculo(140, 160, 0, 30,1220-140);
-			controladora->GenerarObstaculo(345, 160, 0, 300-160, 485 - 345);
-			controladora->GenerarObstaculo(140, 160, 0, 480-160, 30);
+			controladora->GenerarObstaculo(140, 160, 0, 30, 1220 - 140);
+			controladora->GenerarObstaculo(345, 160, 0, 300 - 160, 485 - 345);
+			controladora->GenerarObstaculo(140, 160, 0, 480 - 160, 30);
 			controladora->GenerarObstaculo(140, 450, 0, 30, 1220 - 140);
-			controladora->GenerarObstaculo(610,270 , 0, 480-270, 1220-610);
-			controladora->GenerarObstaculo(1030,190 , 0,300-190 ,30 );
+			controladora->GenerarObstaculo(610, 270, 0, 480 - 270, 1220 - 610);
+			controladora->GenerarObstaculo(1030, 190, 0, 300 - 190, 30);
 
 			controladora->GenerarPuerta(1200, 0, 60, 840, 3, 60, 340);   // (x, y, ancho, alto, salaDestino, xLlegada, yLlegada)
 		}
@@ -258,7 +258,7 @@ namespace AlgoritmosProyectoFinal2 {
 	private: System::Windows::Forms::Button^ btnNivel3;
 	private: System::Windows::Forms::Button^ btnNivel2;
 	private: System::Windows::Forms::Button^ btnNivel1;
-private: System::Windows::Forms::Timer^ timerPersecucion;
+	private: System::Windows::Forms::Timer^ timerPersecucion;
 
 	private: System::Windows::Forms::Timer^ timerMovimiento;
 #pragma region Windows Form Designer generated code
@@ -544,6 +544,18 @@ private: System::Windows::Forms::Timer^ timerPersecucion;
 
 		   }
 #pragma endregion
+	private: Bitmap^ EscalarFondo(String^ ruta, int ancho, int alto) {
+		// Se ajusta la imagen UNA sola vez al tamano del panel (y en un formato rapido de copiar);
+		// asi en cada frame solo se copia, sin reescalar ni mezclar transparencias.
+		Bitmap^ original = gcnew Bitmap(ruta);
+		Bitmap^ nuevo = gcnew Bitmap(ancho, alto, System::Drawing::Imaging::PixelFormat::Format32bppPArgb);
+		Graphics^ g = Graphics::FromImage(nuevo);
+		g->InterpolationMode = System::Drawing::Drawing2D::InterpolationMode::HighQualityBicubic;
+		g->DrawImage(original, 0, 0, ancho, alto);
+		delete g;
+		delete original;
+		return nuevo;
+	}
 	private: System::Void NivelMiles_Load(System::Object^ sender, System::EventArgs^ e) {
 		grp = pnlDeControl->CreateGraphics();
 		spacep = BufferedGraphicsManager::Current;
@@ -569,25 +581,25 @@ private: System::Windows::Forms::Timer^ timerPersecucion;
 		space4 = BufferedGraphicsManager::Current;
 		buffer4 = space4->Allocate(gr4, pnlJuego4->ClientRectangle);
 
-		bmpPanelControl = gcnew Bitmap("Imagenes/PanelControl.png");
+		bmpPanelControl = EscalarFondo("Imagenes/PanelControl.png", pnlDeControl->Width, pnlDeControl->Height);
+		bufferp->Graphics->DrawImage(bmpPanelControl, 0, 0, pnlDeControl->Width * 1.0, pnlDeControl->Height * 1.0);   // se dibuja una sola vez
 		bmpMapaPersecusion = gcnew Bitmap("Imagenes/MilesMapa1.png");
-		bmpMapa1 = gcnew Bitmap("Imagenes/MilesMapa2.png");
-		bmpMapa2 = gcnew Bitmap("Imagenes/MilesMapa3.png");
-		bmpMapa3 = gcnew Bitmap("Imagenes/MilesMapa4.png");
-		bmpMapa4 = gcnew Bitmap("Imagenes/MilesMapa5.png");
+		bmpMapa1 = EscalarFondo("Imagenes/MilesMapa2.png", pnlJuego1->Width, pnlJuego1->Height);
+		bmpMapa2 = EscalarFondo("Imagenes/MilesMapa3.png", pnlJuego1->Width, pnlJuego1->Height);
+		bmpMapa3 = EscalarFondo("Imagenes/MilesMapa4.png", pnlJuego1->Width, pnlJuego1->Height);
+		bmpMapa4 = EscalarFondo("Imagenes/MilesMapa5.png", pnlJuego1->Width, pnlJuego1->Height);
 		bmpGwen = gcnew Bitmap("Imagenes/Gwen.png");
 		bmpMiles = gcnew Bitmap("Imagenes/MilesMorales.png");
 		bmpPeny = gcnew Bitmap("Imagenes/PenyParker.png");
 		CargarRecursosPersecucion();
 
 		miles = new MilesMorales(350, 50, 64, 64, 100, 4, 4, 100, 100, 0, "Miles", 'S', 1, 1);
-		gwen = new Gwen(535,105,4,64,64,true,0);
+		gwen = new Gwen(535, 105, 4, 64, 64, true, 0);
 		novela = gcnew NovelaVisual(pnlTexto);
 		novela->Iniciar(3);
 		IrASala(1, 350, 50);
 	}
 	private: System::Void timerJuego_Tick(System::Object^ sender, System::EventArgs^ e) {
-		bufferp->Graphics->DrawImage(bmpPanelControl, 0, 0, pnlDeControl->Width * 1.0, pnlDeControl->Height * 1.0);
 		if (!(novela != nullptr && novela->EstaActivo())) bufferp->Render(grp);
 
 		// pnlPersecusion se dibuja en timerPersecucion_Tick (30 ms)
@@ -889,5 +901,5 @@ private: System::Windows::Forms::Timer^ timerPersecucion;
 		lblSpot->Text = "Miguel a " + System::Convert::ToString(perse->GetLejania(miles)) + " m";
 		lblPuntaje->Text = "Tiempo: " + System::Convert::ToString(perse->GetSegundosRestantes()) + " s";
 	}
-};
+	};
 }

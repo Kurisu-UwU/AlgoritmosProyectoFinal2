@@ -70,7 +70,7 @@ public:
 
 	void Dibujar(Graphics^ g, Bitmap^ bmp) {
 		System::Drawing::Rectangle sectionshow = System::Drawing::Rectangle(idX * ancho, idY * alto, ancho, alto);
-		System::Drawing::Rectangle zoom = System::Drawing::Rectangle(x, y, ancho * 0.75, alto * 0.75);
+		System::Drawing::Rectangle zoom = System::Drawing::Rectangle(x, y, ancho * 1, alto * 1);
 		g->DrawImage(bmp, zoom, sectionshow, GraphicsUnit::Pixel);
 	}
 
