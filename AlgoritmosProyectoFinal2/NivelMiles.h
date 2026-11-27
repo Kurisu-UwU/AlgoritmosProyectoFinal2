@@ -597,6 +597,11 @@ private: System::Windows::Forms::Timer^ timerPersecucion;
 			if (gwen->GetPersigue()) {
 				gwen->Perseguir(miles, controladora->GetObstaculos());
 			}
+			if (!gwen->GetPersigue() && gwen->CrearRectangle().IntersectsWith(miles->CrearRectangle())) {
+				//for (int i = 0; i < 7 ; i++) { TextMilesConGwen(i); }
+				novela->Iniciar(3);
+				gwen->SetPersigue(true);
+			}
 			gwen->Dibujar(buffer1->Graphics, bmpGwen);
 			DibujarDebug(buffer1->Graphics, pnlJuego1);
 			buffer1->Render(gr1);

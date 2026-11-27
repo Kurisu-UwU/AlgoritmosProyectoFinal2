@@ -24,8 +24,8 @@ namespace AlgoritmosProyectoFinal2 {
 
 		int escena;
 		int indice;
-		int visibles;       
-		double acum;              
+		int visibles;
+		double acum;
 		int esperaAuto;
 		bool activo;
 		bool acelerado;
@@ -41,6 +41,11 @@ namespace AlgoritmosProyectoFinal2 {
 		Bitmap^ bmpMiles;
 		Bitmap^ bmpMiguel;
 		Bitmap^ bmpPeny;
+		Bitmap^ bmpMargo;
+		Bitmap^ bmpWoman;
+		Bitmap^ bmpPeter;
+		Bitmap^ bmpPavitr;
+		Bitmap^ bmpNoir;
 
 		System::Drawing::Font^ fuenteTexto;
 		System::Drawing::Font^ fuenteNombre;
@@ -66,6 +71,11 @@ namespace AlgoritmosProyectoFinal2 {
 			bmpMiles = gcnew Bitmap("Imagenes/MilesMorales.png");
 			bmpMiguel = gcnew Bitmap("Imagenes/MiguelOhara.png");
 			bmpPeny = gcnew Bitmap("Imagenes/PenyParker.png");
+			bmpMargo = CargarBmp("Imagenes/MargoKees.png");
+			bmpWoman = CargarBmp("Imagenes/SpiderWoman.png");
+			bmpPeter = CargarBmp("Imagenes/PeterPorker.png");
+			bmpPavitr = CargarBmp("Imagenes/Pavitr.png");
+			bmpNoir = CargarBmp("Imagenes/Noir.png");
 
 			fuenteTexto = gcnew System::Drawing::Font("Comic Sans MS", 14.0f);
 			fuenteNombre = gcnew System::Drawing::Font("Comic Sans MS", 12.0f, FontStyle::Bold);
@@ -81,9 +91,17 @@ namespace AlgoritmosProyectoFinal2 {
 			while (i < panel->Controls->Count) { panel->Controls[i]->Visible = false; i++; }
 			panel->Visible = false;
 		}
+		Bitmap^ CargarBmp(String^ ruta) {
+			if (System::IO::File::Exists(ruta)) return gcnew Bitmap(ruta);
+			return nullptr;
+		}
 		bool EstaActivo() { return activo; }
 
-		// ---- reproducir un dialogo (1 = intro de Punk, 2 = antes de Spot) ---------------------------
+		// ---- reproducir un dialogo ------------------------------------------------------------------
+		// 1 = Punk intro | 2 = Punk antes de Spot | 3 = Miles intro | 4 = Miles con Gwen | 5 = Miguel intro
+		// 6 = Miguel 1 | 7 = Miguel 2 (llamada) | 8 = Miguel final | 9 = Peter Porker | 10 = Pavitr
+		// 11 = Noir | 12 = Spider Woman | 13 = Spot escapa | 14 = Final (todos) | 15 = Final Miles
+		// 16 = Final Miguel | 17 = Final Punk | 18 = Final nivel 3
 		void Iniciar(int numeroEscena) {
 			escena = numeroEscena;
 			indice = 0;
@@ -99,7 +117,7 @@ namespace AlgoritmosProyectoFinal2 {
 			space = BufferedGraphicsManager::Current;
 			buffer = space->Allocate(grp, panel->ClientRectangle);
 			buffer->Graphics->TextRenderingHint = System::Drawing::Text::TextRenderingHint::ClearTypeGridFit;
-			buffer->Graphics->InterpolationMode = InterpolationMode::NearestNeighbor;  
+			buffer->Graphics->InterpolationMode = InterpolationMode::NearestNeighbor;
 			buffer->Graphics->PixelOffsetMode = PixelOffsetMode::Half;
 
 			PrepararTexto();
@@ -142,6 +160,21 @@ namespace AlgoritmosProyectoFinal2 {
 			case 1: return DialogoPunkIntro(indice);
 			case 2: return DialogoPunkSpot(indice);
 			case 3: return DialogoMilesIntro(indice);
+			case 4: return DialogoMilesConGwen(indice);
+			case 5: return DialogoMiguelIntro(indice);
+			case 6: return DialogoMiguel1(indice);
+			case 7: return DialogoMiguel2(indice);
+			case 8: return DialogoMiguelFinal(indice);
+			case 9: return DialogoPeterPorker(indice);
+			case 10: return DialogoPavitr(indice);
+			case 11: return DialogoNoir(indice);
+			case 12: return DialogoWoman(indice);
+			case 13: return DialogoSpotScape(indice);
+			case 14: return DialogoFinal(indice);
+			case 15: return DialogoFinalMiles(indice);
+			case 16: return DialogoFinalMiguel(indice);
+			case 17: return DialogoFinalPunk(indice);
+			case 18: return DialogoFinalNivel3(indice);
 			default: return false;
 			}
 		}
@@ -240,6 +273,186 @@ namespace AlgoritmosProyectoFinal2 {
 			default: return false;
 			}
 		}
+		// ---- dialogos pasados desde TextoAnimadoDialogosETC.h ----
+		// perfiles: 1 miles / 2 miguel / 3 punk / 4 gwen / 5 spot / 6 margo / 7 spider woman / 8 peny
+		//           9 peter porker / 10 pavitr / 11 noir / 12 llamada (sin retrato)
+		bool DialogoMilesConGwen(int n) {
+			switch (n) {
+			case 0:   Linea("Gwen Stacy", 4, true, "MILES!", 25); return true;
+			case 1:   Linea("Gwen Stacy", 4, true, "No espere encontrarte por aca", 25); return true;
+			case 2:   Linea("Gwen Stacy", 4, true, "Y Miguel? aun sigue persiguiendote?", 25); return true;
+			case 3:   Linea("Gwen Stacy", 4, true, "Ya veo....", 25); return true;
+			case 4:   Linea("Gwen Stacy", 4, true, "Rapido, hay que irnos", 25); return true;
+			default: return false;
+			}
+		}
+		bool DialogoMiguelIntro(int n) {
+			switch (n) {
+			case 0:   Linea("", 0, false, "Miguel: Hola, mi nombre es Miguel O'hara", 25); return true;
+			case 1:   Linea("", 0, false, "Salvemos el spider verso!", 50); return true;
+			default: return false;
+			}
+		}
+		bool DialogoMiguel1(int n) {
+			switch (n) {
+			case 0:   Linea("Miguel O'hara", 2, true, "Que acaba de pasar!", 40); return true;
+			case 1:   Linea("Miguel O'hara", 2, true, "Como permitieron que Miles escapara, puede romper el canon y destruir el spider verso", 40); return true;
+			case 2:   Linea("Gwen Stacy", 4, false, "Pues no se, tal vez no le gritaste con suficiente fuerza", 50); return true;
+			case 3:   Linea("Miguel O'hara", 2, true, "Esto es culpa tuya, tu lo trajiste aqui y lo dejaste huir", 50); return true;
+			case 4:   Linea("Gwen Stacy", 4, false, "Solo dejenme hablar con el, puedo resolver esto", 50); return true;
+			case 5:   Linea("Miguel O'hara", 2, true, "No, ya nos has estorvado suficiente, te prohibo seguirnos a la dimension de Miles", 50); return true;
+			case 6:   Linea("Gwen Stacy", 4, false, "No puedes hacer eso, Spider Woman dile que se equivoca", 50); return true;
+			case 7:   Linea("Spider Woman", 7, false, "El tiene razon, deberias quedarte aqui", 50); return true;
+			case 8:   Linea("Gwen Stacy", 4, false, "Eso no es justo, Miles no tenia malas intenciones", 50); return true;
+			case 9:   Linea("Margo Kees", 6, false, "Gwen tiene razon, Miles no sabe lo que esta haciendo", 50); return true;
+			case 10:  Linea("Miguel O'hara", 2, true, "Silencio!, tu solo estas aqui para manejar la maquina transportadora", 50); return true;
+			case 11:  Linea("Miguel O'hara", 2, true, "Y controlar el sistema de seguridad", 50); return true;
+			case 12:  Linea("Margo Kees", 6, false, "Estoy harta de esto, Miles es inocente", 50); return true;
+			case 13:  Linea("Margo Kees", 6, false, "Veamos que tan facilmente lo encuentras con tu propio sistema de seguridad en tu contra", 50); return true;
+			case 14:  Linea("Miguel O'hara", 2, true, "No tengo tiempo para esto, debo ir tras Miles, tu has lo que quieras", 50); return true;
+			case 15:  Linea("Miguel O'hara", 2, true, "Spider Woman, vamonos, tu me ayudaras en la busqueda", 50); return true;
+			case 16:  Linea("Spider Woman", 7, false, "Bien, vamonos", 50); return true;
+			default: return false;
+			}
+		}
+		bool DialogoMiguel2(int n) {
+			switch (n) {
+			case 0:   Linea("Spider Woman", 12, false, "Llamada entrante", 40); return true;
+			case 1:   Linea("Spider Woman", 7, false, "Hola Miguel, me escuchas?", 40); return true;
+			case 2:   Linea("Spider Woman", 7, false, "Paseandome por este lugar me di cuenta de que Miles esta dejando glitches por algunas zonas", 50); return true;
+			case 3:   Linea("Spider Woman", 7, false, "Puedes usar esa informacion para localizarlo", 50); return true;
+			case 4:   Linea("Spider Woman", 7, false, "Tambien he activado un rastreador que te indicara tu distancia a Miles", 50); return true;
+			case 5:   Linea("Spider Woman", 7, false, "Yo buscare por otra zona, mucha suerte", 50); return true;
+			default: return false;
+			}
+		}
+		bool DialogoMiguelFinal(int n) {
+			switch (n) {
+			case 0:   Linea("Miguel O'hara", 2, true, "Por fin, despues de tanto te encuentro", 40); return true;
+			case 1:   Linea("Miguel O'hara", 2, true, "No tienes idea de la cantidad de problemas que me has dado hoy", 40); return true;
+			case 2:   Linea("Miles Morales", 1, false, "Intentar rescatar a un ser querido es un crimen?", 50); return true;
+			case 3:   Linea("Miguel O'hara", 2, true, "Ese no es el punto, pones en riesgo todo el spider verso", 50); return true;
+			case 4:   Linea("Miguel O'hara", 2, true, "Ahora que te tengo, por fin, todos estan a salvo", 50); return true;
+			default: return false;
+			}
+		}
+		bool DialogoPeterPorker(int n) {
+			switch (n) {
+			case 0:   Linea("Peter Porker", 9, false, "Estas buscando a Miles, lo vi hace rato por la pista de abajo, dijo algo sobre unas manchas", 40); return true;
+			case 1:   Linea("Peter Porker", 9, false, "Sabes de que estaba hablando?", 40); return true;
+			case 2:   Linea("Peter Porker", 9, false, "Como sea, encontrarlo no sera dificil, por donde pasa deja glitches", 50); return true;
+			default: return false;
+			}
+		}
+		bool DialogoPavitr(int n) {
+			switch (n) {
+			case 0:   Linea("Pavitr Prabhakar", 10, false, "Estas manchas aparecieron repentinamente", 40); return true;
+			case 1:   Linea("Pavitr Prabhakar", 10, false, "Algunas sirven como transporte eficiente", 40); return true;
+			case 2:   Linea("Pavitr Prabhakar", 10, false, "Otras te llevan a callejones sin salida", 50); return true;
+			case 3:   Linea("Pavitr Prabhakar", 10, false, "Esta por ejemplo no te lleva a ningun lugar, no creo que Miles la haya tomado", 50); return true;
+			default: return false;
+			}
+		}
+		bool DialogoNoir(int n) {
+			switch (n) {
+			case 0:   Linea("Spider Man Noir", 11, false, "Que dice?", 40); return true;
+			case 1:   Linea("Spider Man Noir", 11, false, "Si, vi a Miles", 40); return true;
+			case 2:   Linea("Spider Man Noir", 11, false, "No, no paso por qui", 50); return true;
+			case 3:   Linea("Spider Man Noir", 11, false, "Estaba hasta un estremo de la ciudad, dijo que tuvo que tomar 3 manchas para llegar", 50); return true;
+			default: return false;
+			}
+		}
+		bool DialogoWoman(int n) {
+			switch (n) {
+			case 0:   Linea("Spider Woman", 7, false, "Tambien llegaste aqui?", 40); return true;
+			case 1:   Linea("Spider Woman", 7, false, "Siento que ya nos acercamos a Miles", 40); return true;
+			case 2:   Linea("Spider Woman", 7, false, "Adelantate y ten cuidado", 50); return true;
+			case 3:   Linea("Spider Woman", 7, false, "Creo que oi a alguien del otro lado de la mancha", 50); return true;
+			default: return false;
+			}
+		}
+		bool DialogoSpotScape(int n) {
+			switch (n) {
+			case 0:   Linea("The Spot", 5, false, "O ya llegaste", 40); return true;
+			case 1:   Linea("Miguel O'hara", 2, true, "Fuiste tu quien dejo tus manchas por la ciudad", 40); return true;
+			case 2:   Linea("Miguel O'hara", 2, true, "Que haces aqui?", 50); return true;
+			case 3:   Linea("The Spot", 5, false, "Vine para vengarme de Miles, pero contigo aqui no creo que sea posible", 50); return true;
+			case 4:   Linea("The Spot", 5, false, "Se que no puedo vencerte y mi venganza puede esperar", 50); return true;
+			case 5:   Linea("The Spot", 5, false, "Como sea, me voy a causar estragos en otro multiverso, ahi te ves", 50); return true;
+			default: return false;
+			}
+		}
+		bool DialogoFinal(int n) {
+			switch (n) {
+			case 0:   Linea("Miguel O'hara", 2, true, "Que singnifica esto?", 40); return true;
+			case 1:   Linea("Miguel O'hara", 2, true, "Que hacen aqui?", 40); return true;
+			case 2:   Linea("Miguel O'hara", 2, true, "Gwen te prohibi venir a este multiverso", 50); return true;
+			case 3:   Linea("Gwen Stacy", 4, true, "Hemos llegado a detenerte", 50); return true;
+			case 4:   Linea("Spider Punk", 3, true, "Miguel, tienes que reconsiderarlo, puede haber otra forma", 40); return true;
+			case 5:   Linea("Miguel O'hara", 2, true, "Otra forma, de que hablan? Lo que se requiere es aceptar el evento canonico", 40); return true;
+			case 6:   Linea("Miles Morales", 1, true, "Miguel no los va a escuchar, ya intente razonar", 50); return true;
+			case 7:   Linea("Miguel O'hara", 2, true, "...", 50); return true;
+			case 8:   Linea("Miguel O'hara", 2, true, "Bien, los oigo, pero sera mejor que tengan una buena propuesta", 40); return true;
+			case 9:   Linea("Spider Punk", 3, true, "No vamos a romper el evento canonico", 40); return true;
+			case 10:  Linea("Spider Punk", 3, true, "Pero necesitamos que hables con tu padre y renuncie a su puesto", 50); return true;
+			case 11:  Linea("Miles Morales", 1, true, "Claro, de esa manera lo salvaremos y no romperemos el evento canonico", 50); return true;
+			case 12:  Linea("Miguel O'hara", 2, true, "No confio en ustedes, como se que haran eso, como se que no fracasaran", 40); return true;
+			case 13:  Linea("Miguel O'hara", 2, true, "Todo el spider verso estaria en peligro", 40); return true;
+			case 14:  Linea("Gwen Stacy", 4, true, "Miles revelara su identidad", 40); return true;
+			case 15:  Linea("Miles Morales", 1, true, "Que yo que?", 40); return true;
+			case 16:  Linea("Spider Punk", 3, true, "Miles, no sera tan malo como piensas, claro sera incomodo", 40); return true;
+			case 17:  Linea("Spider Punk", 3, true, "Esto es para salvar a tu padre, que pase lo que deba pasar", 40); return true;
+			case 18:  Linea("Miguel O'hara", 2, true, "De esta manera podran salvarlo y el spider verso estara a salvo", 40); return true;
+			case 19:  Linea("Gwen Stacy", 4, true, "No tenemos que sacrificar algo o alguien por un bien mayor", 40); return true;
+			case 20:  Linea("Spider Punk", 3, true, "Siempre podemos llegar a un acuerdo", 40); return true;
+			case 21:  Linea("Miguel O'hara", 2, true, "Bien, confio en ustedes", 40); return true;
+			default: return false;
+			}
+		}
+		bool DialogoFinalMiles(int n) {
+			switch (n) {
+			case 0:   Linea("Miles Morales", 1, true, "Elegiste a Miles Morales", 40); return true;
+			case 1:   Linea("Miles Morales", 1, true, "Te sentiste mas identificado con su historia", 40); return true;
+			case 2:   Linea("Miles Morales", 1, true, "Te preocupas mucho por los demas", 40); return true;
+			case 3:   Linea("Miles Morales", 1, true, "Sientes que hay varias formas de resolver un problema", 40); return true;
+			case 4:   Linea("Miles Morales", 1, true, "Y no le daras la espalda a un ser querido", 40); return true;
+			default: return false;
+			}
+		}
+		bool DialogoFinalMiguel(int n) {
+			switch (n) {
+			case 0:   Linea("Miguel O'hara", 2, true, "Elegiste a Miguel O'hara", 40); return true;
+			case 1:   Linea("Miguel O'hara", 2, true, "Te sentiste mas identificado con su historia", 40); return true;
+			case 2:   Linea("Miguel O'hara", 2, true, "Te gusta tener el control sobre tus problemas y diversas situaciones", 40); return true;
+			case 3:   Linea("Miguel O'hara", 2, true, "Cuando algo se vuelve complicado no asumes riesgos importantes", 40); return true;
+			case 4:   Linea("Miguel O'hara", 2, true, "Eres precavido y siempre buscas lo mejor para todos", 40); return true;
+			default: return false;
+			}
+		}
+		bool DialogoFinalPunk(int n) {
+			switch (n) {
+			case 0:   Linea("Spider Punk", 3, true, "Elegiste a Spider Punk", 40); return true;
+			case 1:   Linea("Spider Punk", 3, true, "Te sentiste mas identificado con su historia", 40); return true;
+			case 2:   Linea("Spider Punk", 3, true, "Te tomas las cosas con calma y eres de mente abierta", 40); return true;
+			case 3:   Linea("Spider Punk", 3, true, "No calificas a las personas como buena o mala y buscas entenderlas antes de juzgar", 40); return true;
+			case 4:   Linea("Spider Punk", 3, true, "Eres una persona con espiritu rebelde y buscas varias soluciones ante un problema", 40); return true;
+			default: return false;
+			}
+		}
+		bool DialogoFinalNivel3(int n) {
+			switch (n) {
+			case 0:   Linea("Spider Punk", 3, true, "Te he vencido spot, no tienes escapatoria", 40); return true;
+			case 1:   Linea("The Spot", 5, false, "Tal vez ganaste esta vez, pero eso no evitara mis planes, matare al padre de Miles para vengarme", 40); return true;
+			case 2:   Linea("Spider Punk", 3, true, "No lo haras, yo ayudare a Miles, protegere a su padre", 40); return true;
+			case 3:   Linea("The Spot", 5, true, "Romperas el canon? pondras en riesgo todo el spider verso", 40); return true;
+			case 4:   Linea("Spider Punk", 3, true, "No, me encargare de que su padre renuncie a su puesto de oficial, asi no se rompera el evento canonico", 40); return true;
+			case 5:   Linea("The Spot", 5, true, "No se me hubiese ocurrido antes, una solucion tan simple", 40); return true;
+			case 6:   Linea("The Spot", 5, true, "Y como piensas llegar a su multiverso", 40); return true;
+			case 7:   Linea("The Spot", 5, true, "Con las piezas que recolecte, arme mi herramienta para cambiar de multiverso", 40); return true;
+			case 8:   Linea("The Spot", 5, true, "Bueno, supongo que eso es todo, ya no tengo nada mas que hacer", 40); return true;
+			default: return false;
+			}
+		}
 		// =========================================================
 
 		void AlClick(Object^ sender, EventArgs^ e) { Avanzar(); }
@@ -315,13 +528,19 @@ namespace AlgoritmosProyectoFinal2 {
 		}
 		Color ColorDe(int perfil) {
 			switch (perfil) {
-			case 1:  return Color::FromArgb(220, 40, 70);   
-			case 2:  return Color::FromArgb(210, 30, 30);     
-			case 3:  return Color::FromArgb(235, 60, 60);    
-			case 4:  return Color::FromArgb(255, 105, 180);   
-			case 5:  return Color::FromArgb(235, 235, 235);  
-			case 8:  return Color::FromArgb(150, 110, 255);  
-			default: return Color::FromArgb(255, 128, 0);    
+			case 1:  return Color::FromArgb(220, 40, 70);
+			case 2:  return Color::FromArgb(210, 30, 30);
+			case 3:  return Color::FromArgb(235, 60, 60);
+			case 4:  return Color::FromArgb(255, 105, 180);
+			case 5:  return Color::FromArgb(235, 235, 235);
+			case 6:  return Color::FromArgb(0, 200, 170);
+			case 7:  return Color::FromArgb(255, 200, 40);
+			case 8:  return Color::FromArgb(150, 110, 255);
+			case 9:  return Color::FromArgb(255, 150, 170);
+			case 10: return Color::FromArgb(60, 140, 255);
+			case 11: return Color::FromArgb(140, 140, 150);
+			case 12: return Color::FromArgb(255, 200, 40);
+			default: return Color::FromArgb(255, 128, 0);
 			}
 		}
 		Bitmap^ BmpDe(int perfil) {
@@ -331,7 +550,12 @@ namespace AlgoritmosProyectoFinal2 {
 			case 3:  return bmpPunk;
 			case 4:  return bmpGwen;
 			case 5:  return bmpSpot;
+			case 6:  return bmpMargo;
+			case 7:  return bmpWoman;
 			case 8:  return bmpPeny;
+			case 9:  return bmpPeter;
+			case 10: return bmpPavitr;
+			case 11: return bmpNoir;
 			default: return nullptr;
 			}
 		}
@@ -366,12 +590,12 @@ namespace AlgoritmosProyectoFinal2 {
 				// retrato
 				int px = izqActual ? MARG : W - MARG - RET;
 				System::Drawing::Rectangle marco = System::Drawing::Rectangle(px, MARG, RET, RET);
-				SolidBrush^ brFondo = gcnew SolidBrush(Color::FromArgb(120, 120, 150));  
+				SolidBrush^ brFondo = gcnew SolidBrush(Color::FromArgb(120, 120, 150));
 				g->FillRectangle(brFondo, marco);
 				Bitmap^ bmp = BmpDe(perfilActual);
 				if (bmp != nullptr) {
 					System::Drawing::Rectangle recorte = System::Drawing::Rectangle(12, 0, 40, 40);
-					if (perfilActual == 8) recorte = System::Drawing::Rectangle(140, 45, 190, 190);   
+					if (perfilActual == 8) recorte = System::Drawing::Rectangle(140, 45, 190, 190);
 					g->DrawImage(bmp, marco, recorte, GraphicsUnit::Pixel);
 				}
 				g->DrawRectangle(penBorde, marco);
