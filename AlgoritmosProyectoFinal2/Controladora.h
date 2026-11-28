@@ -36,6 +36,8 @@ private:
     vector<Muro*> PosteLuz;
     vector<Muro*> Cerca1;
     vector<Muro*> Cerca2;
+    vector<Muro*> Conos1;
+    vector<Muro*> Conos2;
     int contadorProyectiles;
     int intervaloProyectiles;
     int invulnerabilidad = 0;
@@ -95,6 +97,38 @@ public:
 
         for (int i = 0; i < PosteLuz.size(); i++) {
             Rectangle rectMuro = PosteLuz[i]->GetObstaculo()->CrearRectangle();
+
+            if (rectPersonaje.IntersectsWith(rectMuro)) {
+                return true;
+            }
+        }
+
+        for (int i = 0; i < Conos1.size(); i++) {
+            Rectangle rectMuro = Conos1[i]->GetObstaculo()->CrearRectangle();
+
+            if (rectPersonaje.IntersectsWith(rectMuro)) {
+                return true;
+            }
+        }
+
+        for (int i = 0; i < Conos2.size(); i++) {
+            Rectangle rectMuro = Conos2[i]->GetObstaculo()->CrearRectangle();
+
+            if (rectPersonaje.IntersectsWith(rectMuro)) {
+                return true;
+            }
+        }
+
+        for (int i = 0; i < Cerca1.size(); i++) {
+            Rectangle rectMuro = Cerca1[i]->GetObstaculo()->CrearRectangle();
+
+            if (rectPersonaje.IntersectsWith(rectMuro)) {
+                return true;
+            }
+        }
+
+        for (int i = 0; i < Cerca2.size(); i++) {
+            Rectangle rectMuro = Cerca2[i]->GetObstaculo()->CrearRectangle();
 
             if (rectPersonaje.IntersectsWith(rectMuro)) {
                 return true;
@@ -226,7 +260,7 @@ public:
     }
 
     // =============
-    // Poste de Luz
+    // Solidos
     // =============
 
     void AgregarPosteLuz(int x, int y, int ancho, int alto) {
@@ -244,6 +278,75 @@ public:
             delete PosteLuz[i];
         }
         PosteLuz.clear();
+
+        for (int i = 0; i < PosteLuz.size(); i++) {
+            delete Conos1[i];
+        }
+        Conos1.clear();
+
+        for (int i = 0; i < PosteLuz.size(); i++) {
+            delete Conos2[i];
+        }
+        Conos2.clear();
+
+        for (int i = 0; i < PosteLuz.size(); i++) {
+            delete Cerca1[i];
+        }
+        Cerca1.clear();
+
+        for (int i = 0; i < PosteLuz.size(); i++) {
+            delete Cerca2[i];
+        }
+        Cerca2.clear();
+    }
+    
+    void AgregarConos1(int x, int y, int ancho, int alto) {
+        Conos1.push_back(new Muro(x, y, 0, ancho, alto, true));
+    }
+
+    void DibujarConos1(Graphics^ g, Bitmap^ bmp) {
+        for (int i = 0; i < Conos1.size(); i++) {
+            Conos1[i]->Dibujar(g, bmp);
+        }
+    }
+
+
+    void AgregarConos2(int x, int y, int ancho, int alto) {
+        Conos2.push_back(new Muro(x, y, 0, ancho, alto, true));
+    }
+
+    void DibujarConos2(Graphics^ g, Bitmap^ bmp) {
+        for (int i = 0; i < Conos2.size(); i++) {
+            Conos2[i]->Dibujar(g, bmp);
+        }
+    }
+
+    void AgregarCerca1(int x, int y, int ancho, int alto) {
+        Cerca1.push_back(new Muro(x, y, 0, ancho, alto, true));
+    }
+
+    void DibujarCerca1(Graphics^ g, Bitmap^ bmp) {
+        for (int i = 0; i < Cerca1.size(); i++) {
+            Cerca1[i]->Dibujar(g, bmp);
+        }
+    }
+
+    void AgregarCerca2(int x, int y, int ancho, int alto) {
+        Cerca2.push_back(new Muro(x, y, 0, ancho, alto, true));
+    }
+
+    void DibujarCerca2(Graphics^ g, Bitmap^ bmp) {
+        for (int i = 0; i < Cerca2.size(); i++) {
+            Cerca2[i]->Dibujar(g, bmp);
+        }
+    }
+
+    void DibujarSolidos(Graphics^ g, Bitmap^ bmp1, Bitmap^ bmp2, Bitmap^ bmp3, Bitmap^ bmp4, Bitmap^ bmp5) {
+        DibujarPosteLuz(g, bmp1);
+        DibujarConos1(g, bmp2);
+        DibujarConos2(g, bmp3);
+        DibujarCerca1(g, bmp4);
+        DibujarCerca2(g, bmp5);
     }
 
     // =======
