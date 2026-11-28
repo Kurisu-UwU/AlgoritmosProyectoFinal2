@@ -107,9 +107,6 @@
     <ClInclude Include="MiguelOhara.h">
       <Filter>Header Files\Protagonistas</Filter>
     </ClInclude>
-    <ClInclude Include="Mancha.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="Prueba.h">
       <Filter>Header Files</Filter>
     </ClInclude>
@@ -142,6 +139,12 @@
     </ClInclude>
     <ClInclude Include="EnemigoPerseguidor.h">
       <Filter>Header Files\Entidades\Perseguidor</Filter>
+    </ClInclude>
+    <ClInclude Include="Mancha.h">
+      <Filter>Header Files\Entidades\Objetos</Filter>
+    </ClInclude>
+    <ClInclude Include="Muro.h">
+      <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

@@ -14,6 +14,7 @@
 #include "ProyectilHorizontal.h"
 #include "NotaAtaque.h"
 #include "Mancha.h"
+#include "Muro.h"
 
 using namespace std;
 
@@ -32,6 +33,9 @@ private:
     Mancha* Peny;
     vector<ProyectilHorizontal*> proyectilesHorizontales;
     vector<NotaAtaque*> notasAtaque;
+    vector<Muro*> PosteLuz;
+    vector<Muro*> Cerca1;
+    vector<Muro*> Cerca2;
     int contadorProyectiles;
     int intervaloProyectiles;
     int invulnerabilidad = 0;
@@ -67,6 +71,12 @@ public:
         }
     }
 
+    void DibujarHitboxMuros(Graphics^ g) {
+        for (int i = 0; i < PosteLuz.size(); i++) {
+            PosteLuz[i]->GetObstaculo()->Dibujar(g);
+        }
+    }
+
     void GenerarObstaculo(int x, int y, int velocidad, int alto, int ancho) {
         Obstaculos* ent = new Obstaculos(x, y, velocidad, alto, ancho, true);
         obstaculos.push_back(ent);
@@ -79,6 +89,14 @@ public:
             Rectangle rectObstaculo = obstaculos[i]->CrearRectangle();
 
             if (rectPersonaje.IntersectsWith(rectObstaculo)) {
+                return true;
+            }
+        }
+
+        for (int i = 0; i < PosteLuz.size(); i++) {
+            Rectangle rectMuro = PosteLuz[i]->GetObstaculo()->CrearRectangle();
+
+            if (rectPersonaje.IntersectsWith(rectMuro)) {
                 return true;
             }
         }
@@ -205,6 +223,27 @@ public:
 
     void DibujarPeny(Graphics^ g, Bitmap^ bmp) {
             Peny->Dibujar(g, bmp);
+    }
+
+    // =============
+    // Poste de Luz
+    // =============
+
+    void AgregarPosteLuz(int x, int y, int ancho, int alto) {
+        PosteLuz.push_back(new Muro(x, y, 0, ancho, alto, true));
+    }
+
+    void DibujarPosteLuz(Graphics^ g, Bitmap^ bmp) {
+        for (int i = 0; i < PosteLuz.size(); i++) {
+            PosteLuz[i]->Dibujar(g, bmp);
+        }
+    }
+
+    void LimpiarPosteLuz() {
+        for (int i = 0; i < PosteLuz.size(); i++) {
+            delete PosteLuz[i];
+        }
+        PosteLuz.clear();
     }
 
     // =======

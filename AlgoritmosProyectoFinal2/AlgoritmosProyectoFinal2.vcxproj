@@ -140,6 +140,7 @@
     <ClInclude Include="Mancha.h" />
     <ClInclude Include="MiguelOhara.h" />
     <ClInclude Include="MilesMorales.h" />
+    <ClInclude Include="Muro.h" />
     <ClInclude Include="NivelesRitmo.h" />
     <ClInclude Include="NivelMiguel.h">
       <FileType>CppForm</FileType>
