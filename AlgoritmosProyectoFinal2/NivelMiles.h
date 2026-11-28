@@ -42,8 +42,6 @@ namespace AlgoritmosProyectoFinal2 {
 			controladora->LimpiarObjetos();
 			controladora->LimpiarPuertas();
 
-			controladora->GenerarPeny(60, 320, 50, 50);
-
 			controladora->GenerarObstaculo(0, 0, 0, 223, 300);
 			controladora->GenerarObstaculo(0, 223, 0, 680 - 223, 130);
 			controladora->GenerarObstaculo(433, 0, 0, 284, 10);
@@ -151,6 +149,9 @@ namespace AlgoritmosProyectoFinal2 {
 			case 5: CargarNivel4(); break;
 			}
 			if (sala != 1) {  
+				if (gwen->GetPersigue()) {
+					gwen->SetX(px); gwen->SetY(py); gwen->SetExsistencia(true);
+				}
 				miles->SetPX(px);
 				miles->SetPY(py);
 				xEntrada = px; 
@@ -626,10 +627,10 @@ namespace AlgoritmosProyectoFinal2 {
 		CargarRecursosPersecucion();
 
 		miles = new MilesMorales(350, 50, 64, 64, 100, 4, 4, 100, 100, 0, "Miles", 'S', 1, 1);
-		gwen = new Gwen(535, 105, 1, bmpGwen->Width, bmpGwen->Height, true, 0);
-		enemigo1 = new EnemigoPerseguidor(640, 356, 1, bmpEnemigo->Width, bmpEnemigo->Height, true, 0);
-		enemigo2 = new EnemigoPerseguidor(400, 400, 1, bmpEnemigo->Width, bmpEnemigo->Height, true, 0);
-		enemigo3 = new EnemigoPerseguidor(210, 220, 1, bmpEnemigo->Width, bmpEnemigo->Height, true, 0);
+		gwen = new Gwen(532, 128, 4, bmpGwen->Width, bmpGwen->Height, true, 0);
+		enemigo1 = new EnemigoPerseguidor(640, 356, 2, bmpEnemigo->Width, bmpEnemigo->Height, true, 0);
+		enemigo2 = new EnemigoPerseguidor(400, 400, 2, bmpEnemigo->Width, bmpEnemigo->Height, true, 0);
+		enemigo3 = new EnemigoPerseguidor(210, 220, 2, bmpEnemigo->Width, bmpEnemigo->Height, true, 0);
 		novela = gcnew NovelaVisual(pnlTexto);
 		novela->Iniciar(3);
 		IrASala(1, 350, 50);
@@ -644,9 +645,9 @@ namespace AlgoritmosProyectoFinal2 {
 		}
 	}
 	private: void DibujarMiles(Graphics^ g) {
-		if (miles->EstaInmune() && (miles->GetTiempoInmunidad() / 3) % 2 == 0) return;   // parpadea tras un golpe (igual que en la persecucion)
+		if (miles->EstaInmune() && (miles->GetTiempoInmunidad() / 3) % 2 == 0) return; // parpadeo
 		Bitmap^ sprite;
-		if (miles->GetInvisibilidad()) sprite = bmpMilesInvisible; else sprite = bmpMiles;
+		if (miles->GetInvisibilidad()) sprite = bmpMilesInvisible; else sprite = bmpMiles; // transparencia
 		miles->Dibujar(g, sprite);
 	}
 	private: void ReiniciarSala() {
@@ -682,36 +683,33 @@ namespace AlgoritmosProyectoFinal2 {
 
 		if (pnlJuego1->Visible == true) {
 			buffer1->Graphics->DrawImage(bmpMapa1, 0, 0, pnlJuego1->Width * 1.0, pnlJuego1->Height * 1.0);
-			DibujarMiles(buffer1->Graphics);
 			if (gwen->GetPersigue()) {
 				gwen->Perseguir(miles, controladora->GetObstaculos());
 			}
 			if (!gwen->GetPersigue() && gwen->CrearRectangle().IntersectsWith(miles->CrearRectangle())) {
-				//for (int i = 0; i < 7 ; i++) { TextMilesConGwen(i); }
 				novela->Iniciar(3);
 				gwen->SetPersigue(true);
 			}
 			gwen->Dibujar(buffer1->Graphics, bmpGwen);
+			DibujarMiles(buffer1->Graphics);
 			DibujarDebug(buffer1->Graphics, pnlJuego1);
 			buffer1->Render(gr1);
 		}
 		if (pnlJuego2->Visible == true) {
 			buffer2->Graphics->DrawImage(bmpMapa2, 0, 0, pnlJuego2->Width * 1.0, pnlJuego2->Height * 1.0);
-			DibujarMiles(buffer2->Graphics);
 			if (gwen->GetPersigue()) {
 				gwen->Perseguir(miles, controladora->GetObstaculos());
 				gwen->Dibujar(buffer2->Graphics, bmpGwen);
 			}
 			if (!dialogo) ActualizarEnemigo(enemigo1);
 			enemigo1->Dibujar(buffer2->Graphics, bmpEnemigo);
+			DibujarMiles(buffer2->Graphics);
 			DibujarDebug(buffer2->Graphics, pnlJuego2);
 			buffer2->Render(gr2);
 		}
 		if (pnlJuego3->Visible == true) {
 			buffer3->Graphics->DrawImage(bmpMapa3, 0, 0, pnlJuego3->Width * 1.0, pnlJuego3->Height * 1.0);
 			controladora->DibujarPlacas(buffer3->Graphics, bmpBotonSin, bmpBotonPres, bmpPuertaCerrada, bmpPuertaAbierta);
-
-			DibujarMiles(buffer3->Graphics);
 			if (gwen->GetPersigue()) {
 				gwen->Perseguir(miles, controladora->GetObstaculos());
 				gwen->Dibujar(buffer3->Graphics, bmpGwen);
@@ -721,13 +719,13 @@ namespace AlgoritmosProyectoFinal2 {
 				controladora->ActualizarPlacas(enemigo2);
 			}
 			enemigo2->Dibujar(buffer3->Graphics, bmpEnemigo);
+			DibujarMiles(buffer3->Graphics);
 			DibujarDebug(buffer3->Graphics, pnlJuego3);
 			buffer3->Render(gr3);
 		}
 		if (pnlJuego4->Visible == true) {
 			buffer4->Graphics->DrawImage(bmpMapa4, 0, 0, pnlJuego4->Width * 1.0, pnlJuego4->Height * 1.0);
 			controladora->DibujarPlacas(buffer4->Graphics, bmpBotonSin, bmpBotonPres, bmpPuertaCerrada, bmpPuertaAbierta);
-			DibujarMiles(buffer4->Graphics);
 			if (gwen->GetPersigue()) {
 				gwen->Perseguir(miles, controladora->GetObstaculos());
 				gwen->Dibujar(buffer4->Graphics, bmpGwen);
@@ -737,6 +735,7 @@ namespace AlgoritmosProyectoFinal2 {
 				controladora->ActualizarPlacas(enemigo3);
 			}
 			enemigo3->Dibujar(buffer4->Graphics, bmpEnemigo);
+			DibujarMiles(buffer4->Graphics);
 			DibujarDebug(buffer4->Graphics, pnlJuego4);
 			buffer4->Render(gr4);
 		}
@@ -783,10 +782,6 @@ namespace AlgoritmosProyectoFinal2 {
 		Puerta* puerta = controladora->PuertaColisionando(miles);
 		if (puerta != nullptr) {
 			IrASala(puerta->GetNivelDestino(), puerta->GetXDestino(), puerta->GetYDestino());
-			if (gwen->GetPersigue()) {
-				gwen->SetX(puerta->GetXDestino()); gwen->SetY(puerta->GetYDestino());
-				gwen->SetExsistencia(true);
-			}
 		}
 	}
 	private: System::Void NivelMiles_FormClosing(System::Object^ sender, System::Windows::Forms::FormClosingEventArgs^ e) {
@@ -907,7 +902,6 @@ namespace AlgoritmosProyectoFinal2 {
 			CargarNivel4();
 		}
 	}
-
 	private: void CargarRecursosPersecucion() {
 		bmpMiguel = gcnew Bitmap("Imagenes/MiguelOhara.png");
 

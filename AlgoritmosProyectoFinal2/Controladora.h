@@ -151,9 +151,6 @@ public:
         Objeto* ent = new Objeto(x, y, velocidad, alto, ancho, true);
         objetos.push_back(ent);
     }
-
-
-
     void DibujarObjetos(Graphics^ g, Bitmap^ bmp) {
         for (int i = 0; i < objetos.size(); i++) {
             objetos[i]->Dibujar(g, bmp);
@@ -287,48 +284,38 @@ public:
         }
         Cerca2.clear();
     }
-    
     void AgregarConos1(int x, int y, int ancho, int alto) {
         Conos1.push_back(new Muro(x, y, 0, ancho, alto, true));
     }
-
     void DibujarConos1(Graphics^ g, Bitmap^ bmp) {
         for (int i = 0; i < Conos1.size(); i++) {
             Conos1[i]->Dibujar(g, bmp);
         }
     }
-
-
     void AgregarConos2(int x, int y, int ancho, int alto) {
         Conos2.push_back(new Muro(x, y, 0, ancho, alto, true));
     }
-
     void DibujarConos2(Graphics^ g, Bitmap^ bmp) {
         for (int i = 0; i < Conos2.size(); i++) {
             Conos2[i]->Dibujar(g, bmp);
         }
     }
-
     void AgregarCerca1(int x, int y, int ancho, int alto) {
         Cerca1.push_back(new Muro(x, y, 0, ancho, alto, true));
     }
-
     void DibujarCerca1(Graphics^ g, Bitmap^ bmp) {
         for (int i = 0; i < Cerca1.size(); i++) {
             Cerca1[i]->Dibujar(g, bmp);
         }
     }
-
     void AgregarCerca2(int x, int y, int ancho, int alto) {
         Cerca2.push_back(new Muro(x, y, 0, ancho, alto, true));
     }
-
     void DibujarCerca2(Graphics^ g, Bitmap^ bmp) {
         for (int i = 0; i < Cerca2.size(); i++) {
             Cerca2[i]->Dibujar(g, bmp);
         }
     }
-
     void DibujarSolidos(Graphics^ g, Bitmap^ bmp1, Bitmap^ bmp2, Bitmap^ bmp3, Bitmap^ bmp4, Bitmap^ bmp5) {
         DibujarPosteLuz(g, bmp1);
         DibujarConos1(g, bmp2);
@@ -403,7 +390,6 @@ public:
     // =========
 
     void GenerarProyectilHorizontal() {
-
         int coordenadas[6][2] = {
             {1150, 450},
             {1150, 520},
@@ -412,7 +398,6 @@ public:
             {20, 520},
             {20, 590}
         };
-
         int aleatorio = rand() % 6;
         int x = coordenadas[aleatorio][0];
         int y = coordenadas[aleatorio][1];
@@ -421,36 +406,27 @@ public:
         nuevo->SetVelocidadVertical(0);
         proyectilesHorizontales.push_back(nuevo);
     }
-
     void ActualizarProyectilesHorizontales(
         Protagonista* protagonista, int anchoMapa) {
         contadorProyectiles++;
-
         if (contadorProyectiles >= intervaloProyectiles) {
-
             GenerarProyectilHorizontal();
             contadorProyectiles = 0;
         }
-
         for (int i = 0; i < proyectilesHorizontales.size(); i++) {
-
             proyectilesHorizontales[i]->Mover();
             Rectangle rectProyectil = proyectilesHorizontales[i]->CrearRectangle();
-
             if (rectProyectil.IntersectsWith(
                 protagonista->CrearRectangle())) {
                 protagonista->SetVida(max(0.0f, protagonista->GetVida() - 10));
                 proyectilesHorizontales[i]->SetExsistencia(false);
             }
-
             if (proyectilesHorizontales[i]->GetX() <= 0 ||
                 proyectilesHorizontales[i]->GetX() +
                 proyectilesHorizontales[i]->GetAncho() >= anchoMapa) {
                 proyectilesHorizontales[i]->SetExsistencia(false);
             }
-
             if (!proyectilesHorizontales[i]->GetExistencia()) {
-
                 delete proyectilesHorizontales[i];
                 proyectilesHorizontales.erase(proyectilesHorizontales.begin() + i);
                 i--;
@@ -469,14 +445,11 @@ public:
     // =========
 
     void Disparar(Protagonista* personaje) {
-
         int x = personaje->GetPX();
         int y = personaje->GetPY();
         proyectiles.push_back(new Proyectil(x, y, personaje->GetMirada()));
     }
-
     void ActualizarProyectiles(int ancho, int alto) {
-
         for (int i = 0; i < proyectiles.size(); i++) {
             proyectiles[i]->Mover();
             Rectangle rectProyectil = proyectiles[i]->CrearRectangle();
@@ -524,7 +497,6 @@ public:
     // =========
 
     void LimpiarProyectiles() {
-
         for (int i = 0; i < proyectiles.size(); i++) { delete proyectiles[i]; }
         proyectiles.clear();
     }
