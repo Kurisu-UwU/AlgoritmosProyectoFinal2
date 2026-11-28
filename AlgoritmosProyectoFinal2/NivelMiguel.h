@@ -118,6 +118,10 @@ namespace AlgoritmosProyectoFinal2 {
 			controladora->AgregarPosteLuz(720, 370, 60, 15);
 			controladora->AgregarPosteLuz(480, 370, 60, 15);
 
+			controladora->AgregarConos1(1150, 280, 60, 60);
+			controladora->AgregarConos2(1150, 340, 60, 60);
+			controladora->AgregarConos2(1080, 320, 60, 60);
+
 			controladora->GenerarPuerta(35, 260, 75, 150, 18, 1000, 340);   // (x, y, ancho, alto, salaDestino, xLlegada, yLlegada)
 			controladora->GenerarPuerta(0, 650, 1210, 30, 6, 590, 40);   // (x, y, ancho, alto, salaDestino, xLlegada, yLlegada) hacia abajo
 		}
@@ -137,6 +141,10 @@ namespace AlgoritmosProyectoFinal2 {
 			controladora->AgregarPosteLuz(720, 370, 60, 15);
 			controladora->AgregarPosteLuz(480, 370, 60, 15);
 
+			controladora->AgregarCerca1(40, 300, 60, 60);
+			controladora->AgregarCerca2(40, 340, 60, 60);
+			controladora->AgregarCerca2(80, 260, 60, 60);
+
 			controladora->GenerarPuerta(0, 650, 1210, 30, 7, 590, 40);   // (x, y, ancho, alto, salaDestino, xLlegada, yLlegada) hacia abajo
 			controladora->GenerarPuerta(1100, 260, 75, 150, 22, 150, 340);   // (x, y, ancho, alto, salaDestino, xLlegada, yLlegada)
 		}
@@ -150,6 +158,10 @@ namespace AlgoritmosProyectoFinal2 {
 
 			controladora->GenerarObstaculo(0, 0, 0, 225, 1210);
 			controladora->GenerarObstaculo(0, 415, 0, 225, 1210);
+
+			controladora->AgregarCerca1(40, 300, 60, 60);
+			controladora->AgregarCerca2(40, 340, 60, 60);
+			controladora->AgregarCerca2(80, 260, 60, 60);
 
 			controladora->GenerarPuerta(1200, 0, 30, 840, 4, 60, 340);   // (x, y, ancho, alto, salaDestino, xLlegada, yLlegada) hacia la derecha
 		}
@@ -167,6 +179,10 @@ namespace AlgoritmosProyectoFinal2 {
 
 			controladora->AgregarPosteLuz(720, 370, 60, 15);
 			controladora->AgregarPosteLuz(480, 370, 60, 15);
+
+			controladora->AgregarConos1(1150, 280, 60, 60);
+			controladora->AgregarConos2(1150, 340, 60, 60);
+			controladora->AgregarConos2(1080, 320, 60, 60);
 
 			controladora->GenerarPuerta(0, 0, 30, 840, 3, 1120, 340);   // (x, y, ancho, alto, salaDestino, xLlegada, yLlegada) hacia la izquierda
 			controladora->GenerarPuerta(0, 650, 1210, 30, 9, 590, 40);   // (x, y, ancho, alto, salaDestino, xLlegada, yLlegada) hacia abajo
@@ -186,6 +202,14 @@ namespace AlgoritmosProyectoFinal2 {
 			controladora->AgregarPosteLuz(720, 370, 60, 15);
 			controladora->AgregarPosteLuz(480, 370, 60, 15);
 
+			controladora->AgregarCerca1(40, 300, 60, 60);
+			controladora->AgregarCerca2(40, 340, 60, 60);
+			controladora->AgregarCerca2(80, 260, 60, 60);
+
+			controladora->AgregarConos1(1150, 280, 60, 60);
+			controladora->AgregarConos2(1150, 340, 60, 60);
+			controladora->AgregarConos2(1080, 320, 60, 60);
+
 			controladora->GenerarPuerta(0, 650, 1210, 30, 10, 590, 40);   // (x, y, ancho, alto, salaDestino, xLlegada, yLlegada) hacia abajo
 
 		}
@@ -203,6 +227,10 @@ namespace AlgoritmosProyectoFinal2 {
 
 			controladora->AgregarPosteLuz(480, 200, 60, 15);
 			controladora->AgregarPosteLuz(720, 200, 60, 15);
+
+			controladora->AgregarCerca1(40, 300, 60, 60);
+			controladora->AgregarCerca2(40, 340, 60, 60);
+			controladora->AgregarCerca2(80, 260, 60, 60);
 
 			controladora->GenerarPuerta(1200, 0, 30, 840, 7, 60, 340);   // (x, y, ancho, alto, salaDestino, xLlegada, yLlegada) hacia la derecha
 			controladora->GenerarPuerta(0, 0, 1210, 30, 1, 590, 580);   // (x, y, ancho, alto, salaDestino, xLlegada, yLlegada) hacia arriba
@@ -278,6 +306,10 @@ namespace AlgoritmosProyectoFinal2 {
 			controladora->AgregarPosteLuz(480, 200, 60, 15);
 			controladora->AgregarPosteLuz(720, 200, 60, 15);
 
+			controladora->AgregarConos1(1150, 280, 60, 60);
+			controladora->AgregarConos2(1150, 340, 60, 60);
+			controladora->AgregarConos2(1080, 320, 60, 60);
+
 			controladora->GenerarPuerta(0, 0, 1210, 30, 5, 590, 580);   // (x, y, ancho, alto, salaDestino, xLlegada, yLlegada) hacia arriba
 			controladora->GenerarPuerta(0, 0, 30, 840, 9, 1120, 340);   // (x, y, ancho, alto, salaDestino, xLlegada, yLlegada) hacia la izquierda
 		}
@@ -298,6 +330,14 @@ namespace AlgoritmosProyectoFinal2 {
 			controladora->AgregarPosteLuz(720, 370, 60, 15);
 			controladora->AgregarPosteLuz(480, 370, 60, 15);
 
+			controladora->AgregarCerca1(40, 300, 60, 60);
+			controladora->AgregarCerca2(40, 340, 60, 60);
+			controladora->AgregarCerca2(80, 260, 60, 60);
+
+			controladora->AgregarConos1(1150, 280, 60, 60);
+			controladora->AgregarConos2(1150, 340, 60, 60);
+			controladora->AgregarConos2(1080, 320, 60, 60);
+
 			controladora->GenerarPuerta(0, 650, 1210, 30, 16, 590, 40);   // (x, y, ancho, alto, salaDestino, xLlegada, yLlegada) hacia abajo
 		}
 
@@ -310,6 +350,10 @@ namespace AlgoritmosProyectoFinal2 {
 
 			controladora->GenerarObstaculo(0, 0, 0, 225, 1210);
 			controladora->GenerarObstaculo(0, 415, 0, 225, 1210);
+
+			controladora->AgregarCerca1(40, 300, 60, 60);
+			controladora->AgregarCerca2(40, 340, 60, 60);
+			controladora->AgregarCerca2(80, 260, 60, 60);
 
 			controladora->GenerarPuerta(1200, 0, 30, 840, 13, 60, 340);   // (x, y, ancho, alto, salaDestino, xLlegada, yLlegada) hacia la derecha
 		}
@@ -360,10 +404,14 @@ namespace AlgoritmosProyectoFinal2 {
 			controladora->GenerarObstaculo(0, 415, 0, 225, 450);
 			controladora->GenerarObstaculo(760, 415, 0, 225, 450);
 
-			controladora->AgregarMancha(35, 260, 75, 150);
+			controladora->AgregarMancha(1100, 260, 75, 150);
 
 			controladora->AgregarPosteLuz(720, 370, 60, 15);
 			controladora->AgregarPosteLuz(480, 370, 60, 15);
+
+			controladora->AgregarCerca1(40, 300, 60, 60);
+			controladora->AgregarCerca2(40, 340, 60, 60);
+			controladora->AgregarCerca2(80, 260, 60, 60);
 
 			controladora->GenerarPuerta(1100, 260, 75, 150, 9, 150, 340);   // (x, y, ancho, alto, salaDestino, xLlegada, yLlegada)
 			controladora->GenerarPuerta(0, 650, 1210, 30, 20, 590, 40);   // (x, y, ancho, alto, salaDestino, xLlegada, yLlegada) hacia abajo
@@ -385,6 +433,10 @@ namespace AlgoritmosProyectoFinal2 {
 			controladora->AgregarPosteLuz(720, 370, 60, 15);
 			controladora->AgregarPosteLuz(480, 370, 60, 15);
 			controladora->AgregarPosteLuz(720, 200, 60, 15);
+
+			controladora->AgregarCerca1(40, 300, 60, 60);
+			controladora->AgregarCerca2(40, 340, 60, 60);
+			controladora->AgregarCerca2(80, 260, 60, 60);
 
 			controladora->GenerarPuerta(1200, 0, 30, 840, 17, 60, 340);   // (x, y, ancho, alto, salaDestino, xLlegada, yLlegada) hacia la derecha
 			controladora->GenerarPuerta(0, 0, 1210, 30, 11, 590, 580);   // (x, y, ancho, alto, salaDestino, xLlegada, yLlegada) hacia arriba
@@ -437,6 +489,10 @@ namespace AlgoritmosProyectoFinal2 {
 			controladora->AgregarPosteLuz(480, 200, 60, 15);
 			controladora->AgregarPosteLuz(720, 200, 60, 15);
 
+			controladora->AgregarCerca1(40, 300, 60, 60);
+			controladora->AgregarCerca2(40, 340, 60, 60);
+			controladora->AgregarCerca2(80, 260, 60, 60);
+
 			controladora->GenerarPuerta(1200, 0, 30, 840, 20, 60, 340);   // (x, y, ancho, alto, salaDestino, xLlegada, yLlegada) hacia la derecha
 			controladora->GenerarPuerta(0, 0, 1210, 30, 14, 590, 580);   // (x, y, ancho, alto, salaDestino, xLlegada, yLlegada) hacia arriba
 		}
@@ -448,8 +504,6 @@ namespace AlgoritmosProyectoFinal2 {
 			controladora->LimpiarObjetos();
 			controladora->LimpiarPuertas();
 
-			controladora->GenerarPeny(60, 320, 50, 50);
-
 			controladora->GenerarObstaculo(0, 0, 0, 225, 450);
 			controladora->GenerarObstaculo(760, 0, 0, 225, 450);
 			controladora->GenerarObstaculo(0, 415, 0, 225, 450);
@@ -459,6 +513,10 @@ namespace AlgoritmosProyectoFinal2 {
 			controladora->AgregarPosteLuz(720, 200, 60, 15);
 			controladora->AgregarPosteLuz(720, 370, 60, 15);
 			controladora->AgregarPosteLuz(480, 370, 60, 15);
+
+			controladora->AgregarConos1(1150, 280, 60, 60);
+			controladora->AgregarConos2(1150, 340, 60, 60);
+			controladora->AgregarConos2(1080, 320, 60, 60);
 
 			controladora->GenerarPuerta(0, 0, 30, 840, 19, 1120, 340);   // (x, y, ancho, alto, salaDestino, xLlegada, yLlegada) hacia la izquierda
 			controladora->GenerarPuerta(0, 0, 1210, 30, 15, 590, 580);   // (x, y, ancho, alto, salaDestino, xLlegada, yLlegada) hacia arriba
@@ -478,6 +536,14 @@ namespace AlgoritmosProyectoFinal2 {
 
 			controladora->AgregarPosteLuz(480, 200, 60, 15);
 			controladora->AgregarPosteLuz(720, 200, 60, 15);
+
+			controladora->AgregarCerca1(40, 300, 60, 60);
+			controladora->AgregarCerca2(40, 340, 60, 60);
+			controladora->AgregarCerca2(80, 260, 60, 60);
+
+			controladora->AgregarConos1(1150, 280, 60, 60);
+			controladora->AgregarConos2(1150, 340, 60, 60);
+			controladora->AgregarConos2(1080, 320, 60, 60);
 
 			controladora->GenerarPuerta(0, 0, 1210, 30, 16, 590, 580);   // (x, y, ancho, alto, salaDestino, xLlegada, yLlegada)
 		}
@@ -522,6 +588,10 @@ namespace AlgoritmosProyectoFinal2 {
 			controladora->GenerarObstaculo(0, 0, 0, 225, 1210);
 			controladora->GenerarObstaculo(0, 415, 0, 225, 1210);
 
+			controladora->AgregarConos1(1150, 280, 60, 60);
+			controladora->AgregarConos2(1150, 340, 60, 60);
+			controladora->AgregarConos2(1080, 320, 60, 60);
+
 			controladora->GenerarPuerta(0, 0, 30, 840, 23, 1120, 340);   // (x, y, ancho, alto, salaDestino, xLlegada, yLlegada) hacia la izquierda
 		}
 
@@ -538,6 +608,14 @@ namespace AlgoritmosProyectoFinal2 {
 
 			controladora->AgregarPosteLuz(480, 200, 60, 15);
 			controladora->AgregarPosteLuz(720, 200, 60, 15);
+
+			controladora->AgregarCerca1(40, 300, 60, 60);
+			controladora->AgregarCerca2(40, 340, 60, 60);
+			controladora->AgregarCerca2(80, 260, 60, 60);
+
+			controladora->AgregarConos1(1150, 280, 60, 60);
+			controladora->AgregarConos2(1150, 340, 60, 60);
+			controladora->AgregarConos2(1080, 320, 60, 60);
 
 			controladora->GenerarPuerta(0, 0, 1210, 30, 20, 590, 580);   // (x, y, ancho, alto, salaDestino, xLlegada, yLlegada) hacia arriba
 
@@ -712,6 +790,10 @@ protected private:
 		Bitmap^ bmpPanelControl;
 		Bitmap^ bmpMancha;
 		Bitmap^ bmpLuz;
+		Bitmap^ bmpCono1;
+		Bitmap^ bmpCono2;
+		Bitmap^ bmpCerca1;
+		Bitmap^ bmpCerca2;
 
 		NovelaVisual^ novela;
 		MiguelOhara* miguel;
@@ -1292,6 +1374,10 @@ private: System::Windows::Forms::Timer^ timerAnimacion;
 		bmpPanelControl = gcnew Bitmap("Imagenes/PanelControl.png");
 		bmpMancha = gcnew Bitmap("Imagenes/ManchaSpot.png");
 		bmpLuz = gcnew Bitmap("Imagenes/PosteLuz.png");
+		bmpCono1 = gcnew Bitmap("Imagenes/Conos1.png");
+		bmpCono2 = gcnew Bitmap("Imagenes/Conos4.png");
+		bmpCerca1 = gcnew Bitmap("Imagenes/Cerca1.png");
+		bmpCerca2 = gcnew Bitmap("Imagenes/Cerca2.png");
 
 		miguel = new MiguelOhara(100, 300, 64, 64, 100, 20, 20, 100, 100, 0, "Miguel", 'S', 1, 1);
 		IrASala(16, 100, 300);
@@ -1347,7 +1433,7 @@ private: System::Void timerJuego_Tick(System::Object^ sender, System::EventArgs^
 		buffer1->Graphics->DrawImage(bmpMapa2, 0, 0, pnlJuego1->Width * 1.0, pnlJuego1->Height * 1.0);
 		miguel->Dibujar(buffer1->Graphics, bmpMiguel);
 		controladora->DibujarManchas(buffer1->Graphics, bmpMancha);
-		controladora->DibujarPosteLuz(buffer1->Graphics, bmpLuz);
+		controladora->DibujarSolidos(buffer1->Graphics, bmpLuz, bmpCono1, bmpCono2, bmpCerca1, bmpCerca2);
 		DibujarDebug(buffer1->Graphics, pnlJuego1);
 		buffer1->Render(gr1);
 	}
@@ -1356,7 +1442,7 @@ private: System::Void timerJuego_Tick(System::Object^ sender, System::EventArgs^
 		buffer2->Graphics->DrawImage(bmpMapa2, 0, 0, pnlJuego2->Width * 1.0, pnlJuego2->Height * 1.0);
 		miguel->Dibujar(buffer2->Graphics, bmpMiguel);
 		controladora->DibujarManchas(buffer2->Graphics, bmpMancha);
-		controladora->DibujarPosteLuz(buffer2->Graphics, bmpLuz);
+		controladora->DibujarSolidos(buffer2->Graphics, bmpLuz, bmpCono1, bmpCono2, bmpCerca1, bmpCerca2);
 		DibujarDebug(buffer2->Graphics, pnlJuego2);
 		buffer2->Render(gr2);
 	}
@@ -1364,7 +1450,7 @@ private: System::Void timerJuego_Tick(System::Object^ sender, System::EventArgs^
 	if (pnlJuego3->Visible == true) {
 		buffer3->Graphics->DrawImage(bmpMapa4, 0, 0, pnlJuego3->Width * 1.0, pnlJuego3->Height * 1.0);
 		miguel->Dibujar(buffer3->Graphics, bmpMiguel);
-		controladora->DibujarPosteLuz(buffer3->Graphics, bmpLuz);
+		controladora->DibujarSolidos(buffer3->Graphics, bmpLuz, bmpCono1, bmpCono2, bmpCerca1, bmpCerca2);
 		DibujarDebug(buffer3->Graphics, pnlJuego3);
 		buffer3->Render(gr3);
 	}
@@ -1373,7 +1459,7 @@ private: System::Void timerJuego_Tick(System::Object^ sender, System::EventArgs^
 		buffer4->Graphics->DrawImage(bmpMapa2, 0, 0, pnlJuego4->Width * 1.0, pnlJuego4->Height * 1.0);
 		miguel->Dibujar(buffer4->Graphics, bmpMiguel);
 		DibujarDebug(buffer4->Graphics, pnlJuego4);
-		controladora->DibujarPosteLuz(buffer4->Graphics, bmpLuz);
+		controladora->DibujarSolidos(buffer4->Graphics, bmpLuz, bmpCono1, bmpCono2, bmpCerca1, bmpCerca2);
 		buffer4->Render(gr4);
 	}
 
@@ -1381,7 +1467,7 @@ private: System::Void timerJuego_Tick(System::Object^ sender, System::EventArgs^
 		buffer5->Graphics->DrawImage(bmpMapa2, 0, 0, pnlJuego5->Width * 1.0, pnlJuego5->Height * 1.0);
 		miguel->Dibujar(buffer5->Graphics, bmpMiguel);
 		DibujarDebug(buffer5->Graphics, pnlJuego5);
-		controladora->DibujarPosteLuz(buffer5->Graphics, bmpLuz);
+		controladora->DibujarSolidos(buffer5->Graphics, bmpLuz, bmpCono1, bmpCono2, bmpCerca1, bmpCerca2);
 		buffer5->Render(gr5);
 	}
 
@@ -1389,7 +1475,7 @@ private: System::Void timerJuego_Tick(System::Object^ sender, System::EventArgs^
 		buffer6->Graphics->DrawImage(bmpMapa3, 0, 0, pnlJuego6->Width * 1.0, pnlJuego6->Height * 1.0);
 		miguel->Dibujar(buffer6->Graphics, bmpMiguel);
 		DibujarDebug(buffer6->Graphics, pnlJuego6);
-		controladora->DibujarPosteLuz(buffer6->Graphics, bmpLuz);
+		controladora->DibujarSolidos(buffer6->Graphics, bmpLuz, bmpCono1, bmpCono2, bmpCerca1, bmpCerca2);
 		buffer6->Render(gr6);
 	}
 
@@ -1397,7 +1483,7 @@ private: System::Void timerJuego_Tick(System::Object^ sender, System::EventArgs^
 		buffer7->Graphics->DrawImage(bmpMapa3, 0, 0, pnlJuego7->Width * 1.0, pnlJuego7->Height * 1.0);
 		miguel->Dibujar(buffer7->Graphics, bmpMiguel);
 		DibujarDebug(buffer7->Graphics, pnlJuego7);
-		controladora->DibujarPosteLuz(buffer7->Graphics, bmpLuz);
+		controladora->DibujarSolidos(buffer7->Graphics, bmpLuz, bmpCono1, bmpCono2, bmpCerca1, bmpCerca2);
 		buffer7->Render(gr7);
 	}
 
@@ -1405,7 +1491,7 @@ private: System::Void timerJuego_Tick(System::Object^ sender, System::EventArgs^
 		buffer8->Graphics->DrawImage(bmpMapa4, 0, 0, pnlJuego8->Width * 1.0, pnlJuego8->Height * 1.0);
 		miguel->Dibujar(buffer8->Graphics, bmpMiguel);
 		controladora->DibujarManchas(buffer8->Graphics, bmpMancha);
-		controladora->DibujarPosteLuz(buffer8->Graphics, bmpLuz);
+		controladora->DibujarSolidos(buffer8->Graphics, bmpLuz, bmpCono1, bmpCono2, bmpCerca1, bmpCerca2);
 		DibujarDebug(buffer8->Graphics, pnlJuego8);
 		buffer8->Render(gr8);
 	}
@@ -1415,14 +1501,14 @@ private: System::Void timerJuego_Tick(System::Object^ sender, System::EventArgs^
 		miguel->Dibujar(buffer9->Graphics, bmpMiguel);
 		controladora->DibujarManchas(buffer9->Graphics, bmpMancha);
 		DibujarDebug(buffer9->Graphics, pnlJuego9);
-		controladora->DibujarPosteLuz(buffer9->Graphics, bmpLuz);
+		controladora->DibujarSolidos(buffer9->Graphics, bmpLuz, bmpCono1, bmpCono2, bmpCerca1, bmpCerca2);
 		buffer9->Render(gr9);
 	}
 
 	if (pnlJuego10->Visible == true) {
 		buffer10->Graphics->DrawImage(bmpMapa3, 0, 0, pnlJuego10->Width * 1.0, pnlJuego10->Height * 1.0);
 		miguel->Dibujar(buffer10->Graphics, bmpMiguel);
-		controladora->DibujarPosteLuz(buffer10->Graphics, bmpLuz);
+		controladora->DibujarSolidos(buffer10->Graphics, bmpLuz, bmpCono1, bmpCono2, bmpCerca1, bmpCerca2);
 		DibujarDebug(buffer10->Graphics, pnlJuego10);
 		buffer10->Render(gr10);
 	}
@@ -1431,7 +1517,7 @@ private: System::Void timerJuego_Tick(System::Object^ sender, System::EventArgs^
 		buffer11->Graphics->DrawImage(bmpMapa2, 0, 0, pnlJuego11->Width * 1.0, pnlJuego11->Height * 1.0);
 		miguel->Dibujar(buffer11->Graphics, bmpMiguel);
 		DibujarDebug(buffer11->Graphics, pnlJuego11);
-		controladora->DibujarPosteLuz(buffer11->Graphics, bmpLuz);
+		controladora->DibujarSolidos(buffer11->Graphics, bmpLuz, bmpCono1, bmpCono2, bmpCerca1, bmpCerca2);
 		buffer11->Render(gr11);
 	}
 
@@ -1439,14 +1525,14 @@ private: System::Void timerJuego_Tick(System::Object^ sender, System::EventArgs^
 		buffer12->Graphics->DrawImage(bmpMapa4, 0, 0, pnlJuego12->Width * 1.0, pnlJuego12->Height * 1.0);
 		miguel->Dibujar(buffer12->Graphics, bmpMiguel);
 		DibujarDebug(buffer12->Graphics, pnlJuego12);
-		controladora->DibujarPosteLuz(buffer12->Graphics, bmpLuz);
+		controladora->DibujarSolidos(buffer12->Graphics, bmpLuz, bmpCono1, bmpCono2, bmpCerca1, bmpCerca2);
 		buffer12->Render(gr12);
 	}
 
 	if (pnlJuego13->Visible == true) {
 		buffer13->Graphics->DrawImage(bmpMapa4, 0, 0, pnlJuego13->Width * 1.0, pnlJuego13->Height * 1.0);
 		miguel->Dibujar(buffer13->Graphics, bmpMiguel);
-		controladora->DibujarPosteLuz(buffer13->Graphics, bmpLuz);
+		controladora->DibujarSolidos(buffer13->Graphics, bmpLuz, bmpCono1, bmpCono2, bmpCerca1, bmpCerca2);
 		DibujarDebug(buffer13->Graphics, pnlJuego13);
 		buffer13->Render(gr13);
 	}
@@ -1456,7 +1542,7 @@ private: System::Void timerJuego_Tick(System::Object^ sender, System::EventArgs^
 		miguel->Dibujar(buffer14->Graphics, bmpMiguel);
 		controladora->DibujarManchas(buffer14->Graphics, bmpMancha);
 		DibujarDebug(buffer14->Graphics, pnlJuego14);
-		controladora->DibujarPosteLuz(buffer14->Graphics, bmpLuz);
+		controladora->DibujarSolidos(buffer14->Graphics, bmpLuz, bmpCono1, bmpCono2, bmpCerca1, bmpCerca2);
 		buffer14->Render(gr14);
 	}
 
@@ -1464,7 +1550,7 @@ private: System::Void timerJuego_Tick(System::Object^ sender, System::EventArgs^
 		buffer15->Graphics->DrawImage(bmpMapa2, 0, 0, pnlJuego15->Width * 1.0, pnlJuego15->Height * 1.0);
 		miguel->Dibujar(buffer15->Graphics, bmpMiguel);
 		controladora->DibujarManchas(buffer15->Graphics, bmpMancha);
-		controladora->DibujarPosteLuz(buffer15->Graphics, bmpLuz);
+		controladora->DibujarSolidos(buffer15->Graphics, bmpLuz, bmpCono1, bmpCono2, bmpCerca1, bmpCerca2);
 		DibujarDebug(buffer15->Graphics, pnlJuego15);
 		buffer15->Render(gr15);
 	}
@@ -1472,7 +1558,7 @@ private: System::Void timerJuego_Tick(System::Object^ sender, System::EventArgs^
 	if (pnlJuego16->Visible == true) {
 		buffer16->Graphics->DrawImage(bmpMapa1, 0, 0, pnlJuego16->Width * 1.0, pnlJuego16->Height * 1.0);
 		miguel->Dibujar(buffer16->Graphics, bmpMiguel);
-		controladora->DibujarPosteLuz(buffer16->Graphics, bmpLuz);
+		controladora->DibujarSolidos(buffer16->Graphics, bmpLuz, bmpCono1, bmpCono2, bmpCerca1, bmpCerca2);
 		DibujarDebug(buffer16->Graphics, pnlJuego16);
 		buffer16->Render(gr16);
 	}
@@ -1480,7 +1566,7 @@ private: System::Void timerJuego_Tick(System::Object^ sender, System::EventArgs^
 	if (pnlJuego17->Visible == true) {
 		buffer17->Graphics->DrawImage(bmpMapa4, 0, 0, pnlJuego17->Width * 1.0, pnlJuego17->Height * 1.0);
 		miguel->Dibujar(buffer17->Graphics, bmpMiguel);
-		controladora->DibujarPosteLuz(buffer17->Graphics, bmpLuz);
+		controladora->DibujarSolidos(buffer17->Graphics, bmpLuz, bmpCono1, bmpCono2, bmpCerca1, bmpCerca2);
 		DibujarDebug(buffer17->Graphics, pnlJuego17);
 		buffer17->Render(gr17);
 	}
@@ -1489,7 +1575,7 @@ private: System::Void timerJuego_Tick(System::Object^ sender, System::EventArgs^
 		buffer18->Graphics->DrawImage(bmpMapa4, 0, 0, pnlJuego18->Width * 1.0, pnlJuego18->Height * 1.0);
 		miguel->Dibujar(buffer18->Graphics, bmpMiguel);
 		controladora->DibujarManchas(buffer18->Graphics, bmpMancha);
-		controladora->DibujarPosteLuz(buffer18->Graphics, bmpLuz);
+		controladora->DibujarSolidos(buffer18->Graphics, bmpLuz, bmpCono1, bmpCono2, bmpCerca1, bmpCerca2);
 		DibujarDebug(buffer18->Graphics, pnlJuego18);
 		buffer18->Render(gr18);
 	}
@@ -1497,7 +1583,7 @@ private: System::Void timerJuego_Tick(System::Object^ sender, System::EventArgs^
 	if (pnlJuego19->Visible == true) {
 		buffer19->Graphics->DrawImage(bmpMapa3, 0, 0, pnlJuego19->Width * 1.0, pnlJuego19->Height * 1.0);
 		miguel->Dibujar(buffer19->Graphics, bmpMiguel);
-		controladora->DibujarPosteLuz(buffer19->Graphics, bmpLuz);
+		controladora->DibujarSolidos(buffer19->Graphics, bmpLuz, bmpCono1, bmpCono2, bmpCerca1, bmpCerca2);
 		DibujarDebug(buffer19->Graphics, pnlJuego19);
 		buffer19->Render(gr19);
 	}
@@ -1505,7 +1591,7 @@ private: System::Void timerJuego_Tick(System::Object^ sender, System::EventArgs^
 	if (pnlJuego20->Visible == true) {
 		buffer20->Graphics->DrawImage(bmpMapa1, 0, 0, pnlJuego20->Width * 1.0, pnlJuego20->Height * 1.0);
 		miguel->Dibujar(buffer20->Graphics, bmpMiguel);
-		controladora->DibujarPosteLuz(buffer20->Graphics, bmpLuz);
+		controladora->DibujarSolidos(buffer20->Graphics, bmpLuz, bmpCono1, bmpCono2, bmpCerca1, bmpCerca2);
 		DibujarDebug(buffer20->Graphics, pnlJuego20);
 		buffer20->Render(gr20);
 	}
@@ -1514,7 +1600,7 @@ private: System::Void timerJuego_Tick(System::Object^ sender, System::EventArgs^
 		buffer21->Graphics->DrawImage(bmpMapa3, 0, 0, pnlJuego21->Width * 1.0, pnlJuego21->Height * 1.0);
 		miguel->Dibujar(buffer21->Graphics, bmpMiguel);
 		DibujarDebug(buffer21->Graphics, pnlJuego21);
-		controladora->DibujarPosteLuz(buffer21->Graphics, bmpLuz);
+		controladora->DibujarSolidos(buffer21->Graphics, bmpLuz, bmpCono1, bmpCono2, bmpCerca1, bmpCerca2);
 		buffer21->Render(gr21);
 	}
 
@@ -1522,7 +1608,7 @@ private: System::Void timerJuego_Tick(System::Object^ sender, System::EventArgs^
 		buffer22->Graphics->DrawImage(bmpMapa4, 0, 0, pnlJuego22->Width * 1.0, pnlJuego22->Height * 1.0);
 		miguel->Dibujar(buffer22->Graphics, bmpMiguel);
 		controladora->DibujarManchas(buffer22->Graphics, bmpMancha);
-		controladora->DibujarPosteLuz(buffer22->Graphics, bmpLuz);
+		controladora->DibujarSolidos(buffer22->Graphics, bmpLuz, bmpCono1, bmpCono2, bmpCerca1, bmpCerca2);
 		DibujarDebug(buffer22->Graphics, pnlJuego22);
 		buffer22->Render(gr22);
 	}
@@ -1530,7 +1616,7 @@ private: System::Void timerJuego_Tick(System::Object^ sender, System::EventArgs^
 	if (pnlJuego23->Visible == true) {
 		buffer23->Graphics->DrawImage(bmpMapa4, 0, 0, pnlJuego23->Width * 1.0, pnlJuego23->Height * 1.0);
 		miguel->Dibujar(buffer23->Graphics, bmpMiguel);
-		controladora->DibujarPosteLuz(buffer23->Graphics, bmpLuz);
+		controladora->DibujarSolidos(buffer23->Graphics, bmpLuz, bmpCono1, bmpCono2, bmpCerca1, bmpCerca2);
 		DibujarDebug(buffer23->Graphics, pnlJuego23);
 		buffer23->Render(gr23);
 	}
@@ -1539,14 +1625,14 @@ private: System::Void timerJuego_Tick(System::Object^ sender, System::EventArgs^
 		buffer24->Graphics->DrawImage(bmpMapa4, 0, 0, pnlJuego24->Width * 1.0, pnlJuego24->Height * 1.0);
 		miguel->Dibujar(buffer24->Graphics, bmpMiguel);
 		DibujarDebug(buffer24->Graphics, pnlJuego24);
-		controladora->DibujarPosteLuz(buffer24->Graphics, bmpLuz);
+		controladora->DibujarSolidos(buffer24->Graphics, bmpLuz, bmpCono1, bmpCono2, bmpCerca1, bmpCerca2);
 		buffer24->Render(gr24);
 	}
 
 	if (pnlJuego25->Visible == true) {
 		buffer25->Graphics->DrawImage(bmpMapa3, 0, 0, pnlJuego25->Width * 1.0, pnlJuego25->Height * 1.0);
 		miguel->Dibujar(buffer25->Graphics, bmpMiguel);
-		controladora->DibujarPosteLuz(buffer25->Graphics, bmpLuz);
+		controladora->DibujarSolidos(buffer25->Graphics, bmpLuz, bmpCono1, bmpCono2, bmpCerca1, bmpCerca2);
 		DibujarDebug(buffer25->Graphics, pnlJuego25);
 		buffer25->Render(gr25);
 	}
