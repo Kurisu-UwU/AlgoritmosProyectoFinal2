@@ -162,6 +162,7 @@
       <FileType>CppForm</FileType>
     </ClInclude>
     <ClInclude Include="Perseguidor.h" />
+    <ClInclude Include="PlacaPresion.h" />
     <ClInclude Include="Protagonistas.h" />
     <ClInclude Include="Proyectil.h" />
     <ClInclude Include="Proyectiles.h" />

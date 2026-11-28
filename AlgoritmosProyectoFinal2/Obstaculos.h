@@ -14,9 +14,10 @@ public:
 	}
 	~Obstaculos() {}
 	Rectangle CrearRectangle() {
+		if (!existencia) return Rectangle(-1000, -1000, 0, 0);   // obstaculo desactivado (puerta abierta): ya no estorba
 		return Rectangle(x, y, anchura, altura);
 	}
 	void Dibujar(Graphics^ g) {
-		g->DrawRectangle(Pens::Red, x, y, anchura, altura);
+		if (existencia) g->DrawRectangle(Pens::Red, x, y, anchura, altura);
 	}
 };

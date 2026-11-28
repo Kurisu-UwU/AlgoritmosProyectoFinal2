@@ -1,4 +1,4 @@
-#pragma once
+ï»¿#pragma once
 #include "NivelPunk.h"
 #include "NivelMiguel.h"
 #include "NivelMiles.h"
@@ -22,13 +22,13 @@ namespace AlgoritmosProyectoFinal2 {
 		{
 			InitializeComponent();
 			//
-			//TODO: agregar código de constructor aquí
+			//TODO: agregar cÃ³digo de constructor aquÃ­
 			//
 		}
 
 	protected:
 		/// <summary>
-		/// Limpiar los recursos que se estén usando.
+		/// Limpiar los recursos que se estÃ©n usando.
 		/// </summary>
 		~PantallaPrincipal()
 		{
@@ -64,7 +64,7 @@ namespace AlgoritmosProyectoFinal2 {
 
 	private:
 		/// <summary>
-		/// Variable del diseñador necesaria.
+		/// Variable del diseÃ±ador necesaria.
 		/// </summary>
 
 		Bitmap^ bmpInicio;
@@ -83,8 +83,8 @@ namespace AlgoritmosProyectoFinal2 {
 
 #pragma region Windows Form Designer generated code
 		/// <summary>
-		/// Método necesario para admitir el Diseñador. No se puede modificar
-		/// el contenido de este método con el editor de código.
+		/// MÃ©todo necesario para admitir el DiseÃ±ador. No se puede modificar
+		/// el contenido de este mÃ©todo con el editor de cÃ³digo.
 		/// </summary>
 		void InitializeComponent(void)
 		{
@@ -175,7 +175,7 @@ namespace AlgoritmosProyectoFinal2 {
 			this->btnCreditos->Name = L"btnCreditos";
 			this->btnCreditos->Size = System::Drawing::Size(268, 62);
 			this->btnCreditos->TabIndex = 1;
-			this->btnCreditos->Text = L"CRÉDITOS";
+			this->btnCreditos->Text = L"CRÃ‰DITOS";
 			this->btnCreditos->UseVisualStyleBackColor = false;
 			// 
 			// btnOpciones
@@ -227,7 +227,7 @@ namespace AlgoritmosProyectoFinal2 {
 			this->btnAtras->Name = L"btnAtras";
 			this->btnAtras->Size = System::Drawing::Size(167, 62);
 			this->btnAtras->TabIndex = 3;
-			this->btnAtras->Text = L"ATRÁS";
+			this->btnAtras->Text = L"ATRÃS";
 			this->btnAtras->UseVisualStyleBackColor = true;
 			this->btnAtras->Click += gcnew System::EventHandler(this, &PantallaPrincipal::btnAtras_Click);
 			// 

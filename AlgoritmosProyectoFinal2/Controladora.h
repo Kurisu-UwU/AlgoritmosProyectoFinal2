@@ -15,6 +15,7 @@
 #include "NotaAtaque.h"
 #include "Mancha.h"
 #include "Muro.h"
+#include "PlacaPresion.h"
 
 using namespace std;
 
@@ -36,6 +37,7 @@ private:
     vector<Muro*> PosteLuz;
     vector<Muro*> Cerca1;
     vector<Muro*> Cerca2;
+    vector<PlacaPresion*> placas;
     int contadorProyectiles;
     int intervaloProyectiles;
     int invulnerabilidad = 0;
@@ -50,7 +52,6 @@ public:
         srand((unsigned)time(NULL));
         jefeColisionando = false;
     }
-
     ~Controladora() {
         LimpiarObstaculos();
         LimpiarObjetos();
@@ -70,18 +71,15 @@ public:
             obstaculos[i]->Dibujar(g);
         }
     }
-
     void DibujarHitboxMuros(Graphics^ g) {
         for (int i = 0; i < PosteLuz.size(); i++) {
             PosteLuz[i]->GetObstaculo()->Dibujar(g);
         }
     }
-
     void GenerarObstaculo(int x, int y, int velocidad, int alto, int ancho) {
         Obstaculos* ent = new Obstaculos(x, y, velocidad, alto, ancho, true);
         obstaculos.push_back(ent);
     }
-
     bool HayColision(Protagonista* personaje) {
         Rectangle rectPersonaje = personaje->CrearRectangle();
 
@@ -103,7 +101,6 @@ public:
 
         return false;
     }
-
     void LimpiarObstaculos() {
         for (int i = 0; i < obstaculos.size(); i++) {
             delete obstaculos[i];
@@ -121,14 +118,13 @@ public:
         objetos.push_back(ent);
     }
 
-    
+
 
     void DibujarObjetos(Graphics^ g, Bitmap^ bmp) {
         for (int i = 0; i < objetos.size(); i++) {
             objetos[i]->Dibujar(g, bmp);
         }
     }
-
     bool HayColisionObjeto(Protagonista* personaje) {
 
         for (int i = 0; i < objetos.size(); i++) {
@@ -150,13 +146,11 @@ public:
     void AgregarPerseguidor(Perseguidor* perseguidor) {
         seguidores.push_back(perseguidor);
     }
-
     void ActualizarPerseguidores(Protagonista* protagonista) {
         for (int i = 0; i < seguidores.size(); i++) {
             seguidores[i]->Perseguir(protagonista, obstaculos);
         }
     }
-
     void DibujarSeguidores(Graphics^ g, Bitmap^ bmp) {
         for (int i = 0; i < seguidores.size(); i++) {
             seguidores[i]->Dibujar(g, bmp);
@@ -174,7 +168,6 @@ public:
     void DibujarJefe(Graphics^ g, Bitmap^ bmp) {
         jefe->Dibujar(g, bmp);
     }
-
     void ComprobarColisionJefe(Protagonista* protagonista) {
 
         if (jefe == nullptr || !jefe->GetExistencia()) {
@@ -210,19 +203,16 @@ public:
         Mancha* ent = new Mancha(x, y, ancho, alto);
         Peny = ent;
     }
-
     void AgregarMancha(int x, int y, int ancho, int alto) {
         manchas.push_back(new Mancha(x, y, ancho, alto));
     }
-
     void DibujarManchas(Graphics^ g, Bitmap^ bmp) {
         for (int i = 0; i < manchas.size(); i++) {
             manchas[i]->Dibujar(g, bmp);
         }
     }
-
     void DibujarPeny(Graphics^ g, Bitmap^ bmp) {
-            Peny->Dibujar(g, bmp);
+        Peny->Dibujar(g, bmp);
     }
 
     // =============
@@ -232,13 +222,11 @@ public:
     void AgregarPosteLuz(int x, int y, int ancho, int alto) {
         PosteLuz.push_back(new Muro(x, y, 0, ancho, alto, true));
     }
-
     void DibujarPosteLuz(Graphics^ g, Bitmap^ bmp) {
         for (int i = 0; i < PosteLuz.size(); i++) {
             PosteLuz[i]->Dibujar(g, bmp);
         }
     }
-
     void LimpiarPosteLuz() {
         for (int i = 0; i < PosteLuz.size(); i++) {
             delete PosteLuz[i];
@@ -260,6 +248,32 @@ public:
         for (int i = 0; i < puertas.size(); i++)
             if (puertas[i]->Colisiona(p)) return puertas[i];
         return nullptr;
+    }
+
+    // ==================
+    // Placas de presion
+    // ==================
+
+    void GenerarPlaca(int x, int y, int ancho, int alto, bool permanente, int xPuerta, int yPuerta, int anchoPuerta, int altoPuerta) {
+        Obstaculos* barrera = new Obstaculos(xPuerta, yPuerta, 0, altoPuerta, anchoPuerta, true);
+        obstaculos.push_back(barrera);
+        placas.push_back(new PlacaPresion(x, y, ancho, alto, permanente, barrera));
+    }
+    void ActualizarPlacas(Perseguidor* enemigo) {
+        for (int i = 0; i < placas.size(); i++) placas[i]->Actualizar(enemigo);
+    }
+    void DibujarPlacas(Graphics^ g, Bitmap^ sinPresionar, Bitmap^ presionado, Bitmap^ puertaCerrada, Bitmap^ puertaAbierta) {
+        for (int i = 0; i < placas.size(); i++) {
+            placas[i]->DibujarPuerta(g, puertaCerrada, puertaAbierta);
+            placas[i]->DibujarPlaca(g, sinPresionar, presionado);
+        }
+    }
+    void DibujarHitboxPlacas(Graphics^ g) {
+        for (int i = 0; i < placas.size(); i++) placas[i]->DibujarHitbox(g);
+    }
+    void LimpiarPlacas() {
+        for (int i = 0; i < placas.size(); i++) { delete placas[i]; }
+        placas.clear();
     }
 
     // ======
@@ -300,7 +314,7 @@ public:
         int x = coordenadas[aleatorio][0];
         int y = coordenadas[aleatorio][1];
 
-        ProyectilHorizontal* nuevo =new ProyectilHorizontal(x, y, 22, 24, 24);
+        ProyectilHorizontal* nuevo = new ProyectilHorizontal(x, y, 22, 24, 24);
         nuevo->SetVelocidadVertical(0);
         proyectilesHorizontales.push_back(nuevo);
     }
@@ -318,7 +332,7 @@ public:
         for (int i = 0; i < proyectilesHorizontales.size(); i++) {
 
             proyectilesHorizontales[i]->Mover();
-            Rectangle rectProyectil =proyectilesHorizontales[i]->CrearRectangle();
+            Rectangle rectProyectil = proyectilesHorizontales[i]->CrearRectangle();
 
             if (rectProyectil.IntersectsWith(
                 protagonista->CrearRectangle())) {
@@ -362,7 +376,7 @@ public:
 
         for (int i = 0; i < proyectiles.size(); i++) {
             proyectiles[i]->Mover();
-            Rectangle rectProyectil =proyectiles[i]->CrearRectangle();
+            Rectangle rectProyectil = proyectiles[i]->CrearRectangle();
             for (int j = 0; j < seguidores.size(); j++) {
                 if (seguidores[j]->GetExistencia() &&
                     rectProyectil.IntersectsWith(seguidores[j]->CrearRectangle())) {
@@ -371,8 +385,8 @@ public:
                     break;
                 }
             }
-            if (jefe != nullptr && jefe->GetExistencia() && 
-                proyectiles[i]->GetExistencia() && 
+            if (jefe != nullptr && jefe->GetExistencia() &&
+                proyectiles[i]->GetExistencia() &&
                 rectProyectil.IntersectsWith(jefe->CrearRectangle())) {
 
                 jefe->RecibirDanio(5);
@@ -408,7 +422,7 @@ public:
 
     void LimpiarProyectiles() {
 
-        for (int i = 0; i < proyectiles.size(); i++) {delete proyectiles[i];}
+        for (int i = 0; i < proyectiles.size(); i++) { delete proyectiles[i]; }
         proyectiles.clear();
     }
     void LimpiarObjetos() {
@@ -423,9 +437,10 @@ public:
         manchas.clear();
 
         LimpiarCofres();
+        LimpiarPlacas();
     }
     void LimpiarCofres() {
-        for (int i = 0; i < cofres.size(); i++) {  delete cofres[i]; }
+        for (int i = 0; i < cofres.size(); i++) { delete cofres[i]; }
         cofres.clear();
     }
     void LimpiarJefe() {

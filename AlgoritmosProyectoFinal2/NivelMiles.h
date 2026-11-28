@@ -4,6 +4,10 @@
 #include "Controladora.h"
 #include "ControladoraPersecucion.h"
 #include "Gwen.h"
+#include "EnemigoPerseguidor.h"
+
+#define DANO_ENEMIGO 20   // vida que quita un enemigo al tocar a Miles (igual que DANO_CARRO en la persecucion)
+
 namespace AlgoritmosProyectoFinal2 {
 
 	using namespace System;
@@ -106,7 +110,8 @@ namespace AlgoritmosProyectoFinal2 {
 			controladora->GenerarObstaculo(1020, 414, 0, 436 - 414, 1096 - 1020);
 			controladora->GenerarObstaculo(1163, 414, 0, 436 - 414, 1220 - 1163);
 
-			controladora->GenerarPuerta(0, 0, 180, 680, 5, 1100, 550);
+			controladora->GenerarPuerta(0, 0, 180, 680, 5, 1050, 60);
+			controladora->GenerarPlaca(595, 305, 54, 70, true, 190, 20, 83, 207);
 		}
 		void CargarNivel4() {
 			controladora->LimpiarPuertas();
@@ -123,9 +128,9 @@ namespace AlgoritmosProyectoFinal2 {
 			controladora->GenerarObstaculo(140, 160, 0, 480 - 160, 30);
 			controladora->GenerarObstaculo(140, 450, 0, 30, 1220 - 140);
 			controladora->GenerarObstaculo(610, 270, 0, 480 - 270, 1220 - 610);
-			controladora->GenerarObstaculo(1030, 190, 0, 300 - 190, 30);
 
-			controladora->GenerarPuerta(1200, 0, 60, 840, 3, 60, 340);   // (x, y, ancho, alto, salaDestino, xLlegada, yLlegada)
+			controladora->GenerarPuerta(1200, 0, 60, 840, 3, 60, 340); 
+			controladora->GenerarPlaca(948, 200, 54, 66, false, 1106, 502, 83, 104);
 		}
 		//bool PuedeEntrarSala(int sala) {
 		//	return sala != 3;
@@ -145,15 +150,18 @@ namespace AlgoritmosProyectoFinal2 {
 			case 4: CargarNivel3(); break;
 			case 5: CargarNivel4(); break;
 			}
-			if (sala != 1) {   // en la persecucion la posicion de Miles la pone la propia persecucion
+			if (sala != 1) {  
 				miles->SetPX(px);
 				miles->SetPY(py);
+				xEntrada = px; 
+				yEntrada = py;
 			}
 		}
 		void DibujarDebug(Graphics^ g, Panel^ panel) {  // Overley con f2
 			if (!modoDebug) return;
 			controladora->DibujarPuertas(g);
 			controladora->DibujarObstaculos(g);
+			controladora->DibujarHitboxPlacas(g);
 			Point m = panel->PointToClient(System::Windows::Forms::Cursor::Position);
 			System::String^ info = "[F2 ocultar]  Mouse: " + System::Convert::ToString(m.X) + ", " + System::Convert::ToString(m.Y)
 				+ "   miles: " + System::Convert::ToString(miles->GetPX()) + ", " + System::Convert::ToString(miles->GetPY());
@@ -198,6 +206,8 @@ namespace AlgoritmosProyectoFinal2 {
 		bool modoDebug = false;
 		bool teclaA = false, teclaD = false, teclaW = false, teclaS = false;
 		char ultimaDir = ' ';
+		int animMiles = 0;             
+		int xEntrada = 350, yEntrada = 50;
 
 		Graphics^ grperse;
 		Graphics^ gr1;
@@ -228,11 +238,16 @@ namespace AlgoritmosProyectoFinal2 {
 		Bitmap^ bmpMiles;
 		Bitmap^ bmpGwen;
 		Bitmap^ bmpMiguel;
+		Bitmap^ bmpMilesInvisible;
+		Bitmap^ bmpBotonSin;
+		Bitmap^ bmpBotonPres;
+		Bitmap^ bmpPuertaCerrada;
+		Bitmap^ bmpPuertaAbierta;
 		MilesMorales* miles;
 		Gwen* gwen;
-		Perseguidor* enemigo1;
-		Perseguidor* enemigo2;
-		Perseguidor* enemigo3;
+		EnemigoPerseguidor* enemigo1;
+		EnemigoPerseguidor* enemigo2;
+		EnemigoPerseguidor* enemigo3;
 		Controladora* controladora;
 		NovelaVisual^ novela;
 		// --- nivel de persecucion ---
@@ -266,10 +281,6 @@ namespace AlgoritmosProyectoFinal2 {
 
 	private: System::Windows::Forms::Timer^ timerMovimiento;
 #pragma region Windows Form Designer generated code
-		   /// <summary>
-		   /// Método necesario para admitir el Diseñador. No se puede modificar
-		   /// el contenido de este método con el editor de código.
-		   /// </summary>
 		   void InitializeComponent(void)
 		   {
 			   this->components = (gcnew System::ComponentModel::Container());
@@ -560,6 +571,16 @@ namespace AlgoritmosProyectoFinal2 {
 		delete original;
 		return nuevo;
 	}
+	private: Bitmap^ CrearVersionTransparente(Bitmap^ original, int alfa) {
+		Bitmap^ nuevo = gcnew Bitmap(original->Width, original->Height);
+		for (int i = 0; i < original->Width; i++) {
+			for (int j = 0; j < original->Height; j++) {
+				Color c = original->GetPixel(i, j);
+				nuevo->SetPixel(i, j, Color::FromArgb(c.A * alfa / 255, c.R, c.G, c.B));
+			}
+		}
+		return nuevo;
+	}
 	private: System::Void NivelMiles_Load(System::Object^ sender, System::EventArgs^ e) {
 		grp = pnlDeControl->CreateGraphics();
 		spacep = BufferedGraphicsManager::Current;
@@ -596,24 +617,72 @@ namespace AlgoritmosProyectoFinal2 {
 		bmpEnemigo = gcnew Bitmap("Imagenes/NotasMusicales1.png");
 		bmpMiles = gcnew Bitmap("Imagenes/MilesMorales.png");
 		bmpPeny = gcnew Bitmap("Imagenes/PenyParker.png");
+		bmpMilesInvisible = CrearVersionTransparente(bmpMiles, 90);
+		bmpBotonSin = gcnew Bitmap("Imagenes/BotonSinPresionar.png");
+		bmpBotonPres = gcnew Bitmap("Imagenes/BotonPresionado.png");
+		bmpPuertaCerrada = gcnew Bitmap("Imagenes/PuertaCerrada.png");
+		bmpPuertaAbierta = gcnew Bitmap("Imagenes/PuertaAbierta.png");
+		timerJuego->Interval = MS_POR_FRAME;
 		CargarRecursosPersecucion();
 
 		miles = new MilesMorales(350, 50, 64, 64, 100, 4, 4, 100, 100, 0, "Miles", 'S', 1, 1);
-		gwen = new Gwen(535, 105, 4, bmpGwen->Width, bmpGwen->Height, true, 0);
-		enemigo1 = new Perseguidor(100, 100, 4, bmpEnemigo->Width, bmpEnemigo->Height, true);
-		enemigo2 = new Perseguidor(200, 200, 4, bmpEnemigo->Width, bmpEnemigo->Height, true);
-		enemigo3 = new Perseguidor(300, 300, 4, bmpEnemigo->Width, bmpEnemigo->Height, true);
+		gwen = new Gwen(535, 105, 1, bmpGwen->Width, bmpGwen->Height, true, 0);
+		enemigo1 = new EnemigoPerseguidor(640, 356, 1, bmpEnemigo->Width, bmpEnemigo->Height, true, 0);
+		enemigo2 = new EnemigoPerseguidor(400, 400, 1, bmpEnemigo->Width, bmpEnemigo->Height, true, 0);
+		enemigo3 = new EnemigoPerseguidor(210, 220, 1, bmpEnemigo->Width, bmpEnemigo->Height, true, 0);
 		novela = gcnew NovelaVisual(pnlTexto);
 		novela->Iniciar(3);
 		IrASala(1, 350, 50);
 	}
+	private: void AnimarMiles() {
+		animMiles++;
+		int espera = 6;                             
+		if (miles->GetCaminando()) espera = 3;
+		if (animMiles >= espera) {
+			animMiles = 0;
+			miles->ProtaAnimacion();
+		}
+	}
+	private: void DibujarMiles(Graphics^ g) {
+		if (miles->EstaInmune() && (miles->GetTiempoInmunidad() / 3) % 2 == 0) return;   // parpadea tras un golpe (igual que en la persecucion)
+		Bitmap^ sprite;
+		if (miles->GetInvisibilidad()) sprite = bmpMilesInvisible; else sprite = bmpMiles;
+		miles->Dibujar(g, sprite);
+	}
+	private: void ReiniciarSala() {
+		miles->Reaparecer();
+		IrASala(salaActual, xEntrada, yEntrada);
+	}
+	private: void ActualizarEnemigo(EnemigoPerseguidor* enemigo) {
+		if (!miles->GetInvisibilidad()) { 
+			enemigo->Perseguir(miles, controladora->GetObstaculos());
+		}
+		System::Drawing::Rectangle hitboxMiles = miles->CrearRectangle();
+		hitboxMiles.Inflate(-10, -6);
+		if (enemigo->GetExistencia() && enemigo->CrearRectangle().IntersectsWith(hitboxMiles)) {
+			miles->RecibirDanio(DANO_ENEMIGO);  
+		}
+		if (miles->GetVida() <= 0) ReiniciarSala();
+	}
+	private: System::String^ TextoHabilidad() {
+		if (miles->GetInvisibilidad())
+			return "Invisible: " + System::Convert::ToString((miles->GetTiempoInvisible() * MS_POR_FRAME + 999) / 1000) + " s";
+		if (miles->GetRecargaInvisibilidad() > 0)
+			return "Habilidad Q: recargando " + System::Convert::ToString((miles->GetRecargaInvisibilidad() * MS_POR_FRAME + 999) / 1000) + " s";
+		return "Habilidad Q: lista";
+	}
 	private: System::Void timerJuego_Tick(System::Object^ sender, System::EventArgs^ e) {
-		if (!(novela != nullptr && novela->EstaActivo())) bufferp->Render(grp);
+		if (miles == nullptr || bufferp == nullptr) return;
+		bool dialogo = (novela != nullptr && novela->EstaActivo());   // si hay dialogo, el juego espera
+		if (!dialogo) {
+			bufferp->Render(grp);
+			miles->ActualizarEstados();
+		}
+		if (!persecucionActiva) AnimarMiles();
 
-		// pnlPersecusion se dibuja en timerPersecucion_Tick (30 ms)
 		if (pnlJuego1->Visible == true) {
 			buffer1->Graphics->DrawImage(bmpMapa1, 0, 0, pnlJuego1->Width * 1.0, pnlJuego1->Height * 1.0);
-			miles->Dibujar(buffer1->Graphics, bmpMiles);
+			DibujarMiles(buffer1->Graphics);
 			if (gwen->GetPersigue()) {
 				gwen->Perseguir(miles, controladora->GetObstaculos());
 			}
@@ -628,28 +697,28 @@ namespace AlgoritmosProyectoFinal2 {
 		}
 		if (pnlJuego2->Visible == true) {
 			buffer2->Graphics->DrawImage(bmpMapa2, 0, 0, pnlJuego2->Width * 1.0, pnlJuego2->Height * 1.0);
-			miles->Dibujar(buffer2->Graphics, bmpMiles);
+			DibujarMiles(buffer2->Graphics);
 			if (gwen->GetPersigue()) {
 				gwen->Perseguir(miles, controladora->GetObstaculos());
 				gwen->Dibujar(buffer2->Graphics, bmpGwen);
 			}
-			if (!miles->GetInvisibilidad()) {
-				enemigo1->Perseguir(miles, controladora->GetObstaculos());
-			}
+			if (!dialogo) ActualizarEnemigo(enemigo1);
 			enemigo1->Dibujar(buffer2->Graphics, bmpEnemigo);
 			DibujarDebug(buffer2->Graphics, pnlJuego2);
 			buffer2->Render(gr2);
 		}
 		if (pnlJuego3->Visible == true) {
 			buffer3->Graphics->DrawImage(bmpMapa3, 0, 0, pnlJuego3->Width * 1.0, pnlJuego3->Height * 1.0);
+			controladora->DibujarPlacas(buffer3->Graphics, bmpBotonSin, bmpBotonPres, bmpPuertaCerrada, bmpPuertaAbierta);
 
-			miles->Dibujar(buffer3->Graphics, bmpMiles);
+			DibujarMiles(buffer3->Graphics);
 			if (gwen->GetPersigue()) {
 				gwen->Perseguir(miles, controladora->GetObstaculos());
 				gwen->Dibujar(buffer3->Graphics, bmpGwen);
 			}
-			if (!miles->GetInvisibilidad()) {
-				enemigo2->Perseguir(miles, controladora->GetObstaculos());
+			if (!dialogo) {
+				ActualizarEnemigo(enemigo2);
+				controladora->ActualizarPlacas(enemigo2);
 			}
 			enemigo2->Dibujar(buffer3->Graphics, bmpEnemigo);
 			DibujarDebug(buffer3->Graphics, pnlJuego3);
@@ -657,13 +726,15 @@ namespace AlgoritmosProyectoFinal2 {
 		}
 		if (pnlJuego4->Visible == true) {
 			buffer4->Graphics->DrawImage(bmpMapa4, 0, 0, pnlJuego4->Width * 1.0, pnlJuego4->Height * 1.0);
-			miles->Dibujar(buffer4->Graphics, bmpMiles);
+			controladora->DibujarPlacas(buffer4->Graphics, bmpBotonSin, bmpBotonPres, bmpPuertaCerrada, bmpPuertaAbierta);
+			DibujarMiles(buffer4->Graphics);
 			if (gwen->GetPersigue()) {
 				gwen->Perseguir(miles, controladora->GetObstaculos());
 				gwen->Dibujar(buffer4->Graphics, bmpGwen);
 			}
-			if (!miles->GetInvisibilidad()) {
-				enemigo3->Perseguir(miles, controladora->GetObstaculos());
+			if (!dialogo) {
+				ActualizarEnemigo(enemigo3);
+				controladora->ActualizarPlacas(enemigo3);
 			}
 			enemigo3->Dibujar(buffer4->Graphics, bmpEnemigo);
 			DibujarDebug(buffer4->Graphics, pnlJuego4);
@@ -673,7 +744,10 @@ namespace AlgoritmosProyectoFinal2 {
 
 		lblVida->Text = "Vida: " + miles->getVida();
 		lblPersonaje->Text = "Spider miles: ";
-		if (!persecucionActiva) lblPuntaje->Text = "Puntaje: " + 10;
+		if (!persecucionActiva) {
+			lblPuntaje->Text = "Puntaje: " + 10;
+			lblSpot->Text = TextoHabilidad();
+		}
 	}
 	private: System::Void timerMovimiento_Tick(System::Object^ sender, System::EventArgs^ e) {
 		if (miles == nullptr || buffer1 == nullptr || !timerJuego->Enabled) return;
@@ -705,6 +779,7 @@ namespace AlgoritmosProyectoFinal2 {
 			miles->SetPX(xAnterior);
 			miles->SetPY(yAnterior);
 		}
+		if (miles->GetPX() == xAnterior && miles->GetPY() == yAnterior) miles->ProtaQuieto();   // no avanzo (pared/borde): no mueve las piernas
 		Puerta* puerta = controladora->PuertaColisionando(miles);
 		if (puerta != nullptr) {
 			IrASala(puerta->GetNivelDestino(), puerta->GetXDestino(), puerta->GetYDestino());
@@ -749,6 +824,9 @@ namespace AlgoritmosProyectoFinal2 {
 		case Keys::D: teclaD = true; ultimaDir = 'D'; break;
 		case Keys::W: teclaW = true; ultimaDir = 'W'; break;
 		case Keys::S: teclaS = true; ultimaDir = 'S'; break;
+		case Keys::Q:
+			if (!persecucionActiva) miles->ActivarInvisibilidad();
+			break;
 		case Keys::F:
 			if (pnlJuego3->Visible == true) {
 				controladora->Disparar(miles);
@@ -788,7 +866,7 @@ namespace AlgoritmosProyectoFinal2 {
 		}
 	}
 	private: System::Void timerAnimacion_Tick(System::Object^ sender, System::EventArgs^ e) {
-		miles->ProtaAnimacion();
+		if (miles != nullptr && persecucionActiva) miles->ProtaAnimacion();   // en las salas la animacion la lleva timerJuego_Tick (AnimarMiles)
 	}
 	private: System::Void lblPersonaje_Click(System::Object^ sender, System::EventArgs^ e) {
 	}
